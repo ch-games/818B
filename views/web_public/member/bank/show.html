@@ -1,0 +1,138 @@
+<script>
+	$('.nav2 span').html('線上取款')
+	$('.nav2 a').removeClass('active')
+	$('.nav2').find("a[data='bank_onlineout_index']").addClass('active')
+	$('.Hyzx-nav').find("a[data='bank_onlinein_index']").addClass('active');
+</script>
+
+<p class="Hyzx-titp">自出款後第壹次存款開始之後</p>
+<p class="Hyzx-titp">總有效投註：<{$adata['bet_all']}>（即所有有效投註額）</p>
+<div class="Hyzx-showBtn">
+	<a href="javascript:;" class="Hyzx-hide1">顯示實際有效投註額</a>
+	<a href="javascript:;" class="Hyzx-hide2">顯示優惠稽核</a>
+</div>
+
+<div class="Hyzx-tableDiv">
+	<table class="tabalStyle" cellspacing="1" cellpadding="0" border="0">
+		<tbody>
+		<tr>
+			<td class="TdB" width="150" height="38" rowspan="2">存款日期區間</td>
+			<td class="TdB" width="55" height="38" rowspan="2">存款金額</td>
+			<td class="TdB" width="55" height="38" rowspan="2">存款優惠</td>
+			<td class="TdB hide1" width="230" colspan="3">實際有效投註額</td>
+		</tr>
+		<tr>
+			<td class="TdB hide1" width="45">體育</td>
+			<td class="TdB hide1" width="45">彩票</td>
+			<td class="TdB hide1" width="45" >視訊</td>
+
+		</tr>
+
+		<{foreach from=$audit_data item=val}>
+		<tr class="m_cen">
+			<td style="width:160px;">起始:<{$val['begin_date']}></td>
+			<td rowspan="2"><{$val['deposit_money']}></td>
+			<td rowspan="2"><{$val['atm_give']+$val['catm_give']}></td>
+			<td class="hide1" rowspan="2"><{$val['cathectic_sport']}></td>
+			<td class="hide1" rowspan="2"><{$val['cathectic_fc']}></td>
+			<td class="hide1" rowspan="2"><{$val['cathectic_video']}></td>
+
+		</tr>
+		<tr class="m_cen">
+			<td>結束:<{$val['end_date']}></td>
+		</tr>
+		<{/foreach}>
+
+
+		</tbody>
+	</table>
+
+	<table class="tabalStyle" cellspacing="1" cellpadding="0" border="0">
+		<tbody>
+		<tr>
+			<td class="TdR hide2" width="470" colspan="8">優惠稽核</td>
+			<td class="TdG" width="340" colspan="5">常態稽核</td>
+		</tr>
+		<tr>
+			<td class="TdR hide2" width="70">體育打碼</td>
+			<td class="TdR hide2" width="35">通過</td>
+			<td class="TdR hide2" width="70">彩票打碼</td>
+			<td class="TdR hide2" width="35">通過</td>
+			<td class="TdR hide2" width="70">視訊打碼</td>
+			<td class="TdR hide2" width="35">通過</td>
+			<td class="TdR hide2" width="80">綜合打碼</td>
+			<td class="TdR hide2" width="70">是否達到</td>
+			<td class="TdG" width="70">常態打碼量</td>
+			<td class="TdG" width="60">放寬額度</td>
+			<td class="TdG" width="45">通過</td>
+			<td class="TdG" width="90">需扣除行政費用</td>
+			<td class="TdG" width="70">需扣除金額</td>
+		</tr>
+		<{foreach from=$audit_data item=val}>
+		<tr class="m_cen">
+			<td class="hide2"><{$val['cathectic_sport']}></td>
+			<td class="hide2">-</td>
+			<td class="hide2">
+				<{$val['cathectic_fc']}></td>
+			<td class="hide2">-</td>
+			<td class="hide2">
+				<{$val['video_audit']+0}></td>
+			<td class="hide2">-</td>
+			<td class="hide2">
+				<{$val['type_code_all']}></td>
+			<td class="hide2">
+				<{$val['is_pass_zh']}></td>
+			<td><{$val['normalcy_code']}></td>
+			<td><{$val['relax_limit']}></td>
+			<td><{$val['is_pass_ct']}></td>
+			<td><{$val['is_expenese_num']}></td>
+			<td><{$val['deduction_e']}></td>
+		</tr>
+		<{/foreach}>
+		</tbody>
+	</table>
+
+</div>
+<p class="p-red">
+	<{if $adata['count_dis'] > 0}>
+	<span style="color:#0202FE">優惠稽核：</span>
+	<span style="color:#ff0000">未通過優惠稽核，需扣除存款優惠：<b><{$adata['count_dis']}></b><br></span>
+	<{/if}>
+	<{if $adata['count_xz'] > 0}>
+	<span style="color:#0202FE">常態性稽核：</span>
+	<span style="color:#ff0000">未達常態性稽核！需扣除<{$pay_data['line_ct_xz_audit']}>%行政費：<b><{$adata['count_xz']}></b><br></span>
+	<{/if}>
+</p>
+<p class="p-red">優惠稽核 + 常態性稽核 + 手續費 共需扣除：<{$adata['total']}></p>
+
+<p>此次出款時間為：<{$end_date}></p>
+<div class="fbutton">
+	<input onclick="javascript:$.member.changeNav('Bank','out_money',2);" class="btn_001 btn-sub" type="button"  name="continueWithdraw" value="我要繼續出款" >
+	<input onclick="javascript:$.member.changeNav('Bank','bank_onlineout_index',1);" class="btn_001 btn-sub" type="button"  name="continueWithdraw" value="放棄出款" >
+</div>
+<script>
+	$(".Hyzx-hide1").click(function(){
+		$(".hide1").toggle();
+		if ( $(".hide1").is(':hidden')) {
+			$(".Hyzx-hide1").text(function(){
+				return "顯示實際有效投註額"
+			});
+		}else{
+			$(".Hyzx-hide1").text(function(){
+				return "隱藏實際有效投註額"
+			});
+		};
+	});
+	$(".Hyzx-hide2").click(function(){
+		$(".hide2").toggle()
+		if ($(".hide2").is(':hidden')) {
+			$(".Hyzx-hide2").text(function(){
+				return "顯示優惠稽核"
+			});
+		}else{
+			$(".Hyzx-hide2").text(function(){
+				return "隱藏優惠稽核"
+			});
+		};
+	});
+</script>

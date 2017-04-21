@@ -1,0 +1,155 @@
+<{$header}>
+<{config_load file="public.conf" section="public"}>
+<!-- 页面主体 开始-->
+<div id="banner" class="banner h262">
+    <style type="text/css">
+        #banner {
+            background: url(<{#images#}>/banner71.png) no-repeat center top;
+        }
+
+    </style>
+</div>
+
+<div class="infos mt260">
+    <span>最新公告：</span>
+    <div class="txtScroll-top">
+        <div class="bd">
+            <{$notice_html}>
+        </div>
+    </div>
+</div>
+
+
+<section class="section71">
+    <div class="content">
+        <script type="text/javascript">
+            function Showsx() {
+                alert('即将上线，敬请期待!');
+                return;
+            }
+        </script>
+        <style type="text/css">
+            .banner-wrap {
+                background-image: url(<{#images#}>/title_live.png);
+            }
+
+            .zr_game {
+                width: 1000px;
+                margin: 10px auto;
+                height: 1%;
+                overflow: hidden;
+                border: #ccc solid 0px;
+            }
+
+            .zr_game ul {
+                height: 1%;
+                overflow: hidden;
+            }
+
+            .zr_game li {
+                position: relative;
+                float: left;
+                width: 323px;
+                height: 184px;
+                margin: 0 0 8px 8px;
+                color: #fff;
+            }
+
+            .zr_game li img {
+                width: 323px;
+                height: 184px;
+            }
+
+            .zr_sun02 {
+                margin-top: -140px;
+            }
+        </style>
+        <div class="zr_game">
+            <{$livetope_html}>
+
+        </div>
+        <script>
+            function postInner(url, params) {
+                var form = document.createElement("form");
+                form.action = url;
+                form.method = "post";
+                form.target = "_blank";
+                form.style.display = "none";
+                for (var x in params) {
+                    var opt = document.createElement("textarea");
+                    opt.name = x;
+                    opt.value = params[x];
+                    form.appendChild(opt);
+                }
+                document.body.appendChild(form);
+                form.submit();
+                removeElement(form);
+            }
+            function removeElement(el) {
+                var parent = el.parentNode;
+                parent.removeChild(el);
+            }
+            function post(url) {
+                var pos = url.indexOf("?");
+                var mainUrl = url.substring(0, pos);
+                var query = url.substring(pos + 1);
+                var pairs = query.split("&");
+                var params = [];
+                for (var i = 0; i < pairs.length; i++) {
+                    var pos = pairs[i].indexOf('=');
+                    if (pos == -1)continue;
+                    var key = pairs[i].substring(0, pos);
+                    var value = pairs[i].substring(pos + 1);
+                    params[key] = value;
+                }
+                postInner(mainUrl, params);
+            }
+        </script>
+    </div>
+</section>
+<!-- 页面主体 结束-->
+<!--自动适应123456个视讯-->
+<{if $video_config|@count eq 2 || $video_config|@count eq 4 }>
+<style>
+    .les_dov li {
+        float: left;
+        height: 400px;
+        margin: 0 35px 30px 105px;
+        position: relative;
+        width: 310px;
+    }
+</style>
+<{/if}>
+<{if $video_config|@count eq 1 }>
+<style>
+    .les_dov li {
+        float: none;
+        height: 345px;
+        margin: 0 auto;
+        position: relative;
+        width: 310px;
+    }
+</style>
+<{/if}>
+<!--自动适应123456个视讯end-->
+<{$bottom}>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

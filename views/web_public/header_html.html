@@ -1,0 +1,132 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title><{$title}></title>
+<meta http-equiv="Cache-Control" content="max-age=864000">
+<meta name="keywords" content="<{$web_data['keywords']}>">
+<meta name="description" content="<{$web_data['description']}>">
+
+<!-- 引入主要JS文件 -->
+<script type="text/javascript"  src="<{#js#}>/jquery-1.7.2.min.js?v=" ></script>
+<script src="/shared/sitepublic/js/jquery-ui-1.8.21.custom.min.js"></script>
+<script src="/shared/sitepublic/js/top.js"></script>
+<script src="/shared/sitepublic/js/float.js"></script>
+<script src="/shared/sitepublic/js/jquery.cookie.js"></script>
+<script src="/shared/sitepublic/js/easydialog.min.js"></script>
+<link href="/shared/sitepublic/css/jquery-ui-1.9.2.custom.css" type="text/css" rel="stylesheet">
+<script src="/shared/sitepublic/js/unslider.min.js"></script>
+<script src="/shared/sitepublic/js/tab.js"></script>
+
+
+<script type="text/javascript"  src="<{#js#}>/json2.js?v=" ></script>
+<script type="text/javascript"  src="<{#js#}>/jquery.signalR-2.0.1.min.js?v=" ></script>
+<script type="text/javascript"  src="<{#js#}>/sticky.js?v=" ></script>
+<script type="text/javascript"  src="<{#js#}>/layer.js?v=" ></script>
+<script type="text/javascript">
+    //配置时区的当前时间字符串
+    var CONFIGTIMENOWSTRING = "2016/09/29 05:45:11";
+    //Web服务器的时区
+    var WEBSERVERTIMEZONE = 0;
+    //系统配置的时区
+    var CONFIGTIMEZONE = -240;
+    //Web服务器的时区当前是为夏令时
+    var ISDAYLIGHTSAVINGTIME ='False'.toLowerCase()=='true'.toLowerCase();
+</script>
+<script type="text/javascript"  src="<{#js#}>/core.js?v=" ></script>
+<script type="text/javascript"  src="<{#js#}>/portal.js?v=" ></script>
+<script type="text/javascript"  src="<{#js#}>/jquery.SuperSlide.2.1.1.js?v=" ></script>
+<script type="text/javascript"  src="<{#js#}>/main.js?v=" ></script>
+<script type="text/javascript"  src="<{#js#}>/dt.js?v=" ></script>
+
+<script type="text/javascript">
+    //导航选项样式切换
+    $(document).ready(function() {
+        $("#index").addClass("on");
+    });
+</script>
+<script type="text/javascript">
+    var _jackpotInfoType =
+    {
+        CASINOBASED: '2',
+        CASINOSTOTAL: '4',
+        GAMEBASED: '1',
+        GAMEGROUPTOTAL: '5',
+        GAMETOTAL: '3'
+    };
+
+</script>
+
+<{if $csstype == 2}>
+<!--推送-->
+<script src="/shared/push/swfobject.js"></script>
+<script src="/shared/push/web_socket.js"></script>
+<script src="/shared/push/push.js"></script>
+<!--推送-->
+<{/if}>
+<link href="/shared/simplelogin/css/modalCss.css" rel="stylesheet">
+<script src="/shared/simplelogin/js/modalJs.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var imgdom = $("<img src='/shared/simplelogin/images/no.png'/>");
+        var io = false;
+        //imgdom.attr("src", "/yzm.php?type="+Math.random()+(new Date).getTime());
+        var config = {
+            codesImg : imgdom,
+            registHref : 'getPager("-","zhuce");',
+            passwordID : 'passwordID',
+            userNameID : 'userNameID',
+            codeID     : 'codeID',
+            codesClick : function(){
+                            imgdom.attr("src", "/yzm.php?type="+Math.random()+(new Date).getTime());
+                        },
+            enterBtnClick : function(){
+                var un  =   $("#userNameID").val();
+                if(un == "" || un == "帐户"){
+                    $("#userNameID").focus();
+                    return false;
+                }
+                var pw  =   $("#passwordID").val();
+                if(pw == "" || pw == "******"){
+                    $("#passwordID").focus();
+                    return false;
+                }
+                var rmNum   =   $("#codeID").val();
+                if(rmNum == "" || rmNum == '验证码'){
+                    $("#codeID").focus();
+                    return false;
+                }
+                if(!io){
+                    io = true;
+                    $.post("/index.php/webcenter/Login/login_do",{r:Math.random(),action:"login",username:un,password:pw,vlcodes:rmNum},function(data){
+                        if(data == 5){
+                            zhuModal.show('验证码错误，请重新输入');
+                            $("#codeID").val('');
+                            $("#codeID").select();
+                            io = false;
+                            imgdom.attr("src", "/yzm.php?type="+Math.random()+(new Date).getTime());
+                        }else if(data == 4){
+                            zhuModal.show('账号密码不匹配,请重新输入!');
+                            $("#codeID").val('');
+                            $("#passwordID").val('');
+                            $("#username").select();
+                            io = false;
+                        }else if(data == 3){
+                            zhuModal.show('账号不存在!');
+                            $("#codeID").val('');
+                            $("#passwordID").val('');
+                            $("#username").select();
+                            io = false;
+                        }else if(data == 2){
+                            zhuModal.show('对不起，账户已暂停使用,请联系在线客服！');
+                            io = false;
+                        }else if(data == 1){
+                            window.location.href= '/index.php/webcenter/Login/login_info';
+                            return;
+                        }   
+                    });
+                }
+            }
+
+        };
+        zhuModal.init({loginConfig:config});
+    })
+</script>

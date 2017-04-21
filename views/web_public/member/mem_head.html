@@ -1,0 +1,50 @@
+<{config_load file="public.conf" section="public"}>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="/shared/new_member/js/jquery-1.12.0.min.js"></script>
+    <script src="/shared/new_member/js/bootstrap.min.js"></script>
+    <script src="/shared/new_member/js/laydate/laydate.js"></script>
+    <script src="/shared/new_member/js/ZeroClipboard.min.js" ></script>
+	<link rel="stylesheet" href="/shared/new_member/css/base.css">
+    <{if $style == '1'}>
+	<link rel="stylesheet" href="/shared/new_member/css/style.css">
+    <{else}>
+    <link rel="stylesheet" href="/shared/new_member/css/<{$style}>.css">
+    <{/if}>
+    <script src="/shared/new_member/js/PCASClass.js"></script>
+	 <!--[if lt IE 9]>
+         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+      <![endif]-->
+    <style type="text/css">
+    	select,input{border-radius: 3px;outline: none;}
+		input::-webkit-inner-spin-button ,input::-webkit-outer-spin-button{-webkit-appearance: none;}
+    </style>
+</head>
+<body id="Hyzx-pageBody">
+	<div class="Hyzx-main">
+		<div class="Hyzx-title">
+			<h2>会员中心</h2>
+			<div class="Hyzx-nav">
+				<a href="javascript:$.member.changeNav('Account','account_mem_index',1);" data='account_mem_index' class="active">我的账户</a>
+
+				<a href="javascript:$.member.changeNav('Bank','bank_onlinein_index',1);" data='bank_onlinein_index'>银行交易</a>
+
+				<a href="javascript:$.member.changeNav('Transaction','transaction_bet_index',1);" data="transaction_bet_index">交易记录</a>
+
+				<a href="javascript:$.member.changeNav('Report','report_statist_index',1);" data="report_statist_index">报表统计</a>
+
+				<a href="javascript:$.member.changeNav('Spread','spread_mem_index',1);" data="spread_mem_index">我要推广</a>
+
+				<a href="javascript:$.member.changeNav('Latestnews','latestnews_new_index',1);" data="latestnews_new_index">最新信息</a>
+
+				<a href="javascript:$.member.changeNav('Memnews','memnews_personal_index',1);" data="memnews_personal_index">个人信息</a>
+
+				<a href="javascript:$.member.changeNav('Gamenews','gamenews_index',1);" data="gamenews_index">游戏公告</a>
+
+			</div>
+		</div>
+		<div class="Hyzx-body">

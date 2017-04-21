@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>充值接口-提交信息處理</title>
+</head>
+<body>
+<form id="form1" name="form1" method="post" action="<{$data['req_url']}>">  
+        <input type='hidden' name='version' id="version" value="<{$data['version']}>" />
+		<input type='hidden' name='txn_type' id="txn_type" value="<{$data['txn_type']}>" />
+		<input type='hidden' name='txn_sub_type' id="txn_sub_type" value="<{$data['txn_sub_type']}>" />
+		<input type='hidden' name='terminalid' id="terminalid" value="<{$data['terminalid']}>" />
+		<input type='hidden' name='pay_id' id="pay_id" value="<{$data['pay_id']}>" />
+		<input type='hidden' name='data_type' id="data_type" value="<{$data['data_type']}>" />
+		
+		<textarea name="data_content" style="display:none;" id="data_content"><{$data['data_content']}></textarea>
+		<input type='hidden' name='act' value="baofoo_wx" />
+        <input type='hidden' name='form_url' value="<{$data['form_url']}>" />
+</form>
+
+<script language="javascript">
+       setTimeout(function(){
+          document.getElementById("form1").submit();
+      },2000)
+    </script>
+</body>
+</html>

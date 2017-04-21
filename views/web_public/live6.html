@@ -1,0 +1,64 @@
+<{config_load file="public.conf" section="public"}>
+		<link rel="stylesheet" href="../../shared/video/css/live6/casino.css" />
+		<script src="../../shared/video/js/live6/jquery-1.7.2.min.js" type="text/javascript"></script>
+		<div class="casino-divBg ">
+			<{foreach from=$video_config item=val}>
+				<div class="<{if $video_config|@count eq 1 }>casino-oneImg<{elseif $video_config|@count eq 2 ||$video_config|@count eq 4}>casino-twoImg<{else}>casino-threeImg<{/if}>">
+					<div class="<{if $video_config|@count eq 1 }>casino-agBg<{else}>casino-Bg<{/if}> casino-hoverImg">
+						<div class="<{if $video_config|@count eq 1 }>casino-agImg<{else}> casino-Img<{/if}>">
+							<img src="../../shared/video/images/live6/<{if $video_config|@count eq 1 }>1<{elseif $video_config|@count eq 2 ||$video_config|@count eq 4}>2<{else}>3<{/if}>-<{$val}>.jpg"/>
+							<span class="shine"></span>
+						</div>
+						<div class="casino-btn">
+							<a href="javascript:;" class="casino-btnGame" <{if empty($uid)}>onclick="javascript:zhuModal.login();"<{else}>onclick="opengeme('/video/games/login.php?g_type=<{$val}>')"<{/if}>>进入游戏</a>
+							<a href="javascript:;" onclick="opengeme('/video/rule.html')" class="casino-btnRule">游戏规则</a>
+						</div>
+					</div>
+				</div>
+			<{/foreach}>
+			<{if $video_config|@count >4 && $video_config|@count != 9 && $video_config|@count != 6}>	
+			<div class="casino-threeImg">
+				<div class="casino-Bg casino-hoverImg">
+					<div class="casino-Img">
+						<img src="../../shared/video/images/live6/3-wait.jpg"/>
+						<span class="shine"></span>
+					</div>
+				</div>
+			</div>
+			<{/if}>
+			<{if $video_config|@count eq 7  || $video_config|@count eq 10}>
+			<div class="casino-threeImg">
+				<div class="casino-Bg casino-hoverImg">
+					<div class="casino-Img">
+						<img src="../../shared/video/images/live6/3-wait.jpg"/>
+						<span class="shine"></span>
+					</div>
+				</div>
+			</div>
+			<{/if}>
+		</div>
+		<script type="text/javascript">
+		$(document).ready(function() {
+			$(".casino-twoImg .casino-hoverImg,.casino-threeImg .casino-hoverImg").hover(function() {
+				$(this).find(".shine").stop();
+				$(this).find(".shine").animate({
+					left: '500px'
+				});
+			},function(){
+				$(this).find(".shine").animate({
+					left: '-500px'
+				});
+			});
+			
+			$(".casino-oneImg .casino-hoverImg").hover(function() {
+				$(this).find(".shine").stop();
+				$(this).find(".shine").animate({
+					left: '1000px'
+				});
+			},function(){
+				$(this).find(".shine").animate({
+					left: '-1000px'
+				});
+			});
+		});
+	</script>

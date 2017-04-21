@@ -1,0 +1,46 @@
+<{config_load file="public.conf" section="public"}>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>線上取款</title>
+    <link rel="stylesheet" href="<{#mem_css#}>/index_main.css" />
+    <link rel="stylesheet" href="<{#mem_css#}>/standard.css" />
+</head>
+<body  style="BACKGROUND: url(<{#mem_images#}>/../private/content_bg.jpg) repeat-y left top;" >
+<div id="MAMain" style="width:767px">
+    <div id="MACenter-content">
+        <div id="MACenterContent">
+            <div id="MNav">
+                <a  target="k_memr"   href="<{$site_url}>/index.php/member/cash/zr_money" class="mbtn">額度轉換</a>
+                <div class="navSeparate"></div>
+                <a  target="k_memr"   href="<{$site_url}>/index.php/member/cash/setmoney" class="mbtn">線上存款</a>
+                <div class="navSeparate"></div>
+                <span class="mbtn"><a   target="k_memr"   href="<{$site_url}>/index.php/member/cash/getmoney" class="mbtn">線上取款</a></span>
+                <div class="navSeparate"></div>
+                <{if $ewm == 1}>
+                <a target="k_memr" <{if $shiwan == 1}>onclick="alert('試玩賬號不能存取款，請註冊正式賬號！')"<{else}>href="<{$site_url}>/index.php/member/cash/setmoney_qr"<{/if}> class="mbtn">二維碼存款</a>
+                <{/if}>
+            </div>
+            <div id="MMainData" style="margin-top: 8px;">
+                <table class="MMain" border="1">
+                    <thead>
+                    <tr>
+                        <th>帳戶</th>
+                        <th>余額</th>
+                        <th>取款</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="text-align: center;">
+                        <td class=""><{$userinfo['username']}></td>
+                        <td class=""><{$userinfo['money']}>(RMB)</td>
+                        <td class=""><a href="#" onclick="window.open('show','newwindow','height=580,width=800,top=20,left=200,toolbar=no,menubar=no,scrollbars=yes,resizable=yes,location=no,status=no')">取款</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

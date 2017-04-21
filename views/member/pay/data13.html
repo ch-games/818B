@@ -1,0 +1,320 @@
+
+<{config_load file="public.conf" section="public"}>
+
+<html><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>線上入款</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+	<link type="text/css" href="<{#mem_css#}>/standard.css" rel="stylesheet">
+	<link rel="stylesheet" href="<{#mem_css#}>/template.css" type="text/css">
+	<link rel="stylesheet" href="<{#mem_css#}>/easydialog.css" type="text/css">
+	<link rel="stylesheet" href="<{#mem_css#}>/bank.css" type="text/css">
+	<style type="text/css">
+		/*美化訊窗口使用*/
+		#dialog {
+			padding-top: 20px;
+		}
+
+		.ui-dialog {
+			border: 1px solid #000;
+			background: url('/cl/tpl/commonFile/images/Mem2Bank/pay_menuBg.jpg?=')
+			no-repeat;
+		}
+
+		.ui-dialog .ui-dialog-title {
+			color: #FFFFFF;
+		}
+
+		.ui-dialog .ui-dialog-titlebar-close {
+			margin-right: 5em;
+		}
+
+		.ui-dialog .ui-dialog-buttonpane button {
+			float: left;
+			display: inline;
+		}
+
+		.ui-dialog .ui-dialog-titlebar,.ui-dialog .ui-dialog-buttonpane {
+			background: none;
+			border: 0px;
+		}
+
+		.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+			float: left;
+		}
+		/*--- 按鈕樣式 ---*/
+		.btn_001{
+			cursor: pointer;
+			margin: 0 1px 0 0;
+			width: 85px;
+			height: 26px;
+			border: none;
+			padding-top: 2px;
+			color: #FFF;
+			font-weight: bold;
+			background: #3D3D3D url(../public/images/order_btn.gif) no-repeat 0 -80px;
+		}
+		/* esball use */
+	</style>
+</head>
+<body id="bank_body">
+<div id="bank_header">
+	<div id="bank_logo"></div>
+</div>
+<div id="bank_content">
+	<div id="pay_title">填寫付款人資料</div>
+	<div id="pay_info">
+		<div style="display: none">
+			<div class="lable">支付方式：</div>
+			<label><input type="radio" id="netbank" name="bank_type" value="netbank" checked="checked">網絡銀行</label> <label><input type="radio" id="51epaybank" name="bank_type" value="51epaybank" onclick="pay_typy_link();">手機銀行</label>
+		</div>
+		<form id="myFORM" name="myFORM" action="<{$site_url}>/index.php/member/income/Hk_card/confirm_order<{$paytype}>" method="post">
+			<input type="hidden" name="order_num" value="<{$order_num}>">
+			<input type="hidden" name="act" value="card">
+			<input type="hidden" name="pay_flag" value="0">
+			<ul>
+				<li class="pay_info"><div class="lable">會員帳號：<{$userinfo['username']}> </div>
+					<input name="username" id="username" value="<{$userinfo['username']}>" type="hidden" size="25">
+				</li>
+				<li class="pay_info"><div class="lable">
+					<span class="star">*</span>存款金額：
+				</div>
+					<div class="input">
+						<input name="s_amount" id="s_amount" onkeyup="clearNoNum(this);" onblur="offerPrompt();" type="text" size="25">&nbsp;
+					</div></li>
+				<li class="pay_info">
+					<div class="lable">
+						<span class="star">*</span>卡面額：
+					</div>
+					<div class="input">
+						<input name="pa7_cardAmt" id="pa7_cardAmt" type="text" size="25">&nbsp;
+					</div>
+				</li>
+				<li class="pay_info">
+					<div class="lable">
+						<span class="star">*</span>卡序列號：
+					</div>
+					<div class="input">
+						<input name="pa8_cardNo" id="pa8_cardNo" type="text" size="25">&nbsp;
+					</div>
+				</li>
+				<li class="pay_info">
+					<div class="lable">
+						<span class="star">*</span>卡密碼：
+					</div>
+					<div class="input">
+						<input name="pa9_cardPwd" id="pa9_cardPwd" type="text" size="25">&nbsp;
+					</div>
+				</li>
+				<li class="pay_info">
+					<div class="lable">
+						<span class="star">*</span>支付通道：
+					</div>
+					<div id="bank_list" class="input">
+						<table>
+							<tbody>
+
+							<tr>
+								<td style="height: 32px">
+									<input style="float: left;" type="radio" name="pd_FrpId" value="JUNNET" onclick="shwo_table(this.value);">
+									<label style="font-size:12px;white-space: normal; width:95px" for="JUNNET">駿網壹卡通</label>
+								</td><td style="height: 32px">
+								<input style="float: left;" type="radio" name="pd_FrpId" value="SNDACARD" onclick="shwo_table(this.value);">
+								<label style="font-size:12px;white-space: normal; width:95px" for="SNDACARD">盛大卡</label>
+							</td><td style="height: 32px">
+								<input style="float: left;" type="radio" name="pd_FrpId" value="SZX" onclick="shwo_table(this.value);">
+								<label style="font-size:12px;white-space: normal; width:95px" for="SZX">神州行</label>
+							</td><td style="height: 32px">
+								<input style="float: left;" type="radio" name="pd_FrpId" value="ZHENGTU" onclick="shwo_table(this.value);">
+								<label style="font-size:12px;white-space: normal; width:95px" for="ZHENGTU">征途卡</label>
+							</td>
+							</tr>
+							<tr>
+								<td style="height: 32px">
+									<input style="float: left;" type="radio" name="pd_FrpId" value="QQCARD" onclick="shwo_table(this.value);">
+									<label style="font-size:12px;white-space: normal; width:95px" for="QQCARD">Q幣卡</label>
+								</td><td style="height: 32px">
+								<input style="float: left;" type="radio" name="pd_FrpId" value="UNICOM" onclick="shwo_table(this.value);">
+								<label style="font-size:12px;white-space: normal; width:95px" for="UNICOM">聯通卡</label>
+							</td><td style="height: 32px">
+								<input style="float: left;" type="radio" name="pd_FrpId" value="JIUYOU" onclick="shwo_table(this.value);">
+								<label style="font-size:12px;white-space: normal; width:95px" for="JIUYOU">久遊卡</label>
+							</td><td style="height: 32px">
+								<input style="float: left;" type="radio" name="pd_FrpId" value="YPCARD" onclick="shwo_table(this.value);">
+								<label style="font-size:12px;white-space: normal; width:95px" for="YPCARD">易寶e卡通</label>
+							</td>
+							</tr>
+							<tr>
+								<td style="height: 32px">
+									<input style="float: left;" type="radio" name="pd_FrpId" value="NETEASE" onclick="shwo_table(this.value);">
+									<label style="font-size:12px;white-space: normal; width:95px" for="NETEASE">網易卡</label>
+								</td><td style="height: 32px">
+								<input style="float: left;" type="radio" name="pd_FrpId" value="WANMEI" onclick="shwo_table(this.value);">
+								<label style="font-size:12px;white-space: normal; width:95px" for="WANMEI">完美卡</label>
+							</td><td style="height: 32px">
+								<input style="float: left;" type="radio" name="pd_FrpId" value="SOHU" onclick="shwo_table(this.value);">
+								<label style="font-size:12px;white-space: normal; width:95px" for="SOHU">搜狐卡</label>
+							</td><td style="height: 32px">
+								<input style="float: left;" type="radio" name="pd_FrpId" value="TELECOM" onclick="shwo_table(this.value);">
+								<label style="font-size:12px;white-space: normal; width:95px" for="TELECOM">電信卡</label>
+							</td>
+							</tr>
+							<tr>
+								<td style="height: 32px">
+									<input style="float: left;" type="radio" name="pd_FrpId" value="ZONGYOU" onclick="shwo_table(this.value);">
+									<label style="font-size:12px;white-space: normal; width:95px" for="ZONGYOU">縱遊壹卡通</label>
+								</td><td style="height: 32px">
+								<input style="float: left;" type="radio" name="pd_FrpId" value="TIANXIA" onclick="shwo_table(this.value);">
+								<label style="font-size:12px;white-space: normal; width:95px" for="TIANXIA">天下壹卡通</label>
+							</td><td style="height: 32px">
+								<input style="float: left;" type="radio" name="pd_FrpId" value="TIANHONG" onclick="shwo_table(this.value);">
+								<label style="font-size:12px;white-space: normal; width:95px" for="TIANHONG">天宏壹卡通</label>
+							</td><td style="height: 32px">
+								<input style="float: left;" type="radio" name="pd_FrpId" value="32" onclick="shwo_table(this.value);">
+								<label style="font-size:12px;white-space: normal; width:95px" for="32">32壹卡通</label>
+							</td>
+							</tr>
+							</tbody>
+						</table>
+				</li>
+				<li class="pay_info"><div class="lable">&nbsp;</div>
+					<div class="input">
+						<input type="submit" id="Submit" class="btn_001" value="確認">&nbsp;&nbsp;&nbsp;
+						<input type="reset" class="btn_001" value="重設">
+					</div></li>
+
+			</ul>
+		</form>
+	</div>
+	<br>
+	<br>
+	<div id="note">
+		<h1>備註：</h1>
+		<ol>
+
+			<li>標記有&nbsp;<span class="star">*</span>&nbsp;者為必填項目。&nbsp;
+			</li>
+			<li>單筆最低存款金額 <{$payset.ol_catm_min}> 元以上。&nbsp;</li>
+			<li>單筆最高存款金額 <{$payset.ol_catm_max}> 元以下。&nbsp;</li>
+		</ol>
+	</div>
+	<br>
+</div>
+<div id="dialog" title="訊息窗口" style="display:none">
+	尊敬的會員您好：<br>
+	<input type="radio" name="abandon_sp_radio" value="Y" onclick="document.myFORM.abandon_sp.value='Y';">我要獲取存款優惠<br>
+	<input type="radio" name="abandon_sp_radio" value="N" onclick="document.myFORM.abandon_sp.value='N';">我要放棄存款優惠<br>
+	<br>
+</div>
+<div id="bank_footer" align="center">
+
+	<p>Copyright © <{$copy_right['copy_right']}> Reserved</p>
+</div>
+
+
+<script type="text/javascript" src="../public/js/jquery-1.8.3.min.js"></script>
+
+<script type="text/javascript">
+	var AbandonSp = '';
+	$('#myFORM').submit(function(){
+		if($('#s_amount').attr('type').toLowerCase() == 'hidden' && document.getElementById('thousand').tagName.toLowerCase() == 'select'){
+			var amount = $('#thousand').val()+$('#hundred').val()+$('#ten').val()+$('#unit').val();
+		}else{
+			var amount = $('#s_amount').val();
+		}
+		if (isNaN(amount)==true ) {
+			alert('僅能輸入數字');
+			return false;
+		}
+
+		if (amount<<?=$data_1[ol_catm_min]?>) {
+			alert('單筆最低存款金額 <?=$data_1[ol_catm_min]?> 元以上。');
+			$('#s_amount').focus();
+			return false;
+		} else if (amount><?=$data_1[ol_catm_max]?>) {
+			alert('單筆最高存款金額 <?=$data_1[ol_catm_max]?> 元以下。');
+			$('#s_amount').focus();
+			return false;
+		}
+
+		$('#s_amount').val(amount);
+
+		if (confirm("是否確定寫入?")) {
+			$('#Submit').attr('disabled',true);
+			return true;
+		}
+		return false;
+	});
+
+	function offerPrompt()
+	{
+		if (AbandonSp=='Y' && $('#s_amount').val()>=2000) {
+			$("#dialog").dialog();
+		}
+	}
+	function isInteger(str) {
+		var regu = /^[-][0-9]$/;
+		return regu.test(str);
+	}
+
+	function pay_typy_link(){
+		document.location = '51epay.php?uid=Ced1642ez1590140dz27k2hk2zlc4j6z0142';
+	}
+
+	function shwo_table(show) {
+		var obj_win = document.getElementById('jlk_num');
+		var obj_win_1 = document.getElementById('jlk_pwd');
+		if(show == 'JLK'){
+			obj_win.style.display = "block";
+			obj_win_1.style.display = "block";
+		}else{
+			obj_win.style.display = "none";
+			obj_win_1.style.display = "none";
+		}
+	}
+
+	function getKey(){
+		$.ajax({
+			type:'GET',
+			url:'/app/member/verify/mkCode.php?_='+Math.random()+(new Date).getTime(),
+			data:'',
+			success:function(data){
+				spl = data.split(";");
+				$("input[name='SS']").val(spl[0]);
+				$("input[name='SR']").val(spl[1]);
+				$("input[name='TS']").val(spl[2]);
+				$("#vPic").attr("src","/tpl/commonFile/images/gdpic/macpicforpayonline.php?langx=gb&r="+Math.random()+(new Date).getTime());
+				$("#vPic").css("display","inline");
+				$("#crPic").css("display","inline");
+				$("input[name='rmNum']").val("");
+			}
+		});
+	}
+	//數字驗證 過濾非法字符
+	function clearNoNum(obj){
+		//先把非數字的都替換掉，除了數字和.
+		obj.value = obj.value.replace(/[^\d.]/g,"");
+		//必須保證第壹個為數字而不是.
+		obj.value = obj.value.replace(/^\./g,"");
+		//保證只有出現壹個.而沒有多個.
+		obj.value = obj.value.replace(/\.{2,}/g,".");
+		//保證.只出現壹次，而不能出現兩次以上
+		obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+		if(obj.value != ''){
+			var re=/^\d+\.{0,1}\d{0,2}$/;
+			if(!re.test(obj.value))
+			{
+				obj.value = obj.value.substring(0,obj.value.length-1);
+				return false;
+			}
+		}
+	}
+
+
+	function cancelMouse(){return false;}
+	document.oncontextmenu = cancelMouse;
+</script>
+
+
+
+</body></html>

@@ -1,0 +1,36 @@
+<div class="Hyzx-right">
+	<h3 class="nav2">
+		<span class="flt"><{$type_title[$type]}>公告</span>
+		<a href="javascript:$.member.changeNav('Gamenews','gamenews_index?type=4',1);" data="gamenews_index" class="Hyzx-btn flt <{if $type==4}>active<{/if}>">體育公告</a>
+
+		<a href="javascript:$.member.changeNav('Gamenews','gamenews_index?type=5',1);" data="gamenews_index" class="Hyzx-btn flt <{if $type==5}>active<{/if}>">視訊公告</a>
+
+		<a href="javascript:$.member.changeNav('Gamenews','gamenews_index?type=3',1);" data="gamenews_index" class="Hyzx-btn flt <{if $type==3}>active<{/if}>">彩票公告</a>
+	</h3>
+	<div class="Hyzx-content">
+		<table class="Hyzx-table">
+			<tr>
+				<th width="150">日期</th>
+				<th>內容</th>
+			</tr>
+			<{foreach from=$news key=k item=v}>
+			<tr>
+				<td><{$v['notice_date']}></td>
+				<td><{$v['notice_content']}></td>
+			</tr>
+			<{/foreach}>
+		</table>
+		<div class="Hyzx-pageBox mt20">
+			<{if $page_count}>
+			<a href="<{if $page<=1 || $page_count==1}>javascript:;<{else}>javascript:$.member.changeNav('Gamenews','gamenews_index?type=<{$type}>&page=<{$page-1}>',1);<{/if}>" class="Hyzx-btn">上壹頁</a>
+			<{section name=i loop=$page_count}>
+			<{$p=$smarty.section.i.index+1}>
+			<a href="<{if $page==$p}>javascript:;<{else}>javascript:$.member.changeNav('Gamenews','gamenews_index?type=<{$type}>&page=<{$p}>',1);<{/if}>" class="Hyzx-btn <{if $page==$p}>active<{/if}>"><{$p}></a>
+			<{/section}>
+			<a href="<{if $page>=$page_count}>javascript:;<{else}>javascript:$.member.changeNav('Gamenews','gamenews_index?type=<{$type}>&page=<{$page+1}>',1);<{/if}>" class="Hyzx-btn">下壹頁</a>
+			<{else}>
+			<span>暫無公告</span>
+			<{/if}>
+		</div>
+	</div>
+</div>

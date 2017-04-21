@@ -1,0 +1,49 @@
+<{config_load file="public.conf" section="public"}>
+	<link rel="stylesheet" href="../../shared/video/css/live1/css.css" />
+	<script type="text/javascript" src="../../shared/video/js/live1/live_sx.js"></script>
+	<div class="<{if $video_config|@count eq 1 }>live-one <{else}>live-two<{/if}>" <{if $video_config|@count neq 1 }> style="border-left-style: none; left: 0px;" id="slider" <{/if}>>
+    <{foreach from=$video_config item=val}>
+
+			<div class="casino-slide">
+				<img class="<{if $video_config|@count neq 1 }>diapo<{/if}>" src="../../shared/video/images/live1/live-<{$val}>.jpg" alt="">
+				<div class="text"><img src="../../shared/video/images/live1/<{$val}>-ti.png"></div>
+				<div class="div-btn">
+					<a href="javascript:;" <{if empty($uid)}>onclick="javascript:zhuModal.login();"<{else}>onclick="opengeme('/video/games/login.php?g_type=<{$val}>')"<{/if}> class="btna">进入游戏</a>
+					<a href="javascript:;" onclick="opengeme('/video/rule.html')" class="btnb">游戏规则</a>
+					<div class="clear"></div>
+				</div>
+			</div>
+	<{/foreach}>
+	</div>
+
+<script>
+$(window).load(function() {
+	$(".casino-slide").mouseenter(function() {
+		$(this).find('.text').animate({
+			opacity: '0.7'
+		}, 1000);
+	});
+	
+	$(".casino-slide").mouseleave(function() {
+		$(this).find('.text').animate({
+			opacity: '0'
+		}, 10);
+	});
+	
+	$(".live-one .casino-slide").mouseenter(function() {
+		$(this).find('.div-btn').animate({
+			top: '400px'
+		}, 300);
+	});
+	
+	$(".live-one .casino-slide").mouseleave(function() {
+		$(this).find('.div-btn').animate({
+			top: '600px'
+		}, 300);
+	});
+});
+</script>
+
+<script type="text/javascript">
+slider.init();
+</script>

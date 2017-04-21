@@ -1,0 +1,174 @@
+<{$header}>
+<{config_load file="public.conf" section="public" }>
+
+
+<!-- 页面主体 开始-->
+<!-- 频道banner开始 -->
+<style>
+    /* 7关于我们 */
+    .section71 {
+        width: 100%;
+        background: url("<{#images#}>/section21.png") center top repeat-y #002a5f;
+        background-size: 1920px 870px;
+        padding-bottom: 20px;
+    }
+
+    .section71 .content {
+        background-color: #004b8e;
+        padding: 30px;
+        font-size: 12px;
+        color: #fff;
+        min-height: 600px;
+    }
+
+    .section71-left {
+        width: 218px;
+        float: left;
+    }
+
+    .section71-left h2 {
+        width: 100%;
+        height: 54px;
+        line-height: 54px;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        background-color: #0077cd;
+    }
+
+    .section71-left ul {
+        width: 100%;
+        padding: 10px;
+        background-color: #003565;
+    }
+
+    .section71-left li {
+        padding-left: 65px;
+        line-height: 32px;
+        margin: 3px 0;
+        font-size: 14px;
+    }
+
+    .section71-left a {
+        color: #fff;
+    }
+
+    .section71-left li:hover, .section71-left li.on {
+        background: url("<{#images#}>/icon71.png") left center no-repeat #0077cd;
+        background-size: 32px 32px;
+    }
+
+    .section71-left .wl {
+        width: 100%;
+        height: 192px;
+        background: url("<{#images#}>/img71.png") center top no-repeat;
+        background-size: 100% 100%;
+    }
+
+    .section71-right {
+        width: 740px;
+        float: left;
+        margin-left: 60px;
+        padding-bottom: 150px;
+    }
+
+    .section71-right h3 {
+        font-size: 16px;
+    }
+
+    .section71-right p {
+        font-size: 13px;
+        line-height: 26px;
+        text-align: justify;
+    }
+
+    .section71-right br {
+        line-height: 32px;
+    }
+</style>
+<!-- 频道banner开始 -->
+<div id="banner" class="banner h262">
+    <style type="text/css">
+        #banner {
+            background: url(<{#images#}>/banner71.png) no-repeat center top;
+        }
+
+    </style>
+</div>
+
+<div class="infos mt260">
+    <span>最新公告：</span>
+    <div class="txtScroll-top">
+        <div class="bd">
+            <!--<font style="color:#FFF">-->
+            <!--<marquee scrollamount="3" scrolldelay="150" direction="left" width="980" height="47" onmouseover="this.stop();" onmouseout="this.start();" style="float: right; height: 47px; width: 980px;">-->
+            <!--</marquee>-->
+            <{$notice_html}>
+            <!--</font>-->
+        </div>
+    </div>
+</div>
+
+
+<section class="section71">
+    <div class="content">
+        <div class="section71-left">
+            <h2>欢迎光临<{$copy_right}></h2>
+            <ul class="con">
+                <li><a class="select-box" href="javascript:void(0);" onclick="getPager('-','iword','3');">关于我们</a>
+                </li>
+                <li><a class="select-box" href="javascript:void(0);" onclick="getPager('-','iword','4');">联系我们</a>
+                </li>
+                <li><a class="select-box" href="javascript:void(0);" onclick="getPager('-','iword','5');">合作伙伴</a>
+                </li>
+                <li><a class="select-box" href="javascript:void(0);" onclick="getPager('-','iword','6');">存款帮助</a>
+                </li>
+                <li><a class="select-box" href="javascript:void(0);" onclick="getPager('-','iword','7');">取款帮助</a>
+                </li>
+                <li><a class="select-box" href="javascript:void(0);" onclick="getPager('-','iword','8');">常见问题</a>
+                </li>
+                <li class="on"><a href="javascript:void(0);" onclick="getPager('-','daili_shenqing','JoinAgent');" target="_blank">代理注册</a>
+                </li>
+            </ul>
+            <div class="wl"></div>
+        </div>
+
+        <div class="section71-right">
+            <iframe name="mbody" scrolling="no" frameborder="0"
+                    src="<{$site_url}>/index.php/webcenter/Register_web/join_agent"
+                    onload="this.height=mbody.document.body.scrollHeight+10"
+                    style="background: transparent; width: 740px;" allowtransparency="true"></iframe>
+        </div>
+</section>
+
+<div style="clear:both;"></div>
+<!-- 页面主体 结束-->
+
+
+<!--<div id="center">-->
+<!--<div class="wrapc" id="wrapc">-->
+<!--<div id="hdpublic" style="background:url(<{#images#}>/new//title_welcome.png) no-repeat; height:222px;"></div>-->
+<!--<div style="clear:both;"></div>-->
+<!--<div id="wrapbox">-->
+<!--<div id="wrapw">-->
+<!--<div id="middle">-->
+<!--<div class="reg_bg" id="registerbg">-->
+<!--<iframe name="mbody" scrolling="no" frameborder="0"-->
+<!--src="<{$site_url}>/index.php/webcenter/Register_web/join_agent"-->
+<!--onload="this.height=mbody.document.body.scrollHeight+10"-->
+<!--style="background: transparent; width: 740px;" allowtransparency="true"></iframe>-->
+<!--</div>-->
+
+
+<!--</div>-->
+<!--<div class="clear"></div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--</div>-->
+<!--</div>-->
+<{$bottom}>
+
+
+

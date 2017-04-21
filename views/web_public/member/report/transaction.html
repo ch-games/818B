@@ -1,0 +1,476 @@
+<div class="Hyzx-right">
+	<{include file="../transaction_common.html"}>
+	<div class="Hyzx-content">
+		<div class="Hyzx-conNav Hyzx-fixedWidth" id="transTitle">
+			<{foreach from=$video_config item=v key=k}>
+			<a href="javascript:;" data="<{$k}>" class="Hyzx-btn flt"><{$v}></a>
+			<{/foreach}>
+		</div>
+		<div class="mt30 Hyzx-select">
+			<form action="">
+				<div class="Hyzx-module">
+					<span>註單號:</span>
+					<input type="text" class="Hyzx-data" name="OrderId" id="OrderId" />
+				</div>
+				<div class="Hyzx-module">
+					<span>投註時間:</span>
+					<div class="Hyzx-data">
+						從<input type="text" class="Wdate" onclick="laydate({istime: false, format: 'YYYY-MM-DD'})" readonly="readonly" name="starttime" id="s_time" value="<{$s_date}>" />至<input type="text" class="Wdate" onclick="laydate({istime: false, format: 'YYYY-MM-DD'})" readonly="readonly" name="endtime" id="e_time" value="<{$e_date}>" />
+					</div>
+				</div>
+				<a href="javascript:;" class="flt Hyzx-btn" id="submit">查詢</a>
+				<select name="sptype" id="sptype">
+					<option value="1" selected="true">體育單式</option>
+					<option value="2">體育串關</option>
+				</select>
+				<select name="fctype" id="fctype" class="none">
+					<option value="0" >所有彩種</option>
+					<{foreach from=$fc_games key=k item=v}>
+					<option value="<{$k}>"<{select_check($k,$smarty.get.gtype)}> ><{$v['name']}></option>
+					<{/foreach}>
+				</select>
+			</form>
+		</div>
+		<table class="Hyzx-table mt10">
+			<thead>
+			<tr>
+				<th>下註時間/註單號</th>
+				<th>投註類型</th>
+				<th>選項</th>
+				<th>投註額</th>
+				<th>可贏金額</th>
+				<th>派彩</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td colspan="6">暫無交易記錄</td>
+			</tr>
+			</tbody>
+		</table>
+		<div class="Hyzx-pageBox mt20"></div>
+	</div>
+</div>
+</div>
+<style type="text/css">
+	.Hyzx-right .Hyzx-content .Hyzx-conNav{height: auto;}
+	table.Hyzx-table tr td{line-height: 20px;}
+	.none{display: none;}
+	.Wdate{
+		line-height: 30px;
+		border: none;
+	}
+</style>
+<script type="text/javascript">
+	/*標題點擊事件*/
+	$('#transTitle>a').on('click', function() {
+		//點擊切換樣式
+		$(this).siblings('a').removeClass('active');
+		$(this).addClass('active');
+		//渲染頁面
+		var Tdata = $(this).attr('data');
+		if (Tdata == 'sp' || Tdata == 'im') {
+			if (Tdata == 'im' && $('#ImDx').length <= 0) {
+				$('#sptype').append('<option id="ImDx" value="3">兌現</option>');
+			}else if (Tdata != 'im') $('#ImDx').remove();
+			$('#sptype').val(1).show();
+		}else{
+			$('#sptype').val(0).hide();
+		}
+		if (Tdata == 'fc') {
+			$('#fctype').val(0).show();
+		}else{
+			$('#fctype').val(0).hide();
+		}
+		GetVideoList(1);
+	});
+
+	/*ajax請求 獲取數據*/
+	function GetVideoList(Page) {
+		if (!arguments[0]) Page = 1;
+		//判斷時間區間
+		var date1 = $('#s_time').val();
+		var date2 = $('#e_time').val();
+		if (parseInt(date1.replace(/\-/g,'')) > parseInt(date2.replace(/\-/g,''))) {
+			$.member.alertpop('','請選擇正確時間區間！');
+			return false;
+		}
+		//取參數
+		var mentObj = new Object();
+		mentObj.Page = Page;
+		mentObj.g_type = $('#transTitle>a.active').attr('data');
+		mentObj.OrderId = $('#OrderId').val();
+		mentObj.S_Time  = $('#s_time').val();
+		mentObj.E_Time  = $('#e_time').val();
+		mentObj.Sptype  = $('#sptype').val();/*1 單式 2 串關*/
+		mentObj.Fctype  = $('#fctype').val();/*彩種*/
+		//$.param(mentObj,true)
+		$.ajax({
+			type: "POST",
+			url: '<{$site_url}>/index.php/member/new/Transaction/transaction_record_do',
+			data: mentObj,
+			dataType: "json",
+			beforeSend: function(){
+				$.member.maskLayer();
+			},
+			error: function (XMLHttpRequest){
+				$('#HyZzc').remove();
+				$('.Hyzx-table>tbody').html(XMLHttpRequest.responseText);
+				$.member.atHeight();
+				return false;
+			},
+			success: function(msg){
+				$('#HyZzc').remove();
+				var html = '<tr><td colspan="9">暫無交易記錄</td></tr>';
+				var Tithtml = '';
+				if(msg.error){
+					$.member.alertpop(msg.errorLevel,msg.error);
+					$.member.changeNav('Transaction','transaction_bet_index',1);
+				}else{
+					//分頁
+					getPageHtml(msg.totalPage, Page);
+					if (msg.company == 'sp') {
+						Tithtml = '<tr><th>下註時間/註單號</th><th>投註類型</th><th>選項</th><th>投註額</th><th>可贏金額</th><th>派彩</th></tr>';
+					}else if (msg.company == 'fc') {
+						Tithtml = '<tr><th>註單號</th><th>投註日期</th><th>投註類型</th><th>內容</th><th>投註額</th><th>可贏金額</th><th>派彩</th></tr>';
+					}else if (msg.company == 'im') {
+						Tithtml = '<tr><th>註單號</th><th>下註時間/結算時間</th><th>投註類型</th><th>詳情</th><th>投註額</th>';
+						if (msg.gtype == '3') {
+							Tithtml += '<th>兌付</th><th>盈利</th></tr>';
+						}else{
+							Tithtml += '<th>可贏金額</th><th>盈利</th></tr>';
+						}
+					}else if(msg.company == 'agter'){
+						Tithtml = '<tr><th>場景時間</th><th>場景編號</th><th>房間號</th><th>視訊類別</th><th>總投註</th><th>有效投註</th><th>盈利</th></tr>';
+					}else{
+						Tithtml = '<tr><th>時間</th><th>訂單號</th><th>局號</th><th>桌號</th><th>視訊類別</th><th>總投註</th><th>有效投註</th><th>盈利</th></tr>';
+					}
+					if(msg.Code == 10021){
+						if (msg.company == 'sp') {
+							html = getSpHtml(msg.data,msg.gtype);
+						}else if (msg.company == 'fc') {
+							html = getFcHtml(msg.data);
+						}else if (msg.company == 'im') {
+							html = dataTemplate(template, msg.data,msg.type);
+						}else if(msg.company == 'agter'){
+							html = getAgterHtml(msg.data);
+						}else{
+							html = getVdoHtml(msg.data);
+						}
+					}
+				}
+				$('.Hyzx-table>thead').html(Tithtml);
+				$('.Hyzx-table>tbody').html(html);
+				$.member.atHeight();
+				return false;
+			}
+		});
+	}
+
+	//體育模板
+	function getSpHtml(sp,t) {
+		var html = '';
+		$.each(sp,function(i, v) {
+			html += '<tr><td>'+v.bet_time+'<br>'+v.number+'</td>';
+			html += '<td><font color="'+v.Scolor+'"><b>'+v.ball_sort+'</b></font></td>';
+			html += '<td>';
+			if (t == '2') {
+				html += '<span style="cursor:pointer;" onclick="cgTag('+i+')">點擊 顯示註單詳情</span>';
+			}else{
+				html += '<font color="#CC0000">'+v.match_name+'</font><br/>'+v.master_guest+'<font style="color:#FF0033">';
+				if (v.point_column === "match_jr" || v.point_column === "match_gj") {
+					html += v.bet_info;
+				}else{
+					html += '<br>'+v.bet_info.replace("-","<br>");
+				}
+				html += '</font>';
+				if (v.status != 0 && v.status !=3 && v.status !=6 && v.status !=7) {
+					if (v.MB_Inball) {
+						html += '['+v.MB_Inball+':'+v.TG_Inball+']';
+					}
+				}
+			}
+			html += '</td>';
+			html += '<td>'+v.bet_money+'</td>';
+			html += '<td>'+Number(v.bet_win).toFixed(2)+'</td>';
+			html += '<td>'+v.status+'<br/>';
+			if (v.status == 0) {
+				html += '0.00</td></tr>';
+			}else{
+				html += v.win+'</td></tr>';
+			}
+			if (t == '2') {
+				html += '<tr class="cgTag none" id="cgTag'+i+'"><td colspan="9">';
+				$.each(v.chuanlian,function(n, e) {
+					html += '<font color="#CC0000">'+e.match_name+'</font><br>'+e.master_guest+'<br><font color="#FF0033">'+e.bet_info+'</font><br>';
+					if (e.MB_Inball && e.TG_Inball) {
+						html += e.MB_Inball+'：'+e.TG_Inball;
+					}
+					html += '<div style="height:1px; width:99%; background:#ccc; overflow:hidden;"></div>';
+				});
+				html += '</td></tr>';
+			}
+		});
+		return html;
+	}
+
+	//彩票模板
+	function getFcHtml(fc) {
+		var html = '';
+		$.each(fc,function(j,el) {
+			html += '<tr><td>'+el.did+'</td>';
+			html += '<td>'+el.addtime+'</td>';
+			html += '<td><span title="期號：'+el.qishu+'">'+el.type+'<br/>期號：'+el.qishu+'</span></td>';
+			html += '<td style="width:200px;word-wrap:break-word;word-break:break-all;">'+el.mingxi_1+':'+el.mingxi_2+el.mingx3+'</td>';
+			html += '<td>'+el.money+'</td>';
+			html += '<td>'+((Number(el.odds) - 1) * Number(el.money)).toFixed(2)+'</td>';
+			html += '<td>'+el.jgres+'</td></tr>';
+		});
+		return html;
+	}
+
+	//視訊模板
+	function getVdoHtml(vdo) {
+		var html = '';
+		$.each(vdo,function(n,m){
+			html += '<tr class="m_title">' +
+					'<td>' + m.bet_time+'</td>' +
+					'<td>' + m.bet_id+'</td>' +
+					'<td>' + m.BoardNumber+'</td>' +
+					'<td>' + m.table_id+'</td>' +
+					'<td>' + m.game_zh+'</td>' +
+					'<td>' + m.bet_amount+'</td>' +
+					'<td>' + m.bet_valid+'</td>' +
+					'<td>' + m.bet_payout+'</td>' +
+					'</tr>';
+		});
+		return html;
+	}
+
+	function getAgterHtml(agter) {
+		var html = '';
+		$.each(agter,function(a,t){
+			var jieguo = (Number(t.earn) + Number(t.jackpotcomm)) - Number(t.cost);
+			html += '<tr class="m_title">' +
+					'<td><font style="color:green">' + t.scene_starttime+'</font><br/>'+
+					'<font style="color:red">' + t.bet_time +'</font></td>' +
+					'<td>' + t.scene_id+'</td>' +
+					'<td>' + t.room_id+'</td>';
+			if (t.transfer_type == '1') {html += '<td>場景捕魚</td>';}
+			else if(t.transfer_type == '2'){html += '<td style="color:red">抽獎</td>';}
+			else if(t.transfer_type == '7'){html += '<td style="color:green">捕魚王獎勵</td>';}
+			html += '<td>' + t.cost+'</td>' +
+					'<td>' + t.cost+'</td>' +
+					'<td>' + jieguo.toFixed(3)+'</td>' +
+					'</tr>';
+		});
+		return html;
+	}
+
+	/*IM體育*/
+	var template = "<tr>" +
+			"<td class=\"\">{bet_id}</td>" +
+			"<td class=\"\" style='white-space:nowrap;'>{bet_time}<br>{update_time}</td>" +
+			"<td class=\"\">{bet_type}</td>" +
+			"<td class=\"\">{bet_info}</td>" +
+			"<td class=\"\">{bet_amt}</td>" +
+			"<td class=\"cg_th\">{Canwin}</td>" +
+			"<td class=\"\">{result}</td>" +
+			"</tr>" +
+			"<tr class='cgTag none' id='cgTag{id}'><td colspan=\"9\">{bet_info_cg}</td></tr>";
+	/*DOM渲染模板   "<td class=\"\">{bet_id}</td>" +*/
+	var dataTemplate = function(template,data,im_type){
+		var bet_dx=$('#sptype').val();
+		bet_dx==3?bet_dx=2:bet_dx=1;
+
+		var outPrint="";
+		for(var i = 0 ; i < data.length ; i++){
+			var matchs = template.match(/\{[a-zA-Z\_]+\}/gi);
+			var temp="";
+			for(var j = 0 ; j < matchs.length ;j++){
+				if(temp == "")
+					temp = template;
+				var re_match = matchs[j].replace(/[\{\}]/gi,"");
+				if(matchs[j]=='{bet_info_cg}'){
+					if(data[i]['parlay_betdetails'] && data[i]['bet_type']=='PARLAYALL'){
+						var bet_info='';
+						$.each($.parseJSON(data[i]['parlay_betdetails']),function(a,b){
+							//console.log($.parseJSON(data[i]['parlay_betdetails']));
+							bet_info+=(a+1)+' - '+betinfo(im_type,b['ParlayBetType'],b['ParlayBetOn'],b['ParlayLeagueName'],b['ParlayTeamHome'],b['ParlayTeamAway'],b['ParlayHandicap'],b['ParlayOdds'],b['ParlayBetCancelled'],'')+'<hr>';
+						})
+						temp = temp.replace(matchs[j],bet_info);
+					}
+				}
+				else if(matchs[j]=='{bet_info}'){
+					var bet_info='';
+					/*是否是串關*/
+					if(data[i]['parlay_betdetails'] && data[i]['bet_type']=='PARLAYALL'){
+
+						bet_info='<span style="cursor:pointer;" onclick="cgTag('+i+')">點擊 顯示註單詳情</span>';
+					}else{
+						/*是否是滾球*/
+						if(('GQPD'+data[i]['bet_type']).indexOf('RB')!=-1){
+							if(('GQPD'+data[i]['bet_type']).indexOf('RB1st')!=-1){
+								sbc=1;
+							}else sbc=2;
+						}else{
+							sbc=0;
+						}
+						Score={"sbc":sbc,"BetHomeScore":data[i]['BetHomeScore'],"BetAwayScore":data[i]['BetAwayScore'],"HTHomeScore":data[i]['HTHomeScore'],"HTAwayScore":data[i]['HTAwayScore'],"FTHomeScore":data[i]['FTHomeScore'],"FTAwayScore":data[i]['FTAwayScore']}
+
+						//console.log(('GQPD'+data[i]['bet_type']).indexOf('RB'))
+						bet_info=betinfo(im_type,data[i]['bet_type'],data[i]['selection'],data[i]['league_name'],data[i]['home_team'],data[i]['away_team'],data[i]['handicap'],data[i]['odds'],data[i]['bet_cancelled'],Score,data[i]['settled']);
+					}
+					temp = temp.replace(matchs[j],bet_info);
+				}
+				else if(matchs[j]=='{id}') {
+					temp = temp.replace(matchs[j],i);
+				}
+				else if(matchs[j]=='{yxtz}') {
+					if(bet_dx==1){
+						if(data[i]['settled']==1 && data[i]['bet_cancelled']==0 && data[i]['result']!=0) {
+							yxtz=data[i]['bet_amt']
+						}else yxtz=(0).toFixed(4);
+					}
+					else{
+
+						yxtz=data[i]['bt_buyback'];
+					}
+					temp = temp.replace(matchs[j],yxtz);
+				}
+				else if(matchs[j]=='{result}') {
+					if(bet_dx==1){
+						if(data[i]['settled']==1 && data[i]['bet_cancelled']==0) {
+							result=data[i]['result'];
+						}else result=0;
+					}else{
+						result=data[i]['bt_buyback']-data[i]['bet_amt'];
+						result=parseFloat(result);
+					}
+
+					temp = temp.replace(matchs[j],parseFloat(result).toFixed(4));
+				}
+				else if(matchs[j]=='{bet_type}'){
+					if(data[i]['bet_type']=='PARLAYALL') im_btype="體育串關";
+					else im_btype="體育單式";
+					temp = temp.replace(matchs[j],im_btype);
+				}
+				else temp = temp.replace(matchs[j],data[i][re_match]);
+			}
+			outPrint += temp;
+		}
+		return outPrint;
+	}
+	/*註單信息組合*/
+	function betinfo(im_type,bet_type,selection,legue_name,home_team,away_team,handicap,odds,bet_cancelled,score,settled){
+		var imtype=im_type.BetType[bet_type];
+		if(imtype)imtype=imtype[0];
+		else imtype=bet_type;
+
+		if(score){
+			//console.log(score)
+			/*上半滾球*/
+			if(score.sbc==1) {
+				betscore ='('+(score.BetHomeScore+':'+score.BetAwayScore)+')';
+				betscore_="[ "+score.HTHomeScore+":"+score.HTAwayScore+" ]";
+			}
+			else if(score.sbc==2) {
+				/*全場滾球*/
+				betscore ='('+(score.BetHomeScore+':'+score.BetAwayScore)+')';
+				betscore_="[ "+score.FTHomeScore+":"+score.FTAwayScore+" ]";
+			}
+			else {
+				betscore ="";
+				betscore_="[ "+score.FTHomeScore+":"+score.FTAwayScore+" ]";
+			}
+			if(settled==0){
+				betscore_='';
+			}
+		}else betscore=betscore_='';
+		var RQ='';
+		if(bet_type=='RB'|| bet_type=='AH'|| bet_type=='1STHALFAH'|| bet_type=='1STHFRB'|| bet_type=='2ndAH'|| bet_type=='RB2ndAH'){
+			/*判斷讓球*/
+			if(selection=='H') RQ=' <span class="b c1">主讓</span>';
+			if(selection=='A') RQ=' <span class="b c1">客讓</span>';
+		}
+		if(bet_type=='1STHALFOU'|| bet_type=='1STHFRBOU'|| bet_type=='2ndOU'|| bet_type=='OU'|| bet_type=='RB2ndOU'|| bet_type=='RBOU'){
+			/*判斷大小球*/
+			if(selection=='H') RQ=' <span class="b c1">大</span>';
+			if(selection=='A') RQ=' <span class="b c1">小</span>';
+		}
+		if(bet_type=='1STHALF1X2'|| bet_type=='1STHFRB1X2'|| bet_type=='1X2'|| bet_type=='2nd1X2'|| bet_type=='RB1X2'|| bet_type=='RB2nd1X2'){
+			/*判斷獨贏1X2*/
+			handicap='';
+		}
+		bet_info=legue_name+'<br>'+home_team+' - '+away_team+' <br>'+(imtype)+RQ+'  '+handicap+' @ '+odds + betscore+betscore_;
+		if(bet_cancelled==1)bet_info="<s>"+bet_info+"</s>";
+		return bet_info;
+	}
+	/*IM體育END*/
+
+	//分頁
+	function getPageHtml(totalPage,Page) {
+		totalPage = Number(totalPage);
+		Page = Number(Page);
+		var page_html ='';
+		if(totalPage > 1){
+			if (Page > 1) {
+				page_html += '<a href="javascript:;" class="Hyzx-btn" onclick="GetVideoList(1);">首頁</a>';
+				page_html += '<a href="javascript:;" class="Hyzx-btn" onclick="GetVideoList('+(Page-1)+');">上壹頁</a>';
+			}
+			//限制中間五頁
+			if (Page - 2 >= 1) {var page_i = Page - 2;}
+			else{var page_i = 1;}
+			if (Page + 2 <= totalPage) {var bigPage = Page + 2;}
+			else{
+				var bigPage = totalPage;
+				if (totalPage > 5) {page_i = totalPage - 4;}
+				else {page_i = 1;}
+			}
+			if (page_i == 1) {
+				if (totalPage > 5) {bigPage = 5;}
+				else {bigPage = totalPage;}
+			}
+			//分頁開始
+			for (;page_i <= bigPage; page_i++) {
+				if(page_i == Page){
+					page_html += '<a href="javascript:;" class="Hyzx-btn active">'+page_i+'</a>';
+				}else{
+					page_html += '<a href="javascript:;" class="Hyzx-btn"onclick="GetVideoList('+page_i+');">'+page_i+'</a>';
+				}
+			}
+			if (Page < totalPage) {
+				page_html += '<a href="javascript:;" class="Hyzx-btn" onclick="GetVideoList('+(Page+1)+');">下壹頁</a>';
+				page_html += '<a href="javascript:;" class="Hyzx-btn" onclick="GetVideoList('+totalPage+');">尾頁</a>';
+			}
+			page_html += '<a href="javascript:;" class="Hyzx-btn" style="margin-left:5px;">共 '+totalPage+' 頁</a>';
+		}
+		$(".Hyzx-pageBox").html(page_html);
+	}
+
+	//顯示串關註單詳情
+	function cgTag(id) {
+		$('#cgTag'+id).siblings('tr.cgTag').hide();
+		$('#cgTag'+id).toggle(200,function () {
+			$.member.atHeight();
+		});
+	}
+
+	//進入頁面默認執行壹次，綁定事件
+	$(function () {
+		$('#transTitle>a').eq(0).addClass('active');
+		GetVideoList(1);
+
+		$('#submit').on('click', function() {
+			GetVideoList(1);
+		});
+
+		$('#sptype,#fctype').on('change', function() {
+			GetVideoList(1);
+		});
+
+		$('#OrderId').on('keyup', function() {
+			$(this).val($(this).val().replace(/[\W]/g,''));
+		});
+	});
+</script>

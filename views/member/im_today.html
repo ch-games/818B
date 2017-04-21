@@ -1,0 +1,359 @@
+<{config_load file="public.conf" section="public"}>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="<{#mem_css#}>/index_main.css" />
+    <style type="text/css">
+        .none{display: none;}
+    </style>
+    <script type="text/javascript">
+        function toggnone(e,d) {
+            $('.cg_th').removeClass('none');
+            $('.bet_dx'+e).addClass('none');
+            $('.bet_dx'+d).removeClass('none');
+            if (e == d && e == 3) {
+                $('.cg_th').addClass('none')
+            }
+        }
+
+    </script>
+</head>
+<body style="BACKGROUND: url(<{#mem_images#}>/../private/content_bg.jpg) repeat-y left top;">
+<div id="MAMain" style="width: 767px">
+    <div id="MACenter-content">
+        <div id="MACenterContent">
+            <{include file='member/common.html'}>
+            <div id="MMainData" style="overflow-y: scroll; height: 330px">
+
+                <div class="MControlNav">
+                    <form name="myFORM" id="myFORM" action="" method="get">
+                        <input type="hidden" id="Company" value="<{$Company}>">
+                        <input type="hidden" id="VideoType" value="<{$VideoType}>">
+                        <input type="hidden" id="gametype" value="<{$gametype}>">
+
+                        訂單號： <input type="text" name="OrderId" id="OrderId"
+                                    class="za_text" value="<{$smarty.get.OrderId}>"
+                                    onKeyUp="value=value.replace(/[^\w]/ig,'')">
+                        投註時間：從
+                        <input id="s_time" class=" Wdate" type="text" onclick="WdatePicker()" readonly="readonly" size="10"
+                               maxlength="20" value="<{date('Y-m-d')}>" name="starttime">
+                        至 <input id="e_time" class=" Wdate" type="text"
+                                 onclick="WdatePicker()" readonly="readonly" size="10"
+                                 maxlength="20" value="<{date('Y-m-d')}>" name="endtime">
+                        <select name="ball_sort" id="ball_sort" onchange="GetVideoList();if ($(this).val() == '3') {toggnone(0,1);}else{toggnone(1,0);}" class="MFormStyle" >
+                            <option value="1"<{select_check('1',$gtype)}> >體育單式</option>
+                            <option value="2"<{select_check('2',$gtype)}> >體育串關</option>
+                            <option value="3"<{select_check('3',$gtype)}> >兌現</option>
+                        </select>
+
+                        <select name="page_num" id="page_num" class="za_select" onchange="GetVideoList()">
+                            <option value="20">20條</option>
+                            <option value="30">30條</option>
+                            <option value="50" >50條</option>
+                            <option value="100">100條</option>
+                        </select>
+                        <br/>頁 ：
+                        <select id="page" name="page" onchange="GetVideoList()" class="za_select">
+                            <option value="1">1</option>
+                        </select>
+                        <input type="button" class="button_a" value=" 查 詢 " onclick="GetVideoList()"/>
+
+                    </form>
+                </div>
+
+                <!-- 體育今日交易 -->
+                <div class="MPanel" style="display: block;">
+                    <table class="MMain"style="margin-bottom: 35px;" border="1">
+                        <tbody>
+                        <tr>
+                            <th>註單號</th>
+                            <th>下註時間/結算時間</th>
+                            <th>投註類型</th>
+                            <th>詳情</th>
+                            <th>投註額</th>
+                            <th class="cg_th"><span class="bet_dx0">可贏金額</span><span class="bet_dx1 none">兌付</span></th>
+                            <th>盈利</th>
+                        </tr>
+                        </tbody>
+                        <tbody id="ListData">
+                        <tr><td colspan="7" align="center">暫無數據</td></tr>
+                        </tbody><!--
+                            <tbody>
+                                <tr class="m_rig" style="background-Color: #EBF0F1">
+                                    <td colspan="2" align="right" class="">&nbsp;小計：</td>
+                                    <td class=""><span id="Nums">0</span>筆</td>
+                                    <td class=""><span id="BetMoneyAll" class="CountMoney">0</span></td>
+                                    <td class=""><span id="ValidBetMoneyAll"
+                                        class="CountMoney">0</span></td>
+                                    <td></td>
+                                    <td class=""><span id="ResultMoneyAll" class="CountMoney">0</span></td>
+                                </tr>
+                                <tr class="m_rig" style="background-Color: #EBF0F1">
+                                    <td colspan="2" align="right" class="">&nbsp;總計：</td>
+                                    <td class=""><span id="NumsAll">0</span>筆</td>
+                                    <td class=""><span id="BetMoneyAll_" class="CountMoney">0</span></td>
+                                    <td class=""><span id="ValidBetMoneyAll_"
+                                        class="CountMoney">0</span></td>
+                                    <td></td>
+                                    <td class=""><span id="ResultMoneyAll_" class="CountMoney">0</span></td>
+                                </tr>
+                            </tbody> -->
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function toggle_im(id,type){
+        var obj=$('#cg_'+id);
+        $('.bet_im_cg').hide();
+        if(obj.css("display")=='none') obj.show();
+        if(type)obj.hide();
+    }
+    var template = "<tr>" +
+            "<td class=\"\">{bet_id}</td>" +
+            "<td class=\"\" style='white-space:nowrap;'>{bet_time}<br>{update_time}</td>" +
+            "<td class=\"\">{bet_type}</td>" +
+            "<td class=\"\">{bet_info}</td>" +
+            "<td class=\"\">{bet_amt}</td>" +
+            "<td class=\"cg_th\">{Canwin}</td>" +
+            "<td class=\"\">{result}</td>" +
+            "</tr>" +
+            "<tr><td class='bet_im_cg' id='{id}' colspan=\"7\" style=\"display:none\">{bet_info_cg}</td></tr>";
+    /*DOM渲染模板   "<td class=\"\">{bet_id}</td>" +*/
+    var dataTemplate = function(template,data,im_type){
+        var bet_dx=$('#ball_sort').val();
+        bet_dx==3?bet_dx=2:bet_dx=1;
+
+        var outPrint="";
+        for(var i = 0 ; i < data.length ; i++){
+            var matchs = template.match(/\{[a-zA-Z\_]+\}/gi);
+            var temp="";
+            for(var j = 0 ; j < matchs.length ;j++){
+                if(temp == "")
+                    temp = template;
+                var re_match = matchs[j].replace(/[\{\}]/gi,"");
+                if(matchs[j]=='{bet_info_cg}'){
+                    if(data[i]['parlay_betdetails'] && data[i]['bet_type']=='PARLAYALL'){
+                        var bet_info='<div ><div onclick="toggle_im(\''+i+'\',1)" style="float:right;padding:3px 5px; background:#eeeeee;cursor:pointer;">關閉</div>';
+                        $.each($.parseJSON(data[i]['parlay_betdetails']),function(a,b){
+                            //console.log($.parseJSON(data[i]['parlay_betdetails']));
+                            bet_info+=(a+1)+' - '+betinfo(im_type,b['ParlayBetType'],b['ParlayBetOn'],b['ParlayLeagueName'],b['ParlayTeamHome'],b['ParlayTeamAway'],b['ParlayHandicap'],b['ParlayOdds'],b['ParlayBetCancelled'],'')+'<hr>';
+                        })
+                        bet_info+='</div>';
+                        temp = temp.replace(matchs[j],bet_info);
+                    }
+                }
+                else if(matchs[j]=='{bet_info}'){
+                    var bet_info='';
+                    /*是否是串關*/
+                    if(data[i]['parlay_betdetails'] && data[i]['bet_type']=='PARLAYALL'){
+
+                        bet_info='<div style="cursor:pointer;" onclick="toggle_im(\''+i+'\')">顯示註單詳情</div>';
+                    }else{
+                        /*是否是滾球*/
+                        if(('GQPD'+data[i]['bet_type']).indexOf('RB')!=-1){
+                            if(('GQPD'+data[i]['bet_type']).indexOf('RB1st')!=-1){
+                                sbc=1;
+                            }else sbc=2;
+                        }else{
+                            sbc=0;
+                        }
+                        Score={"sbc":sbc,"BetHomeScore":data[i]['BetHomeScore'],"BetAwayScore":data[i]['BetAwayScore'],"HTHomeScore":data[i]['HTHomeScore'],"HTAwayScore":data[i]['HTAwayScore'],"FTHomeScore":data[i]['FTHomeScore'],"FTAwayScore":data[i]['FTAwayScore']}
+
+                        //console.log(('GQPD'+data[i]['bet_type']).indexOf('RB'))
+                        bet_info=betinfo(im_type,data[i]['bet_type'],data[i]['selection'],data[i]['league_name'],data[i]['home_team'],data[i]['away_team'],data[i]['handicap'],data[i]['odds'],data[i]['bet_cancelled'],Score,data[i]['settled']);
+                    }
+                    temp = temp.replace(matchs[j],bet_info);
+                }
+                else if(matchs[j]=='{id}') {
+                    temp = temp.replace(matchs[j],'cg_'+i);
+                }
+                else if(matchs[j]=='{yxtz}') {
+                    if(bet_dx==1){
+                        if(data[i]['settled']==1 && data[i]['bet_cancelled']==0 && data[i]['result']!=0) {
+                            yxtz=data[i]['bet_amt']
+                        }else yxtz=(0).toFixed(4);
+                    }
+                    else{
+
+                        yxtz=data[i]['bt_buyback'];
+                    }
+                    temp = temp.replace(matchs[j],yxtz);
+                }
+                else if(matchs[j]=='{result}') {
+                    if(bet_dx==1){
+                        if(data[i]['settled']==1 && data[i]['bet_cancelled']==0) {
+                            result=data[i]['result'];
+                        }else result=0;
+                    }else{
+                        result=data[i]['bt_buyback']-data[i]['bet_amt'];
+                        result=parseFloat(result);
+                    }
+
+                    temp = temp.replace(matchs[j],parseFloat(result).toFixed(4));
+                }
+                else if(matchs[j]=='{bet_type}'){
+                    if(data[i]['bet_type']=='PARLAYALL') im_btype="體育串關";
+                    else im_btype="體育單式";
+                    temp = temp.replace(matchs[j],im_btype);
+                }
+                else temp = temp.replace(matchs[j],data[i][re_match]);
+            }
+            outPrint += temp;
+        }
+        return outPrint;
+    }
+    /*註單信息組合*/
+    function betinfo(im_type,bet_type,selection,legue_name,home_team,away_team,handicap,odds,bet_cancelled,score,settled){
+        var imtype=im_type.BetType[bet_type];
+        if(imtype)imtype=imtype[0];
+        else imtype=bet_type;
+
+        if(score){
+            //console.log(score)
+            /*上半滾球*/
+            if(score.sbc==1) {
+                betscore ='('+(score.BetHomeScore+':'+score.BetAwayScore)+')';
+                betscore_="[ "+score.HTHomeScore+":"+score.HTAwayScore+" ]";
+            }
+            else if(score.sbc==2) {
+                /*全場滾球*/
+                betscore ='('+(score.BetHomeScore+':'+score.BetAwayScore)+')';
+                betscore_="[ "+score.FTHomeScore+":"+score.FTAwayScore+" ]";
+            }
+            else {
+                betscore ="";
+                betscore_="[ "+score.FTHomeScore+":"+score.FTAwayScore+" ]";
+            }
+            if(settled==0){
+                betscore_='';
+            }
+        }else betscore=betscore_='';
+        var RQ='';
+        if(bet_type=='RB'|| bet_type=='AH'|| bet_type=='1STHALFAH'|| bet_type=='1STHFRB'|| bet_type=='2ndAH'|| bet_type=='RB2ndAH'){
+            /*判斷讓球*/
+            if(selection=='H') RQ=' <span class="b c1">主讓</span>';
+            if(selection=='A') RQ=' <span class="b c1">客讓</span>';
+        }
+        if(bet_type=='1STHALFOU'|| bet_type=='1STHFRBOU'|| bet_type=='2ndOU'|| bet_type=='OU'|| bet_type=='RB2ndOU'|| bet_type=='RBOU'){
+            /*判斷大小球*/
+            if(selection=='H') RQ=' <span class="b c1">大</span>';
+            if(selection=='A') RQ=' <span class="b c1">小</span>';
+        }
+        if(bet_type=='1STHALF1X2'|| bet_type=='1STHFRB1X2'|| bet_type=='1X2'|| bet_type=='2nd1X2'|| bet_type=='RB1X2'|| bet_type=='RB2nd1X2'){
+            /*判斷獨贏1X2*/
+            handicap='';
+        }
+        bet_info=legue_name+'<br>'+home_team+' - '+away_team+' <br>'+(imtype)+RQ+'  '+handicap+' @ '+odds + betscore+betscore_;
+        if(bet_cancelled==1)bet_info="<s>"+bet_info+"</s>";
+        return bet_info;
+    }
+
+    function GetVideoList(){
+        var html='';
+        $('.CountMoney').html(0.00);
+        var Company=$('#Company').val();
+        var VideoType=$('#VideoType').val();
+        var gametype=$('#gametype').val();
+        var s_time=$('#s_time').val();
+        var e_time=$('#e_time').val();
+        var page_num=$('#page_num').val();
+        var Page=$('#page :selected').val();
+        var ball_sort=$('#ball_sort :selected').val();
+
+        var OrderId=$('#OrderId').val();
+        var request = 'OrderId='+OrderId+'&g_type='+Company+'&VideoType='+VideoType+'&S_Time='+s_time+'&E_Time='+e_time+'&Page_Num='+page_num+'&Page='+Page+'&gametype='+gametype+'&ball_sort='+ball_sort;
+        $.ajax({
+            type: "GET",
+            url: '<{$site_url}>/index.php/member/record/sx_today_do',
+            data: request,
+            dataType: "json",
+            beforeSend: function(){
+                $('body').prepend('<div id="xxoo"><img src="<{#mem_images#}>/ajax-loader-white.gif" id="xxoo1"/></div>');
+                $('#xxoo').css({
+                    padding:        0,
+                    margin:         0,
+                    width:          '100%',
+                    height:         '100%',
+                    top:            '0',
+                    left:           '0',
+                    textAlign:      'center',
+                    color:          '#000',
+                    border:         'none',
+                    "position":     "absolute",
+                    "z-index":      1000,
+                    "opacity":      0.5,
+                    "background-color": "#000000"
+                });
+                $('#xxoo1').css({
+                    'margin-top':   '23%'
+                });
+
+            },
+            success: function(msg){
+                //alert(msg.error);return false;
+                $('#xxoo').remove();
+                if(msg.error){
+                    alert(msg.error);
+                    window.location.href = "<{$site_url}>/index.php/member/record/tc_record";
+                }else if(msg.Code==10022){
+                    $('#ListData').html('<tr><td colspan="7" align="center">暫無數據</td></tr>');
+                    $('#BetMoneyAll').html(0);
+                    $('#ValidBetMoneyAll').html(0);
+                    $('#ResultMoneyAll').html(0);
+                    $('#BetMoneyAll_').html(0);
+                    $('#ValidBetMoneyAll_').html(0);
+                    $('#ResultMoneyAll_').html(0);
+                    $('#Nums').html(0);
+                    $('#NumsAll').html(0);
+
+                }else if(msg.Code==10021){
+                    /*分頁控制*/
+                    var pages='<option value="1">1</option>';
+                    if(msg.count.pages){
+                        pages='';
+                        for(var i=1;i<=msg.count.pages;i++){
+
+                            pages+='<option value="'+i+'" '+($('#page').val()==i?" selected ":'')+'>'+i+'</option>';
+                        }
+
+                    }
+                    $('#page').html(pages);
+                    /*數據渲染*/
+                    html=dataTemplate(template, msg.data,msg.type);
+                    $('#ListData').html(html);
+
+                    $('#BetMoneyAll').html(msg.count['bet_amt']);
+                    $('#ValidBetMoneyAll').html(msg.count['payoff']);
+                    $('#ResultMoneyAll').html(msg.count['result']);
+                    $('#BetMoneyAll_').html(msg.count['bet_amtAll']);
+                    $('#ValidBetMoneyAll_').html(msg.count['payoffAll']);
+                    $('#ResultMoneyAll_').html(msg.count['resultAll']);
+                    $('#Nums').html(msg.count['Nums']);
+                    $('#NumsAll').html(msg.count['ResultNums']);
+                    if (msg.data[0]['bet_type'] == 'PARLAYALL') {toggnone(3,3);}
+
+                }else{
+                    $('#ListData').html('<tr><td colspan="7" align="center">暫無數據</td></tr>');
+                    $('#BetMoneyAll').html(0);
+                    $('#ValidBetMoneyAll').html(0);
+                    $('#ResultMoneyAll').html(0);
+                    $('#BetMoneyAll_').html(0);
+                    $('#ValidBetMoneyAll_').html(0);
+                    $('#ResultMoneyAll_').html(0);
+                    $('#Nums').html(0);
+                    $('#NumsAll').html(0);
+                }
+            }
+        });
+    }
+    //GetVideoList();
+</script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+@charset "utf-8";
+* { margin:0px; padding:0px; }
+body { font-family:Arial, Sans-Serif; color: #333; font-size: 12px; }
+.clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0}
+.clearfloat{zoom:1}
+.tb_message{ width:800px;margin:5px auto;min-height:100px;_height:100px;}
+#middle form ul,#middle form ul li{ margin-top:0px;}
+#playBox { width:800px; height:610px; margin:0 auto; }
+.recharge .description { padding-left: 60px; padding-right: 20px; line-height: 30px; }
+.gameList h1 a{ float:right; line-height:40px; padding-right:10px; color:#F1DF56; font-size:12px;}
+.gameList ul { clear:both;}
+#gamedesk li span a { font-size:12px; color:#FF0;}
+#main p a { color:#FFF;}
+#error{width:778px;margin:5px auto; padding:10px;color:red;}
+.red{color:red;}
+.green{color:green;}
+/*sport_left*/
+.sport #left{ width:200px;padding-bottom: 4px; margin-right: 2px; float:left; }
+.sport #middle{ width:798px; float:left; margin-right:0px; }
+#title_01{ height:42px; font-weight:bold; font-size:14px; color:#51110d; padding-left:6px; line-height:52px; background-image: url(s_left_title.png); background-repeat: no-repeat; padding-top: 10px; }
+#title_02{ height:10px;background-image: url(s_left_bottom.png); background-repeat: no-repeat; background-position: top; }
+#menu988 li .title { background-image: url(s_left_line.jpg); background-repeat: no-repeat; background-position: bottom; }
+.sport #menu988 , .sport #left #zhudan { background: url(s_left_line.png) repeat-y; padding-top: 2px; }
+.sport #left #zhudan { background-image: url(s_left_line2.png); padding-left:6px;display:none;}
+.sport #left #orderFrame{}
+.sport #left #orderFrame body { background-color:#c5b4a3;}
+#menu988 { list-style-type: none; text-align:left; }
+#menu988 .current{display:block;}
+#menu988 li .selected{ background: url(s_left_hover.png) no-repeat 8px 0px;}
+#menu988 .spannum{ float:right; line-height:30px; height:30px; padding-right: 12px; }
+#menu988 a { display: block; line-height:32px; padding-top: 4px; padding-right: 0; padding-bottom: 4px; padding-left: 25px; height: 32px; }
+#menu988 li { font-weight:bold; color:#FFFFFF; background: url(s_left_list.png) no-repeat; }
+#menu988 li a{ color:#ffffff;}
+#menu988 li a:hover{ color:#FFFF99; background: url(s_left_list2.png) no-repeat; margin-left: -1px; }
+#menu988 a:hover { text-decoration:none;font-weight:bold; }
+#menu988 li ul { list-style:none;display:none;}
+#menu988 li ul li{ overflow:hidden; background-image: url(s_left_list3.png); height: 30px; }
+#menu988 li ul a{ padding-left:40px; width:90px; font-weight:bold; color:#ffffff; line-height: 22px; height:22px; }
+#menu988 li ul a:hover { color:#ffffff; text-decoration:none; font-weight:bold; background: url(s_left_hover.png) no-repeat 8px 0px; margin-left:0px; }
+#title_01 a { color: #fdfa0e; float: left; height: 42px; background: url(s_left_menu.jpg) no-repeat; width: 95px; line-height: 42px; text-align: center; }
+#title_01 a.s_hover { color: #3a3839; background-image: url(s_left_menu.jpg); background-position: -95px; }
+#showBox{ background:#EFEFEF no-repeat center center;}
+.gameList ul li{ float:left;width:250px;overflow:hidden;list-style:none;text-align:center;margin-top:10px;}
+.gameList a{color:#FFF;font-size:14px; font-weight:bold; line-height:26px;}
+/*sport_left*/
+
+/*member*/
+.member .btype{color:#d20107;font-weight:bold;}
+.member #left{ width:197px; margin-top:0; background-color: #322728; margin-right:1px; }
+.member #middle{ width:825px; margin-top:0; color:#000; background: url(m_right_bg.jpg) repeat-y; background-color:#EFEFEF; min-height:700px; float:left; margin-right:0px; }
+.member .sidebar a.mcurrent {background-position: bottom left;color: #000;}
+#welcome {background: url(welcome.jpg) top left no-repeat; width: 220px;height: 48px;line-height: 48px;font-weight: bold;font-size: 14px;
+text-align: center;color: #CCC;}
+.sidebar { margin: 0;}
+.sidebar div, .sidebar a {display: block;background: url(sideNav.jpg) top left no-repeat;padding-left: 40px;width: 180px;height: 32px;
+line-height: 32px;color: #CCC;text-decoration: none;}
+.sidebar #sidebar-mem {background: url(sideNav01.jpg) top left no-repeat;height: 37px;line-height: 38px;}
+.sidebar #sidebar-msg {background: url(sideNav02.jpg) top left no-repeat; height: 37px;line-height: 38px;}
+#martop { margin:0; height:48px; overflow:hidden; background:url(nav_bg.jpg) no-repeat; color:#FFFFFF;}
+#martnav { width:100px; height:37px; line-height:37px; text-align:center; background:url(nav_hover.jpg) no-repeat; float:left; margin-left:90px; display:inline;}
+.nav8888 { margin:15px;font-weight:bold;color:#000; padding-left:5px;}
+#marquee { width:754px; margin:0 auto; padding:0 10px; border:1px solid #999999; height:24px; line-height:24px; color:#333333;}
+.table{width:97%;margin:12px;border-collapse:collapse;color:#000;}
+.table tr th{border:1px solid #999999;padding:3px;background-color:#D0D5C0;font-size:12px;}
+.table tr td{border:1px solid #999999;padding:3px; line-height:16px; font-size:12px; color:#333;}
+.table .td1{background-color:#dfdfdf;border:1px solid #999999;text-align:right;font-size:12px;}
+.table .submit{background-color:#dfdfdf;border:1px solid #999999;text-align:center;padding:3px;}
+.table .submit input{ height:28px; line-height:28px;padding-left:5px;padding-right:7px;}
+.table .win{color:red;}
+.table .sum{padding-left:20px;color:#FF0000;}
+.table .nav8888 .btn{padding:2px 10px;}
+.pager{ background-color:#EFEFEF;padding:5px 1px;}
+#banklist { width:730px; height:auto; padding-top:5px; padding-bottom:10px; overflow:hidden; float: left; margin-left: 45px; margin-top: 20px; }
+.banki { float:left; width:163px; height:26px; overflow:hidden; margin-top:8px; margin-right:6px; display:inline; background-color: #FFF; padding-top: 10px; padding-left: 10px; border: 1px dashed #E7E1E6; }
+#banklist .banki * { vertical-align:middle;}
+.banksub { text-align:center; margin:0; padding:0; height:30px; padding-top:20px; overflow:hidden; }
+.bankxx { width:300px; height:100px; overflow:hidden;  float:left; display:inline; margin-right:10px; margin-top:8px;}
+.bankxz { background-color:#FF9900;}
+.bankxx_id { float:left; width:30px; height:60px; padding-top:40px; overflow:hidden;}
+.bankxx_info { float:left; width:269px; height:90px; padding-top:10px; overflow:hidden; line-height:20px;}
+.btitle { margin:0; padding-left:20px; margin-top:8px; height:auto; overflow:hidden; font-weight:bold; background:url(accept.png) no-repeat; height:20px;}
+.bankt_info { margin:0; padding:10px 0 0 30px; height:auto; overflow:hidden; line-height:24px;}
+.bankinpt { width:200px; height:22px; border:1px solid #CCCCCC; line-height:22px;}
+.banks label{ width:130px;height:30px;display:block;float:left;padding-left:10px;line-height:30px;margin:5px;}
+.member h2 { background-image: url(member_all.png); background-repeat: no-repeat; height: 37px; width: 197px; font-weight: bold; line-height: 37px; font-size: 14px; color: #fccc0b; text-align: center; margin-bottom: 1px; background-position: 0px 0px; }
+.member #left dl dt { height: 29px; line-height: 29px; background: url(member_all.png) no-repeat  0px -98px; color: #2b2b05; font-weight: bold; padding-left: 42px; margin-bottom: 1px; }
+.member #left dl dd { background-image: url(member_all.png); background-repeat: no-repeat; height: 29px; margin-bottom: 1px; line-height: 29px; color: #f9f6dc; background-position: 0px -68px; }
+.member dl dd a { color: #f9f6dc; display: block; padding-left: 65px; }
+.member dl dd a:hover { color: #e3f60a; }
+#left .m_serch dt{ background-position: 0px -158px; }
+#left .m_info dt{ background-position: 0px -128px; }
+.member #left .m_hover { background-image: url(m_list_bg1.jpg); background-repeat: no-repeat; }
+.member #left .m_hover a { font-weight: bold; color: #ebd416; }
+.m_c_title { height: 36px; background-image: url(m_right_title.jpg); background-repeat: repeat-x; border: 1px solid #D2C8C8; font-weight: bold; line-height: 36px; padding-left: 50px; font-size: 14px; color: #FFF; }
+.m_right_info { height: 36px; line-height: 36px; width: 720px; margin-left: 27px; margin-top: 15px; border-bottom: dotted 1px #a9a9a9; padding-left: 30px; text-align: right; color: #777; }
+.m_right_info span { font-weight: bold; font-size: 14px; float: left; color: #333; }
+.member #middle p { line-height: 26px; height: 26px; text-indent: 60px; }
+.m_pay { background: url(member_all.png) no-repeat 60px -188px; font-weight: bold; color: #672d13; margin-top: 15px; margin-bottom: 15px; height: 30px; line-height: 30px; padding-left: 60px; }
+#middle .m_pay a { color: #672d13; display: block; height: 30px; width: 111px; text-align: center; }
+#middle .m_pay a:hover { color: #bc200f; }
+#middle .company_tit { line-height: 30px; height: 30px; background-color: #C4C5C3; border-top: dotted 1px #939650; border-bottom: dotted 1px #939650; margin: 20px; color: #5A2D1E; font-size: 14px; text-align: center; }
+#middle .online_notice { line-height: 24px; background-color: #c9c7c7; border-top: dashed 1px #696967; border-bottom: dashed 1px #696967; margin: 13px; color: #6b430a; padding:6px; }
+.member #middle dl { padding-top: 10px; padding-right: 20px; padding-bottom: 0px; padding-left: 20px; list-style-type:none; }
+.member #middle dl dt { color: #F00; line-height: 30px; height: 30px; }
+.member #middle dl dd { height: 30px; padding-left: 40px; line-height: 20px; }
+.member #middle dl .tn { color: #957b14; padding-top: 20px; }
+.member #middle dl .tn span { color: #F00; }
+.member #middle dl dd a { display: inline; color: #F00; padding: 0px; }
+.member #middle dl dd a:hover { color: #8B2521; }
+.member #middle ol { margin-left: 40px; background: url(step_bg.png) no-repeat; margin-top: 30px; height: 35px; list-style-type:none; }
+.member #middle ol li { float: left; width: 180px; font-weight: bold; color: #FFF; background: url(step_ico2.png) no-repeat 75px 2px; font-size: 16px; padding-top: 5px; text-align: center; height: 55px; }
+.member #middle ol .step_cur span { color: #633306; font-size: 12px; display: block; padding-top: 20px; }
+.member #middle ol .step_cur { background-image: url(step_ico1.png); color: #ffea00; }
+.member #banklist .banksub input , .member #banklist .back { height: 30px; width: 83px; background-image: url(step_botton.png); border: none 0px; }
+.member #banklist .back { margin-left:300px;}
+.member #middle .table a { color:#0E4D92;}
+.member #middle .table a:hover { color:#A73F16;}
+.member .notice { background-color:transparent; font-size:12px;}
+.banktx { line-height:20px;}
+.member .showForm .title{ text-align: right; padding-left:15px; padding-right:10px;}
+.member .showForm #submitbutton{height: 26px; width: 63px; margin-left:98px; margin-top:5px;}
+.member #middle p strong { color:#B81009;}
+.member #middle .bank_notice { color:red; line-height:20px; padding:18px;}
+.member #middle .pay_sucess { background:url(pay_succes.png) no-repeat; margin:50px 130px; font-weight:bold; padding-left:40px; height:30px;}
+#banklist .showForm { padding:0px; line-height:25px; }
+.showForm div label { height:100%; }
+.showForm .title { display:-moz-inline-box; display:inline-block; width:10%; text-align:center; }
+.showForm .element { display:-moz-inline-box; display:inline-block; width:40%; }
+.showForm .element input { width:90%; }
+.showForm label ul { padding-left:10%; color:#FF0000; }
+.member .bkl { float:left; width:360px; margin-bottom:10px;}
+#draw div{margin:3px auto;}
+/*member*/
+
+/*register*/
+.reg #left {width:236px;}
+.reg #middle { width: 764px; position: relative; float:left; margin-right:0px; margin-top:15px; }
+.reg_bg { width: 744px; padding-left: 20px; background-color: #FFF; filter: alpha(opacity=10); opacity:0.1; position: relative; height: 900px; }
+.notice{color:#FF0000;background-color:#EFEFEF;font-size:14px; font-weight:bold; line-height:24px;margin:5px auto;padding:10px 0 10px 20px;}
+.form{ line-height:28px; position: absolute; top: 0px; }
+.form label span{ display:block; width:90px; float:left; text-align: right; padding-right: 15px; color: #FFF; }
+.form h2{ font-weight: bold; color: #FF0; padding-left: 39px; background: url(../images/reg_border_top.png) no-repeat 15px bottom; height: 20px; line-height: 15px; width: 725px; font-size:12px; }
+.form div{ line-height: 40px; color: #f8e678; border-right: solid 2px #9b836f; border-left: solid 2px #9b836f; width: 536px; margin-left: 15px; padding-left: 100px; position: relative; }
+.form div ul{ position: absolute; top: -18px; left: 340px; background: url(n_ico.png) no-repeat 15px 29px; height:41px; list-style-type:none; }
+.form div ul li{ color:#FFF; line-height: 16px; background-color: #F00; filter: Alpha(Opacity=70); Opacity: 0.7; border: 2px solid #E7E9C3; padding: 3px; height: 16px;}
+.form input{ width:174px; height:27px; background: url(../images/reg_input.png) no-repeat 0px -84px; margin: 0px; border:none 0px; background-color:transparent; padding: 0px 0px 0px 10px; vertical-align: middle; line-height: 27px; }
+#register div select { background: url(../images/reg_input.png) no-repeat 0px -84px; margin: 0px; padding: 3px; height: 27px; width: 184px; border:none 0px; line-height: 27px; vertical-align: middle; background-color:transparent; }
+.submitDiv input { line-height: 33px; height: 33px; width: 92px; background: url(../images/reg_input.png) no-repeat -92px -112px; font-size: 14px; }
+#register div.use input { background-position: 0px 0px; padding-left: 25px; width: 159px; }
+#register div.pass input { background-position: 0px -28px; width: 159px; padding-left: 25px; }
+#register div.rep input { background-position: 0px -56px; width: 159px; padding-left: 25px; }
+.form textarea{width:80%;height:200px;}
+.form .reg_top { margin-left: 0px; height: 60px; background: url(reg_right_top.jpg) no-repeat; width: 764px; border:none 0px; padding-left: 0px; }
+.form .reg_add { margin-left: 0px; background: url(../images/reg_right_add.png) no-repeat center center; height: 42px;  font-weight: bold; padding-left: 320px; padding-top: 13px; margin-top: 10px; width: 444px; margin-bottom: 10px; border:none 0px; }
+.form .reg_bottom { background:url(../images/reg_border_bottom.png) no-repeat; height: 15px; border:none 0px; width: 735px; margin-bottom: 15px; padding-left: 0px; }
+.form #register .submitDiv { padding-left: 270px; width: 366px; }
+.form dl { padding-left: 30px; color:#c9b2a0; }
+.form dl dd span { color: #f8e678; }
+.form .check input { background-image: none; height: 13px; width: 13px; margin-right: 10px; }
+/*register*/
+
+/*agent*/
+.agent #left {width:236px}
+.agent #middle { width: 764px; position: relative; float:left; margin-right:0px; }
+.agent #middle .form { padding-top:20px;}
+.agent .form #agboxbx1 div , .agent .form #agboxbx2 div , .agent .form #agboxbx3 div , .agent .form .agboxbotw { border:none 0px; width: auto; margin-left: 0px; padding-left: 0px;}
+.agent .form div ul { left:240px;}
+#agent div select { background: url(../images/reg_input.png) no-repeat 0px -84px; margin: 0px; padding: 3px; height: 27px; width: 184px; border:none 0px; line-height: 27px; vertical-align: middle; background-color:transparent; }
+/*agent*/
+
+/*forget the password*/
+.fp #left {width:236px;}
+.fp #middle { width: 764px; position: relative; float:left; margin-right:0px; }
+.fp #middle .form { top:10px; }
+.fp .form div select { background: url(../images/reg_input.png) no-repeat 0px -84px; margin: 0px; padding: 3px; height: 27px; width: 184px; border:none 0px; line-height: 27px; vertical-align: middle; background-color:transparent; }
+.fp .form #submitbutton { line-height: 33px; height: 33px; width: 92px; background: url(../images/reg_input.png) no-repeat -92px -112px; font-size: 14px;  margin-left:185px;}
+/*forget the password*/
+
+/* jie ri usr */
+.chistAd { width: 330px;height: 320px; background: url(../images/main.png) no-repeat;position: absolute; bottom: 5px;left: 5px; z-index: 9999; }
+.chistAd1 { width: 330px;height: 320px; background: url(..images/main1.png) no-repeat 0px 220px;position: absolute; bottom: 5px;left: 5px; z-index: 9999; }
+.chistAdheadclose { margin:0; padding:0; height:15px;   margin-top:10px; cursor:pointer; }
+.chistAdheadopen { margin:0; padding:0; height:15px;  margin-top:230px; cursor:pointer;  }
+
+.gameList .deskother a { color:#FF0000;} 
+
+
+.member .notice { color:#FF0000;}
+#infoBox{width:800px;margin:0 auto;min-height:100px;}
+#infoBox h3{padding:5px;color:#FF0000;font-weight:bold;}
+#infoBox div{padding:3px 0 1px 30px;}
+
+
+.videoInfo { color:#FFFFFF;}
+.aginfop,.qjinfop,.hoinfop { text-align:center; margin:0;}
+#main p a.aginfoa,#main p a.qjinfoa,#main p  a.hoinfoa { color:#FF0000;}
+
+
+#lineswwbox { margin:0; height:auto; background:url(../images/bj2.png) no-repeat center top; padding-top:150px;}
+#linesulbox { width:538px; margin:0 auto; height:auto; font-family:"微软雅黑";}
+#linesulbox input { border:0; background:none; color:#FFFFFF; float:left; height:30px; line-height:30px;}
+#middle #linesulbox ul { margin:0; border-bottom:1px solid #999; margin-top:10px; height:30px; list-style-type:none;}
+#middle #linesulbox ul li { float:left; height:30px; line-height:30px; margin-top:0px; clear:none; color:#FFFFFF;}
+#publiclinesshua { margin:20px auto 10px auto; width:236px; height:32px; line-height:32px; color:#000000; background:url(../images/buttonbg.jpg) no-repeat; text-align:center; font-size:16px;}
+#middle #publiclinesshua a { display:block; width:236px; height:32px; color:#000000; text-decoration:none;}
+#linesulbox ul li a.linesboxa { display:block;  width:64px; height:26px; line-height:26px; text-align:center; background:url(../images/buttonbg.jpg) no-repeat; color:#000000;}
+
+#infoBox  { margin:0; height:300px; font-size:14px; color:#FFFFFF; line-height:25px;}
+#infoBox h3 { padding-top:10px; padding-left:10px;}
+#infoBox  a { color:#FFFFFF; font-weight:bold;}
+#infoBox div { line-height:26px; padding-top:30px; padding-left:40px;}
+
+/** slots*/
+#deskother { padding-top:5px; margin:0;}
+#main.gameList #deskother a.desktiger { float:left; display:block; width:70px; height:28px; background:url(../images/slots.png) no-repeat;}
+#main.gameList #deskother a.desktiger1 { float:left;  width:70px; height:28px;  background:url(../images/newslots.png) no-repeat; margin-left:10px; display:inline;}
+#main.gameList img { border:2px solid #FFFFFF;}
+
+/* new visual */
+

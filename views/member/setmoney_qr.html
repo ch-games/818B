@@ -1,0 +1,289 @@
+<{config_load file="public.conf" section="public"}>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="<{#mem_css#}>/index_main.css" />
+    <link rel="stylesheet" href="<{#mem_css#}>/standard.css" />
+    <link href="/public/member/css/jquery-ui.css" type="text/css" rel="stylesheet">
+    <link type="text/css" href="/public/member/css/standard.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/member/css/template.css" type="text/css">
+    <link rel="stylesheet" href="/public/member/css/easydialog.css" type="text/css">
+    <link rel="stylesheet" href="/public/member/css/bank.css" type="text/css">
+    <script type="text/javascript" src="/public/member/js/date/WdatePicker.js"></script>
+    <link href="/public/member/js/date/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/public/member/js/PCASClass.js"></script>
+    <script type="text/javascript" src="/public/member/js/jquery-1.js"></script>
+    <script type="text/javascript" src="/public/member/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="/public/member/js/easydialog.min.js"></script>
+</head>
+<style type="text/css">
+    #d_order{
+        width: 506px; height: 225px; display: none; border: solid 1px #000;
+        background: url('/public/member/images/pay_menuBg.png') no-repeat;
+    }
+    #card_msg,#order_num,#deposit_num,#in_date,#in_name{
+        width: 200px; height: 24px;
+    }
+</style>
+<script type="text/javascript">
+    var bid = <{$card_msg['id']}>;
+    var order_num,deposit_num,in_date,in_name,deposit_way,bank_style;
+    if (<{$type}> == 21) {
+        deposit_way = 8;
+        bank_style = 101;
+    }else if(<{$type}> == 22){
+        deposit_way = 6;
+        bank_style = 100;
+    }
+    //訂單確認彈框
+    function order_show(){
+
+        order_num = $.trim($("input[name='order_num']").val());
+        deposit_num = $.trim($("input[name='deposit_num']").val());
+        in_date = $.trim($("input[name='in_date']").val());
+        in_name = $.trim($("input[name='in_name']").val());
+
+        if(deposit_num == ""){
+            alert("存款金額為空！");
+            return false;
+        }
+        if(in_date == ""){
+            alert("存款時間為空！");
+            return false;
+        }
+        if(in_name == ""){
+            alert("存款姓名為空！");
+            return false;
+        }
+
+        $(".order_info:eq(0)").text(order_num);
+        $(".order_info:eq(1)").text(deposit_num);
+        $(".order_info:eq(2)").text(in_date);
+        $(".order_info:eq(3)").text(in_name);
+        $(".order_info:eq(4)").text("<{$qr['name']}>");
+
+        easyDialog.open({
+            container : 'd_order',
+            fixed : false
+        });
+    }
+
+    //訂單提交
+    function order_submit(){
+        if(!confirm("是否確認提交？")){
+            return false;
+        }else{
+            var dt = new Date();
+            var now_date =  (dt.getFullYear()+'-'+(dt.getMonth()+1)+'-'+dt.getDate()+' '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds()).replace(/([\-\: ])(\d{1})(?!\d)/g,'$10$2');
+
+            $.ajax({
+                type: "POST",
+                url: "bank_ajax",
+                dataType: "json",
+                data: {
+                    action:"add_form",
+                    order_num:order_num,
+                    bid:bid,
+                    bank_style:bank_style,
+                    deposit_way:deposit_way,
+                    deposit_num:deposit_num,
+                    in_date:in_date,
+                    in_name:in_name,
+                    now_date:now_date
+                },
+                success:function(msg){
+                    console.log(msg);
+                    if(msg.ok=="1"){
+                        alert("提交申請成功，財務將在15分鐘內為您加入額度，謝謝您!");
+                    }else if(msg.statu==1){
+                        alert("存款金額超過該層級上限"+msg.infos+"！");
+                    }else if(msg.statu==2){
+                        alert("存款金額低於該層級下限"+msg.infos+"！");
+                    }else if(msg.statu==3){
+                        alert("操作非法。請聯系客服人員");
+                        self.opener = null;
+                        self.close();
+                    }else if(msg.statu==4){
+                        alert("試玩賬號不允許存取款操作，請註冊正式賬號！");
+                        self.opener = null;
+                        self.close();
+                    }else{
+                        alert("存入失敗！請聯系客服！");
+                    }
+
+                    easyDialog.close();
+                    window.location.reload();
+                }
+            });
+        }
+    }
+
+    //數字驗證 過濾非法字符
+    function clearNoNum(obj) {
+        //先把非數字的都替換掉，除了數字和.
+        obj.value = obj.value.replace(/[^\d.]/g, "");
+        //必須保證第壹個為數字而不是.
+        obj.value = obj.value.replace(/^\./g, "");
+        //保證只有出現壹個.而沒有多個.
+        obj.value = obj.value.replace(/\.{2,}/g, ".");
+        //保證.只出現壹次，而不能出現兩次以上
+        obj.value = obj.value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+        if (obj.value != '') {
+            var re = /^\d+\.{0,1}\d{0,2}$/;
+            if (!re.test(obj.value))
+            {
+                obj.value = obj.value.substring(0, obj.value.length - 1);
+                return false;
+            }
+        }
+    }
+
+    function offerPrompt(){
+        var amount = parseFloat($("#deposit_num").val());
+
+        var minamount = parseFloat(<{$levelinfo['line_catm_min']}>);
+            var maxamount = parseFloat(<{$levelinfo['line_catm_max']}>);
+                if(amount > maxamount || amount < minamount)
+                {
+                    alert("您的存款金額限定是：[" + <{$levelinfo['line_catm_min']}> + "~" + <{$levelinfo['line_catm_max']}> + " ]之間\r\n請重新輸入存款金額.");
+                    $("#deposit_num").focus();
+                }
+                }
+</script>
+
+<body style="BACKGROUND: url(<{#mem_images#}>/../private/content_bg.jpg) repeat-y left top;">
+<div id="MAMain">
+    <div id="MACenter-content">
+        <div id="MACenterContent">
+            <div id="MNav">
+                <a target="k_memr" <{if $shiwan == 1}>onclick="alert('試玩賬號不能存取款，請註冊正式賬號！')"<{else}> href="<{$site_url}>/index.php/member/cash/zr_money"<{/if}> class="mbtn">額度轉換</a>
+                <div class="navSeparate"></div>
+                <a target="k_memr" <{if $shiwan == 1}>onclick="alert('試玩賬號不能存取款，請註冊正式賬號！')"<{else}> href="<{$site_url}>/index.php/member/cash/setmoney"<{/if}> class="mbtn">線上存款</a>
+                <div class="navSeparate"></div>
+                <a target="k_memr" <{if $shiwan == 1}>
+                onclick="alert('試玩賬號不能存取款，請註冊正式賬號！')"<{else}> href="<{$site_url}>/index.php/member/cash/getmoney"<{/if}> class="mbtn">線上取款</a>
+                <div class="navSeparate"></div>
+                <span class="mbtn">二維碼存款</span>
+                <div class="navSeparate"></div>
+            </div>
+            <div style="margin-top: 5px; height:auto">
+                <table border="1" bordercolor="#ccc" width="100%">
+                    <tbody>
+                    <tr height="30">
+                        <td width="300" align="center">
+                            <form action="setmoney_qr" method="get" onchange="this.submit()">
+                                <select name="type" style="width: 280px;">
+                                    <{foreach from=$qrs item=v}>
+                                    <option <{if $type==$v['id']}>selected="selected"<{/if}> value=<{$v['id']}>><{$v['name']}></option>
+                                    <{/foreach}>
+                                </select>
+                            </form>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr height="300">
+                        <td width="300" align="center" valign="center">
+                            <img src="<{$qr['logo_url']}>" width="280" height="280">
+                        </td>
+                        <td align="center">
+                            <table id="depositTable" width="90%" border="0">
+                                <thead>
+                                <tr>
+                                    <td colspan="2"></td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr height="40">
+                                    <td width="40%">·收款賬戶</td>
+                                    <td>
+                                        <input id="card_msg" name="card_msg" disabled="disabled" value="<{$card_msg['card_userName']}>--<{$card_msg['card_ID']}>" type="text">
+                                    </td>
+                                </tr>
+                                <tr height="40">
+                                    <td width="40%">·訂單號</td>
+                                    <td>
+                                        <input id="order_num" name="order_num" disabled="disabled" value="<{$order}>" type="text">
+                                    </td>
+                                </tr>
+                                <tr height="40">
+                                    <td>·存入金額</td>
+                                    <td>
+                                        <input id="deposit_num" name="deposit_num" onkeyup="clearNoNum(this);" onblur="offerPrompt();" type="text">
+                                    </td>
+                                </tr>
+                                <tr height="40">
+                                    <td>·存入時間</td>
+                                    <td>
+                                        <input id="in_date" name="in_date" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly" class="za_text Wdate">
+                                    </td>
+                                </tr>
+                                <tr height="40">
+                                    <td>·存款人姓名/昵稱</td>
+                                    <td><input id="in_name" name="in_name" type="text"></td>
+                                </tr>
+                                <tr height="40">
+                                    <td>·存款方式</td>
+                                    <td>
+                                        <label><input name="deposit_way" value="<{$type}>" id="deposit_way" type="radio" checked=""><{$qr['name']}></label>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr height="50">
+                        <td colspan="2" align="center">
+                            <input type="button" name="" value="提交申請" style="width:100px; height:30px;" onclick="order_show();">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var inval = new Date();
+    var inval_date =  (inval.getFullYear()+'-'+(inval.getMonth()+1)+'-'+inval.getDate()+' '+inval.getHours()+':'+inval.getMinutes()+':'+inval.getSeconds()).replace(/([\-\: ])(\d{1})(?!\d)/g,'$10$2');
+    $('#in_date').val(inval_date);
+</script>
+<!-- 彈框-訂單確認 -->
+<div id="d_order">
+    <div style="width: auto;height: 36px;line-height: 36px;text-indent: 10px;color: #fff;font-size: 18px;">確認訂單</div>
+    <form action="" method="get">
+        <table width="90%">
+            <tr>
+                <td width="100px">訂單號</td>
+                <td class="order_info"></td>
+            </tr>
+            <tr>
+                <td>存款金額</td>
+                <td class="order_info"></td>
+            </tr>
+            <tr>
+                <td>存款時間</td>
+                <td class="order_info"></td>
+            </tr>
+            <tr>
+                <td>存款姓名</td>
+                <td class="order_info"></td>
+            </tr>
+            <tr>
+                <td>存款方式</td>
+                <td class="order_info"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="button" value="確定" onclick="order_submit();">
+                    <input type="button" value="取消" onclick="easyDialog.close();">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<style type="text/css">
+    #loading {
+        background:  url("/public/member/images/loading11.gif") no-repeat scroll center 30px;
+        margin: 0 auto;
+        margin-top: 150px;
+        left: 50%;
+        margin-left: -200px;
+        margin-right: auto;
+        position: absolute;
+        padding-top:10px;
+        width: 400px;
+        height:50px;
+        text-align: center;
+    }
+</style>
+
+
+<table class="Hyzx-table" id="self_table">
+    <tr>
+        <th>板塊</th>
+        <th>有效打碼</th>
+        <th>返水額度</th>
+        <th>今日累計返水額度【不含當次】</th>
+    </tr>
+    <{foreach key=cid item=con from=$vconfig}>
+    <tr>
+        <td><{$title[$con]}></td>
+        <td>0</td>
+        <td>0</td>
+        <td><{$odata[$con]}></td>
+    </tr>
+    <{/foreach}>
+    <tr><td colspan="4" align="center"><span class="Hyzx-btn" id="fdbtn" style="width:240px;cursor: pointer;">自助返水<font color="red">【只返當天<b style="color:#033B7D;">(美東時間)</b>有效打碼】</font></span></td></tr>
+</table>
+<script type="text/javascript">
+
+    $('#fdbtn').click(function () {
+        $.ajax({
+            type: "GET",
+            data:{},
+            dataType: "json",
+            url: '/index.php/member/new/account/user_self_fd_data' + "?t=" + Math.random(),
+            beforeSend: function () {
+                maskLayer();
+            },
+            success: function (data) {
+                $('#HyZzc').remove();
+                $("#self_table").html('');
+                if (data.state == 0) {
+                    //alert(data.msg);
+                    $.member.alertpop('prompt',data.msg);
+                    window.location.href="javascript:$.member.changeNav('Account','account_defection_index',2);";
+                }else{
+                    $("#self_table").html(data.data);
+                    //alert(data.msg);
+                    $.member.alertpop('prompt',data.msg);
+                }
+            }
+        })
+    });
+
+
+    function self_fd_data(){
+        $(this).remove();
+        $.ajax({
+            type: "POST",
+            data:{},
+            dataType: "json",
+            url: '/index.php/member/new/account/user_self_fd_data_do' + "?t=" + Math.random(),
+            beforeSend: function () {
+                maskLayer();
+            },
+            success: function (data) {
+                $('#HyZzc').remove();
+                //alert(data.msg);
+                $.member.alertpop('success',data.msg);
+                window.location.href="javascript:$.member.changeNav('Account','account_defection_index',2);";
+            }
+        })
+    }
+
+
+    function maskLayer(){
+        $('body').prepend('<div id="HyZzc"><img src="/public/images/dzi/ajax-loader-white.gif" id="HyZzc1" height="150"/></div>');
+        $('#HyZzc').css({
+            padding:        0,
+            margin:         0,
+            width:          '100%',
+            height:         '100%',
+            top:            '0',
+            left:           '0',
+            textAlign:      'center',
+            color:          '#000',
+            border:         'none',
+            "position":     "absolute",
+            "z-index":      1000,
+            "opacity":      0.7,
+            "background-color": "#000000"
+        });
+        var zzHeight = Number($('body').height());
+        if (zzHeight <= 300) {zc1H = 120;}
+        else{zc1H = 150;}
+        var topH = Math.ceil((zzHeight - zc1H) / 2);
+        $('#HyZzc1').css({
+            'height': zc1H+'px',
+            'margin-top': topH+"px"
+        });
+    }
+
+</script>

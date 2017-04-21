@@ -1,0 +1,97 @@
+
+<div class="Hyzx-qu">
+	<p class="Hyzx-qu-p">為保護您的資金安全﹐請確實填寫您的銀行卡資料﹐以免有心人士竊取﹐謝謝!</p>
+	<form id="form1" method="post" name="form1" action="/index.php/member/new/bank/hk_money_do">
+		<input type="hidden" name="into" value="true" />
+		<input type="hidden" name="class" value="<{$class}>" />
+		<input type="hidden" name="method" value="<{$method}>" />
+		<table border="0" cellspacing="0" cellpadding="0" class="tab_bank">
+			<tbody>
+			<tr>
+				<td height="25" align="center" class="m_bc_ed">真實姓名: </td>
+				<td><{$userinfo["pay_name"]}></td>
+			</tr>
+			<tr>
+				<td height="25" align="center" class="m_bc_ed">取款密碼: </td>
+				<td ><{$userinfo["qk_pwd"]}></td>
+			</tr>
+			<tr>
+				<td height="25" align="center" class="m_bc_ed">出款銀行: </td>
+				<td>
+					<SELECT id="IntoBank" name="pay_card" class="txt4_3" style="width:131px">
+						<option value="">請選擇取款銀行</option>
+						<{foreach key=k item=v from=$bank_arr}>
+						<option value="<{$v['id']}>"><{$v['bank_name']}></option>
+						<{/foreach}>
+					</SELECT>
+				</td>
+			</tr>
+			<tr>
+				<td height="25" align="center" class="m_bc_ed"><span class="star">*</span>省份: </td>
+				<td><select name="province" style="width:131px" id="province"></select></td>
+				<td><div class="Validform_checktip">請選擇您的開戶行所在省份！</div></td>
+			</tr>
+			<tr>
+				<td height="25" align="center" class="m_bc_ed"><span class="star">*</span>城市: </td>
+				<td><select name="city" style="width:131px" id="city"></select></td>
+				<td><div class="Validform_checktip">請選擇您的開戶行所在城市！</div></td>
+			</tr>
+			<tr>
+				<td height="25" align="center" class="m_bc_ed"><span class="star">*</span>銀行賬號: </td>
+				<td colspan="2"><input id="pay_num" class="txt4_3" onkeyup="value=this.value.replace(/\D+/g,'')" type="text" name="pay_num"></td>
+			</tr>
+			<tr align="center">
+				<td colspan="3" class="table_bg1">
+					<input value="提交信息" onclick="SubInfo()" type="button" name="SubTran" id="SubTran" class="btn-sub">
+					<input type="reset" value="重置" class="btn-sub">
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</form>
+	<script language=javascript type=text/javascript>
+		function SubInfo(){
+			var IntoBank=$('#IntoBank').val();
+			if(IntoBank==''){
+				//alert('請選擇出款銀行');
+				$.member.alertpop('prompt','請選擇出款銀行!');
+				$('IntoBank').focus();
+				return false;
+			}
+			var account = $("#pay_num").val();
+			var reg = /^([0-9]{16,19})$/g; // 以19位數字開頭，以19位數字結尾
+			if(!reg.test(account))
+			{
+				//alert("格式錯誤，銀行卡號為16-19位純數字！");
+				$.member.alertpop('prompt','格式錯誤，銀行卡號為16-19位純數字！');
+				return false;
+			}
+			if($('#province').val()==''){
+				//alert('請選擇省份！');
+				$.member.alertpop('prompt','請選擇省份！');
+				return false;
+			}
+			if($('#city').val()==''){
+				//alert('請選擇城市！');
+				$.member.alertpop('prompt','請選擇城市！');
+				return false;
+			}
+			$('#form1').submit();
+		}
+
+		//是否是中文
+		function isChinese(str){
+			return /[\u4E00-\u9FA0]/.test(str);
+		}
+		new PCAS("province","city");
+
+	</script>
+	<div id="note">
+		<h4>備註：</h4>
+		<p>1.標記有&nbsp;<span class="star">*</span>&nbsp;者為必填項目。</p>
+		<p>2.手機與取款密碼為取款金額時的憑證,請會員務必填寫詳細資料。</p>
+
+	</div>
+
+</div>
+</div>

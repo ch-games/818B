@@ -1,0 +1,462 @@
+
+<{config_load file="public.conf" section="public"}>
+<{$mem_header}>
+<link rel="stylesheet" href="/shared/new_member/css/easydialog.css">
+<script src="/shared/new_member/js/easydialog.min.js"></script>
+
+
+<!-- 修改密碼 -->
+<div id="site_sitemoney" style="display:none;background-color:#F0F9FB;" class="con_menu">
+	<form action="/index.php/member/new/account/userpwd" method="post" name="add_form" onsubmit="return check_submit1()" id="add_form2">
+		<table class="Hyzx-table" style="width:600px;margin:0;text-align: left;">
+			<tbody><tr class="de_title" style="background:#F0F9FB;">
+				<th colspan="3" height="27" class="table_bg" align="left">
+					<span id="de_title" style="color: #fff;font-weight: bold;">修改密碼</span>
+				</th>
+			</tr>
+
+			<tr class="m_title" style="background: #fff;">
+				<td width="80" id="smoney" align=right>類型選擇：</td>
+				<td class="de_td" id="vtypes" colspan="2">
+					<select onchange="selecttype.submit();" name="pwdtype" id="myType">
+						<option value="userpwd">登錄密碼</option>
+						<option value="moneypwd">取款密碼</option>
+						<{foreach item=con key=key from=$video_user}>
+						<{assign var="name" value="$key"}>
+						<{assign var="pwd" value='pwd'}>
+						<option value="<{$name|cat:$pwd}>"><{strtoupper($key)}>密碼</option>
+						<{/foreach}>
+					</select>
+				</td>
+			</tr>
+
+
+			<tr class="m_title" style="display: none;" id="mpb">
+				<td width=100 align=right class="m_bc_ed" ><span id="mpbname"> </span></td>
+				<td align=left class="m_bc_ed" >
+					<{foreach item=con key=key from=$video_user}>
+					<{assign var="name" value="$key"}>
+					<{assign var="user" value='user'}>
+					<span id="<{$name|cat:$user}>" style="display: none;"><{$con['g_username']}></span>
+					<{/foreach}>
+				</td>
+				<td> </td>
+			</tr>
+			<tr class="m_title" style="background: #fff;">
+				<td width=100 align=right class="m_bc_ed" ><span id="ypwd">原密碼：</span></td>
+				<td class=hong width=150 align=left><INPUT id="oldpass" class=input_150 maxLength=12 type=password name=oldpass></td>
+				<td id="oldpass_txt" class=hong align=left>&nbsp;</td>
+			</tr>
+			<tr class="m_title">
+				<td align=right class="m_bc_ed" id="xpwd">新密碼：</td>
+				<td class=hong align=left><INPUT id="newpass" class=input_150 maxLength=12 type=password name=newpass></td>
+				<td id="newpass_txt" class=hong align=left>* <span class=lan id="yaoqiu">請輸入6-11位新密碼</span></td>
+			</tr>
+			<tr class="m_title">
+				<td align=right class="m_bc_ed">確認新密碼：</td>
+				<td class=hong align=left><INPUT id="newpass2" class=input_150 maxLength=12 type=password name=newpass2></td>
+				<td id="newpass2_txt" class=hong align=left>* <span class=lan>重復輸入壹次新密碼</span></td>
+			</tr>
+
+			<tr>
+				<td colspan="3" align="center">
+					<p><input type="submit" value="確定修改" class="Hyzx-btn active" style="border: none;float: left;margin-left: 220px;margin-right: 10px;">
+						<input type="reset" value="關閉" onclick="easyDialog.close();" class="Hyzx-btn active" style="border: none;float: left;"></p>
+				</td>
+			</tr>
+			</tbody></table>
+	</form>
+</div>
+
+
+
+
+
+
+
+
+<div class="Hyzx-right">
+	<h3 class="nav2">
+		<span class="flt">基本資訊</span>
+		<a href="javascript:$.member.changeNav('Account','account_mem_index',1);" data="account_mem_index" class="Hyzx-btn flt active">基本資訊</a>
+
+		<a href="javascript:$.member.changeNav('Account','account_betting_index',2);" data="account_betting_index" class="Hyzx-btn flt">投註資訊</a>
+		<{if $is_self}>
+		<a href="javascript:$.member.changeNav('Account','account_defection_index',2);" data="account_defection_index" class="Hyzx-btn flt">自助返水</a>
+		<{/if}>
+	</h3>
+	<div class="Hyzx-content">
+		<div class="Hyzx-userData">
+			<p><span>用戶名稱:</span><{$userinfo['username']}></p>
+			<p><span>註冊時間:</span><{$userinfo['reg_date']}></p>
+			<p><span>真實姓名:</span><{$userinfo['pay_name']}></p>
+			<{if $reg_config['is_life'] eq 1}><p><span>出生日期:</span><{$userinfo['birthday']}></p><{/if}>
+			<p><span>最後登入時間:</span><{$userinfo['login_time']}></p>
+			<p><span class="Hyzx-btn" style="width:100px;cursor: pointer;color:black;" onclick="site_sitemoney()">修改密碼</span></p>
+		</div>
+		<div class="Hyzx-userTable">
+			<table class="Hyzx-table Hyzx-table-w MMain">
+				<tr>
+					<th colspan="4">賬戶總余額: ￥<span id="allmoney"><{$allmoney}></span> <a href="javascript:;" class="frt Hyzx-repeatBtn" title="刷新余額" id="bet"></a></th>
+				</tr>
+				<{foreach item=con from=$mdata}>
+				<tr>
+					<{foreach key=k item=v from=$con}>
+					<{assign var="name" value="$k"}>
+					<{assign var="money" value='_money'}>
+					<td><span class="Hyzx-tdTitle"><{if $k == 'local'}>系統<{else}><{strtoupper($k)}><{/if}>余額:</span>￥<span id="<{$name|cat:$money}>"><{$v}></span></td>
+					<{/foreach}>
+				</tr>
+				<{/foreach}>
+			</table>
+		</div>
+		<div class="clr"></div>
+		<table class="Hyzx-table mt30">
+			<tr>
+				<th>交易時間</th>
+				<th>金額</th>
+				<th>類型</th>
+				<th>交易類別</th>
+				<th>余額</th>
+				<th>備註</th>
+			</tr>
+			<{if !empty($cash_data)}>
+			<{foreach key=cid item=con from=$cash_data}>
+			<tr>
+				<td style="text-align: center;" class=""><{$con['cash_date']}></td>
+				<td style="text-align: center;" class=""><{$con['cash_num']}></td>
+				<td style="text-align: center;" class=""><{$con['cash_type']}></td>
+				<td style="text-align: center;" class=""><{$con['cash_do_type']}></td>
+				<td style="text-align: center;" class="MNumber"><{$con['cash_balance']}></td>
+				<td style="text-align: center;Word-break: break-all;" class=""><{$con['remark']}></td>
+			</tr>
+			<{/foreach}>
+			<{else}>
+			<tr><td style="text-align: center;" colspan='6'>暫無交易記錄</td></tr>
+			<{/if}>
+		</table>
+	</div>
+</div>
+<div class="info" style="display:none">
+	<span class="sport_money"><{$userinfo['money']}></span>
+	<{foreach key=cid item=con from=$video_config}>
+	<{assign var="name" value="$con"}>
+	<{assign var="money" value='_money'}>
+	<span class="<{$name|cat:$money}>"><{$userinfo[$name|cat:$money]}></span>
+	<{/foreach}>
+</div>
+<script type="text/javascript">
+	$('#bet').click(function () {
+		var local_money=$(".info .sport_money").html();
+		<{foreach key=cid item=con from=$video_config}>
+			<{assign var="name" value="$con"}>
+				<{assign var="money" value='_money'}>
+					var <{$name|cat:$money}>=$(".info .<{$name|cat:$money}>").html();
+					<{/foreach}>
+
+						//動態加載
+						$.ajax({
+						type: 'GET',
+						url: "<{$site_url}>/index.php/member/video/getallbalance?action=save",
+						dataType: "json",
+						beforeSend: function(){
+						var nr="<img src='<{#mem_images#}>/load_pk.gif'/>";
+						$(".MMain #local_money").html(nr);
+						<{foreach key=cid item=con from=$video_config}>
+						<{assign var="name" value="$con"}>
+						<{assign var="money" value='_money'}>
+						$(".MMain #<{$name|cat:$money}>").html(nr);
+						<{/foreach}>
+						$(".MMain #allmoney").html(nr);
+					},
+						success: function (rdata) {
+						if(rdata.error){
+						alert(rdata.error);
+						window.location.href = "<{$site_url}>/index.php/index/new_member";
+					}else if(rdata.data.Code ==10017){
+						$(".MMain #local_money").html(parseFloat(local_money).toFixed(2));
+
+						<{foreach key=cid item=con from=$video_config}>
+						<{assign var="name" value="$con"}>
+						<{assign var="money" value='_money'}>
+						if(rdata.data.<{$con}>status){
+						$(".MMain #<{$name|cat:$money}>").html(parseFloat(rdata.data.<{$con}>balance).toFixed(2));
+						$(".info .<{$name|cat:$money}>").html(parseFloat(rdata.data.<{$con}>balance).toFixed(2));
+					}else{
+						$(".MMain #<{$name|cat:$money}>").html(parseFloat(<{$name|cat:$money}>).toFixed(2));
+					}
+						if(rdata.data.<{$con}>info == 9999){
+						$(".MMain #<{$name|cat:$money}>").html('維護');
+					}
+						<{/foreach}>
+						countallmoney();
+					}
+					}
+					});
+
+						function countallmoney(){
+						allm = parseFloat($(".MMain #local_money").html());
+						<{foreach key=cid item=con from=$video_config}>
+						<{assign var="name" value="$con"}>
+						<{assign var="money" value='_money'}>
+						allm +=  parseFloat($(".info .<{$name|cat:$money}>").html());
+						<{/foreach}>
+						$(".MMain #allmoney").html(parseFloat(allm).toFixed(2)+" RMB")
+					}
+
+						});
+</script>
+</div>
+<script>
+	//修改密碼
+	function site_sitemoney(){
+		easyDialog.open({
+			container : 'site_sitemoney',
+			fixed : false
+		});
+	}
+
+	$(document).ready(function(){
+		$("#myType").bind("change",function(){
+			$("#mpb").hide();
+			$("#mguser").hide();
+			$("#ptuser").hide();
+			$("#bbinuser").hide();
+			$("#abuser").hide();
+			var myType = $(this).val();
+			$("#add_form2").attr('action',"/index.php/member/new/account/" + myType);
+			if(myType == 'userpwd'){
+				$("#add_form2").attr('onsubmit',"return check_submit1()");
+				$("#yaoqiu").html("請輸入6-11位新密碼");
+			}else if(myType == 'moneypwd') {
+				$("#add_form2").attr('onsubmit',"return check_submit2()");
+				$("#yaoqiu").html("請輸入4位新密碼");
+			}else if(myType == 'mgpwd'){
+				$("#add_form2").attr('onsubmit',"return check_submit3()");
+				$("#ypwd").html("網站密碼:");
+				$("#mpbname").html("mg用戶:");
+				$("#mpb").show();
+				$("#mguser").show();
+				$("#yaoqiu").html("請輸入6-12位數字新密碼");
+			}else if(myType == 'ptpwd'){
+				$("#add_form2").attr('onsubmit',"return check_submit4()");
+				$("#ypwd").html("網站密碼:");
+				$("#mpbname").html("pt用戶");
+				$("#mpb").show();
+				$("#ptuser").show();
+				$("#yaoqiu").html("請輸入6-12位數字新密碼");
+			}else if(myType == 'bbinpwd'){
+				$("#ypwd").html("網站密碼:");
+				$("#mpbname").html("bbin用戶");
+				$("#mpb").show();
+				$("#bbinuser").show();
+				$("#yaoqiu").html("請輸入6-12位數字新密碼");
+				$("#add_form2").attr('onsubmit',"return check_submit5()");
+			}else if(myType == 'abpwd'){
+				$("#ypwd").html("網站密碼:");
+				$("#mpbname").html("ab用戶");
+				$("#mpb").show();
+				$("#abuser").show();
+				$("#yaoqiu").html("請輸入6-12位數字新密碼");
+				$("#add_form2").attr('onsubmit',"return check_submit6()");
+			}
+		});
+	})
+
+	$(function(){
+		//驗證非法字符(@)
+		var oldval;
+		$("input").keydown(function(event) {
+			oldval = $(this).val();
+		});
+		$("input").keyup(function(event) {
+			newval  = $(this).val();
+			var reg = /([`~!@#$%^&*()_+<>?:"{},\/;'[\]])/ig;
+			var reg1 = /([·~！#@￥%……&*（）——+《》？：“{}，。\、；’‘【\】])/ig;
+			$(this).val(newval.replace(reg, ""));
+			$(this).val(newval.replace(reg, ""));
+		});
+	})
+
+	function check_submit1(){
+		var oldpass=$("#oldpass").val();
+		var newpass=$("#newpass").val();
+		var newpass2=$("#newpass2").val();
+		if(oldpass && newpass && newpass2){
+			if(oldpass.length<6 || oldpass.length>11){
+				//alert("原登錄密碼格式不正確！");
+				$.member.alertpop('prompt',"原登錄密碼格式不正確！");
+				return false;
+			}
+			if(newpass.length<6 || newpass.length>11){
+				//alert("新登錄密碼格式不正確！");
+				$.member.alertpop('prompt',"新登錄密碼格式不正確！");
+				return false;
+			}
+			if(newpass2.length<6 || newpass2.length>11){
+				//alert("確認新登錄密碼格式不正確！");
+				$.member.alertpop('prompt',"確認新登錄密碼格式不正確！");
+				return false;
+			}else if(newpass!=newpass2){
+				//alert("確認登錄密碼不正確！");
+				$.member.alertpop('prompt',"確認登錄密碼不正確！");
+				return false;
+			}
+		}else{
+			//alert("請填寫完整表單！");
+			$.member.alertpop('prompt',"請填寫完整表單！");
+			return false;
+		}
+	}
+	function check_submit2(){
+		var oldpass=$("#oldpass").val();
+		var newpass=$("#newpass").val();
+		var newpass2=$("#newpass2").val();
+		if(oldpass && newpass && newpass2){
+			if(oldpass.length!=4||!(/^[0-9]*$/g.test(oldpass))){
+				//alert("原取款密碼格式不正確2！");
+				$.member.alertpop('prompt',"原取款密碼格式不正確！");
+				return false;
+			}
+			if(newpass.length!=4||!(/^[0-9]*$/g.test(newpass))){
+				//alert("新取款密碼格式不正確3！");
+				$.member.alertpop('prompt',"新取款密碼格式不正確！");
+				return false;
+			}
+			if(newpass2.length!=4||!(/^[0-9]*$/g.test(newpass2))){
+				//alert("確認新取款密碼格式不正確！");
+				$.member.alertpop('prompt',"確認新取款密碼格式不正確！");
+				return false;
+			}else if(newpass!=newpass2){
+				//alert("確認取款密碼不正確！");
+				$.member.alertpop('prompt',"確認取款密碼不正確！");
+				return false;
+			}
+		}else{
+			//alert("請填寫完整表單！");
+			$.member.alertpop('prompt',"請填寫完整表單！");
+			return false;
+		}
+	}
+	function check_submit3(){
+		var oldpass=$("#oldpass").val();
+		var newpass=$("#newpass").val();
+		var newpass2=$("#newpass2").val();
+		if(oldpass && newpass && newpass2){
+			if(oldpass.length<6 || oldpass.length>12){
+				//alert("舊密碼格式不正確！");
+				$.member.alertpop('prompt',"舊密碼格式不正確！");
+				return false;
+			}
+			if(newpass.length<6 || newpass.length>12){
+				//alert("新密碼格式不正確！");
+				$.member.alertpop('prompt',"新密碼格式不正確！");
+				return false;
+			}
+			if(newpass2.length<6 || newpass2.length>12){
+				//alert("確認密碼格式不正確！");
+				$.member.alertpop('prompt',"確認密碼格式不正確！");
+				return false;
+			}else if(newpass!=newpass2){
+				//alert("確認密碼不正確！");
+				$.member.alertpop('prompt',"確認密碼不正確！");
+				return false;
+			}
+		}else{
+			//alert("請填寫完整表單！");
+			$.member.alertpop('prompt',"請填寫完整表單！");
+			return false;
+		}
+	}
+	function check_submit4(){
+		var oldpass=$("#oldpass").val();
+		var newpass=$("#newpass").val();
+		var newpass2=$("#newpass2").val();
+		if(oldpass && newpass && newpass2){
+			if(oldpass.length<6 || oldpass.length>12){
+				//alert("舊密碼格式不正確！");
+				$.member.alertpop('prompt',"舊密碼格式不正確！");
+				return false;
+			}
+			if(newpass.length<6 || newpass.length>12){
+				//alert("新密碼格式不正確！");
+				$.member.alertpop('prompt',"新密碼格式不正確！");
+				return false;
+			}
+			if(newpass2.length<6 || newpass2.length>12){
+				//alert("確認密碼格式不正確！");
+				$.member.alertpop('prompt',"確認密碼格式不正確！");
+				return false;
+			}else if(newpass!=newpass2){
+				//alert("確認密碼不正確！");
+				$.member.alertpop('prompt',"確認密碼不正確！");
+				return false;
+			}
+		}else{
+			//alert("請填寫完整表單！");
+			$.member.alertpop('prompt',"請填寫完整表單！");
+			return false;
+		}
+	}
+	function check_submit5(){
+		var oldpass=$("#oldpass").val();
+		var newpass=$("#newpass").val();
+		var newpass2=$("#newpass2").val();
+		if(oldpass && newpass && newpass2){
+			if(oldpass.length<6 || oldpass.length>12){
+				//alert("舊密碼格式不正確！");
+				$.member.alertpop('prompt',"舊密碼格式不正確！");
+				return false;
+			}
+			if(newpass.length<6 || newpass.length>12){
+				//alert("新密碼格式不正確！");
+				$.member.alertpop('prompt',"新密碼格式不正確！");
+				return false;
+			}
+			if(newpass2.length<6 || newpass2.length>12){
+				//alert("確認密碼不正確！");
+				$.member.alertpop('prompt',"確認密碼不正確！");
+				return false;
+			}else if(newpass!=newpass2){
+				//alert("確認密碼不正確！");
+				$.member.alertpop('prompt',"確認密碼不正確！");
+				return false;
+			}
+		}else{
+			//alert("請填寫完整表單！");
+			$.member.alertpop('prompt',"請填寫完整表單！");
+			return false;
+		}
+	}
+	function check_submit6(){
+		var oldpass=$("#oldpass").val();
+		var newpass=$("#newpass").val();
+		var newpass2=$("#newpass2").val();
+		if(oldpass && newpass && newpass2){
+			if(oldpass.length<6 || oldpass.length>12){
+				//alert("舊密碼格式不正確！");
+				$.member.alertpop('prompt',"舊密碼格式不正確！");
+				return false;
+			}
+			if(newpass.length<6 || newpass.length>12){
+				//alert("新密碼格式不正確！");
+				$.member.alertpop('prompt',"新密碼格式不正確！");
+				return false;
+			}
+			if(newpass2.length<6 || newpass2.length>12){
+				//alert("確認密碼不正確！");
+				$.member.alertpop('prompt',"確認密碼不正確！");
+				return false;
+			}else if(newpass!=newpass2){
+				//alert("確認密碼不正確！");
+				$.member.alertpop('prompt',"確認密碼不正確！");
+				return false;
+			}
+		}else{
+			//alert("請填寫完整表單！");
+			$.member.alertpop('prompt',"請填寫完整表單！");
+			return false;
+		}
+	}
+</script>
+<{$mem_foot}>

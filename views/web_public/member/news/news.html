@@ -1,0 +1,43 @@
+
+<div class="Hyzx-right">
+	<h3 class="nav2">
+		<span class="flt">最新信息</span>
+		<a href="javascript:$.member.changeNav('Latestnews','latestnews_new_index',1);" data="latestnews_new_index" class="Hyzx-btn flt active">最新信息</a>
+		<a href="javascript:$.member.changeNav('Latestnews','latestnews_history_index',2);" data="latestnews_history_index" class="Hyzx-btn flt">歷史信息</a>
+	</h3>
+	<div class="Hyzx-content">
+		<table class="Hyzx-table">
+			<tr>
+				<th>日期</th>
+				<th>內容</th>
+			</tr>
+			<{if empty($news) }>
+			<tr>
+				<td colspan="2">
+					暫無最新消息
+				</td>
+			</tr>
+			<{else}>
+			<{foreach from=$news key=i item=v}>
+			<tr>
+				<td style="width:200px;"><{$v.add_time}></td>
+				<td class="open-yl" style="cursor: pointer;"><{mb_substr($v['chn_simplified'],0,40,'utf-8')}><{if strlen($v['chn_simplified']) gt 40}>······<{/if}></td>
+			</tr>
+			<tr class="z-yl-tr" style="display:none;">
+				<td colspan="2" style="width:920px;"><{$v['chn_simplified']}></td>
+			</tr>
+			<{/foreach}>
+			<{/if}>
+		</table>
+	</div>
+	<script type="text/javascript">
+		$(function(){
+			$(".open-yl").click(function(){
+				$(this).parents('tr').next().siblings('tr.z-yl-tr').hide();
+				$(this).parents('tr').next().toggle('200', function() {
+					$.member.atHeight();
+				});
+			});
+		})
+	</script>
+</div>

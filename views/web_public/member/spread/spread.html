@@ -1,0 +1,64 @@
+
+<div class="Hyzx-right">
+	<h3 class="nav2">
+		<span class="flt">我要推廣</span>
+		<a href="javascript:$.member.changeNav('Spread','spread_mem_index',1);" data="spread_mem_index" class="Hyzx-btn flt active">我要推廣</a>
+		<a href="javascript:$.member.changeNav('Spread','spread_ranking_index',2);" data="spread_ranking_index" class="Hyzx-btn flt">排行榜</a>
+	</h3>
+	<div class="Hyzx-content">
+		<h4>推廣資料</h4>
+		<table class="Hyzx-table mt10">
+			<tr>
+				<th>賬號</th>
+				<th>推廣人數</th>
+				<th>收益</th>
+				<th>推廣網址</th>
+			</tr>
+			<tr>
+				<td><{$sdata['username']}></td>
+				<td><{$sdata['spread_num']}></td>
+				<td><{$sdata['spread_money']}></td>
+				<td><span id="fe_text_1"><{$sdata['surl']}></span>
+					<span class="btn-copy2 d_clip_button" title="復制網址到剪切板" data-clipboard-target="fe_text_1" data-clipboard-text="Default clipboard text from attribute">復制</span></td>
+			</tr>
+		</table>
+		<table class="Hyzx-table mt10">
+			<tr>
+				<th colspan="50">推廣返利比例</th>
+			</tr>
+			<{foreach from=$video_types item=val key=i}>
+			<tr>
+				<td><{$val}></td>
+				<{foreach from=$disdata item=val}>
+				<td><{$val[$i]}></td>
+				<{/foreach}>
+			</tr>
+			<{/foreach}>
+		</table>
+	</div>
+</div>
+<script>
+	$(document).ready(function(){
+		var clip = new ZeroClipboard($('.d_clip_button'));
+
+		clip.on('ready', function(){
+			debugstr('Flash 已經準備完成。');
+			this.on('aftercopy', function(event){
+				//alert(event.data['text/plain']);
+				$.member.alertpop('success',event.data['text/plain']);
+				debugstr('已經復制剪貼板：' + event.data['text/plain']);
+			});
+		});
+
+		clip.on('error', function(event){
+			$('.demo-area').hide();
+			debugstr('error[name="' + event.name + '"]: ' + event.message);
+			ZeroClipboard.destroy();
+		});
+
+
+		function debugstr(text){
+			$('#d_debug').append($('<p>').text(text));
+		}
+	});
+</script>

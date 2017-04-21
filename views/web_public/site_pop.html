@@ -1,0 +1,62 @@
+<{config_load file="public.conf" section="public"}>
+
+<div id="js-notice-pop" style="display:none;">
+<{$pop['content']}>
+</div>
+
+<{if $pop['ad_way'] eq 2}>
+    <style type="text/css">
+    .ui-widget-content {
+        border: 0px;
+        background: none;
+        color: none;
+    }
+    .ui-widget-header {
+        border: 0px;
+        background: none;
+        color: none;
+        font-weight: bold;
+    }
+    .ui-widget-content{
+        display: none;
+    }
+   .ui-widget-overlay {
+        background: #3C3838;
+        opacity: 0.5;
+    }
+    </style>
+<{else}>
+    <style type="text/css">
+    .ui-widget-header{
+        background: <{$pop['pop_config']['title_bcolor']}>;
+        color: <{$pop['pop_config']['title_color']}>;
+    }
+    </style>
+<{/if}>
+
+<script>
+window.onload = function(){
+    try{
+    (function(){
+        if ($.cookie('PKBET_ORG')) return;
+        $.cookie('PKBET_ORG', 'Y', {path:'/', expires: ''});
+        $('#js-notice-pop').dialog({
+            'closeOnEscape': true,
+            'bgiframe': true,
+            'width' : 'auto',
+            'height' : 'auto',
+            <{if $pop['ad_way'] neq 2}>
+            'title': "<{$pop['title']}>",
+            <{/if}>
+            'resizable': true,
+            'modal': true,
+            'autoOpen': false,
+            'buttons' : {
+                "关闭" : function() { $(this).dialog("close"); }
+            }
+        });
+                $('#js-notice-pop').dialog('open');
+            })();
+    }catch(e){}
+}
+</script>

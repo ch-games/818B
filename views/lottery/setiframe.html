@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>setiframe</title>
+</head>
+<body>
+    <script type="text/javascript">
+        window.onload = function () {
+            var search = location.search.replace('?', '');
+
+            if (search) {
+                var height = search.split('=')[1];
+				var height = Number(height)+10;
+                var doc = parent.parent.document;
+				var ifr = window.parent.parent.document.getElementById("iframepage");
+                ifr.style.height = height+'px';
+            }
+            
+            /*** 推送处理 ****/
+        
+            ///加载初始化ws处理
+            var $ = parent.window.$; 
+            var ws = window.parent.parent.document.customize.ws;
+            ///注册收到信息回调
+            ws.init(render,'onmessage');
+            
+            function render(data){
+                var patten = /(?:\?type=(\w+))/;
+                var lot_type = window.parent.location.search.match(patten);
+                
+                if(data.type != lot_type[1])
+                    return;
+                switch(data.type){
+                    case 'fc_3d':
+                    case 'pl_3':
+                        $("#prev-issue").text(data.qishu);
+                        var result = JSON.parse(data.result);
+                        $(".ball_3d").each(function(i){
+                            $(this).text(result[i]);
+                        });
+                    break;
+                    
+                    case 'cq_ten':
+                    case 'gd_ten':
+                        $("#prev-issue").text(data.qishu);
+                        var result = JSON.parse(data.result);
+                        $(".ball_sf").each(function(i){
+                            $(this).text(result[i]);
+                        });
+                    break;
+                    
+                    case 'gd_11':
+                    case 'sd_11':
+                    case 'jx_11':
+                        $("#prev-issue").text(data.qishu);
+                        var result = JSON.parse(data.result);
+                        $(".ball_11").each(function(i){
+                            $(this).text(result[i]);
+                        });
+                    break;
+                    
+                    case 'bj_8':
+                    case 'cq_ssc':
+                    case 'tj_ssc':
+                    case 'xj_ssc':
+                        $("#prev-issue").text(data.qishu);
+                        var result = JSON.parse(data.result);
+                        $(".ball_bj8").each(function(i){
+                            $(this).text(result[i]);
+                        });
+                    break;
+                    
+                    case 'bj_10':
+                        $("#prev-issue").text(data.qishu);
+                        var result = JSON.parse(data.result);
+                        $(".icon_2").each(function(i){
+                           $(this).attr('class','icon_2  bj'+parseInt(result[i])+'-2');
+                        });
+                    break;
+                    
+                    case 'js_k3':
+                    case 'jl_k3':
+                    case 'gx_k3':
+                    case 'ah_k3':
+                        $("#prev-issue").text(data.qishu);
+                        var result = JSON.parse(data.result);
+                        $(".icon_2").each(function(i){
+                           $(this).attr('class','icon_2  ball-'+parseInt(result[i])+'-k3');
+                        });
+                    break;
+                    
+                    case 'bj_28':
+                    case 'xy_28':
+                        $("#prev-issue").text(data.qishu);
+                        var result = JSON.parse(data.result);
+                        var count = 0;
+                        $(".ball_28").each(function(i){
+                            $(this).text(result[i]);
+                            count+=parseInt(result[i]);
+                        });
+                        $(".ball_sf").text(count)
+                    break;
+                    
+                    case 'liuhecai':
+                        console.log(JSON.stringify(data));
+                    break;
+                }
+            }
+            
+            ///var patten = /(?:\?type=(\w+))/;
+            ///var lot_type = window.parent.location.search.match(patten);
+            ///var data = {"type":"change","val":lot_type[1]};
+            ///$flag = ws.send(JSON.stringify(data));
+        
+        /*** 推送处理 ****/  
+        };
+    </script>
+</body>
+</html>

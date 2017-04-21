@@ -1,0 +1,57 @@
+<{$header}>
+<{config_load file="public.conf" section="public"}>
+<style>
+    #wrapc {
+        background: url(<{#images#}>/new/bg0.jpg) #0b0b0b center top no-repeat;
+    }
+</style>
+<!-- 页面主体 开始-->
+<!-- 频道banner开始 -->
+<div id="banner" class="banner h262">
+    <style type="text/css">
+        #banner {
+            background: url(<{#images#}>/banner71.png) no-repeat center top;
+        }
+
+    </style>
+</div>
+
+<div class="infos mt260">
+    <span>最新公告：</span>
+    <div class="txtScroll-top">
+        <div class="bd">
+            <{$notice_html}>
+        </div>
+    </div>
+</div>
+<section class="section71">
+    <div class="content">
+        <div class="zr_game">
+            <{$egame_html}>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+<{$bottom}>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

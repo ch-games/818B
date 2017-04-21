@@ -1,0 +1,109 @@
+
+
+ul.game-list li[game-box] {
+    width: 396px;
+    padding-top: 280px;
+    margin: 0 3px;
+    vertical-align: top
+}
+
+ul.game-list li[game-box="bb"] {
+    background-image: url('/public/images/gpi.jpg')
+}
+
+ul.game-list li[game-box="hg"] {
+    background-image: url('/public/images/xtd.jpg')
+}
+
+ul.game-list li[game-box="gpi"] {
+    background-image: url('/public/images/eg.jpg')
+}
+
+ul.game-list li[game-box="eg"] {
+    background-image: url('/public/images/eg.jpg')
+}
+
+ul.game-list li[game-box] p {
+    display: inline-block;
+    width: 336px;
+    height: 118px;
+    margin: 0;
+    padding-top: 20px;
+    color: #fff;
+    font-size: 12px;
+    line-height: 30px;
+    background: #B88600 url('/public/images/lotterybg.png') no-repeat center;
+    -moz-transition: background-color linear .4s;
+    -o-transition: background-color linear .4s;
+    -webkit-transition: background-color linear .4s;
+    transition: background-color linear .4s
+}
+
+ul.game-list li[game-box]:hover p {
+    background-color: #DAA520
+}
+
+ul.game-list li[game-box] p span {
+    font-size: 24px;
+    line-height: 40px
+}
+
+ul.lottery-list {
+    width: 1000px;
+    height: 262px;
+    padding-top: 95px;
+    font-size: 0;
+    text-align: left;
+    background: url('/public/images/platform.png')
+}
+
+ul.lottery-list li {
+    position: relative;
+    top: 0;
+    display: inline-block;
+    width: 100px;
+    height: 105px;
+    margin-left: 26px;
+    background-repeat: no-repeat;
+    background-position: center top;
+    vertical-align: bottom;
+    -moz-transition: top linear .3s;
+    -o-transition: top linear .3s;
+    -webkit-transition: top linear .3s;
+    transition: top linear .3s
+}
+
+ul.lottery-list li:hover {
+    top: -15px
+}
+
+ul.lottery-list li.lottery01 {
+    background-image:url("/public/images/gunqiu_8.png")
+}
+
+ul.lottery-list li.lottery02 {
+    background-image: url('/public/images/gunqiu_1.png')
+}
+
+ul.lottery-list li.lottery03 {
+    background-image: url('/public/images/gunqiu_08.png')
+}
+
+ul.lottery-list li.lottery04 {
+    width: 150px;
+    height: 156px;
+    margin-left: 38px;
+    background-image: url('/public/images/l4.png')
+}
+
+ul.lottery-list li.lottery05 {
+    background-image: url('/public/images/gunqiu_b.png')
+}
+
+ul.lottery-list li.lottery06 {
+    background-image: url('/public/images/gunqiu_e.png')
+}
+
+ul.lottery-list li.lottery07 {
+    background-image: url('/public/images/gunqiu_t.png')
+}

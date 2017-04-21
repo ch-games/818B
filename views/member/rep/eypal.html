@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+</head>
+<body >
+   <form action="<{$data['form_url']}>" method="post" id="frm1" name="eypal">
+       <p>正在為您跳轉中，請稍候......</p>
+        <input type="hidden" name="version" id="version" value="<{$data['version']}>"/>
+        <input type="hidden" name="partner" id="partner" value="<{$data['partner']}>"/>
+        <input type="hidden" name="orderid" id="orderid" value="<{$data['orderid']}>"/>
+        <input type="hidden" name="payamount" id="payamount" value="<{$data['payamount']}>"/>
+        <input type="hidden" name="payip" id="payip" value="<{$data['payip']}>"/>
+        <input type="hidden" name="notifyurl" id="notifyurl" value="<{$data['notifyurl']}>"/>
+        <input type="hidden" name="returnurl" id="returnurl" value="<{$data['returnurl']}>"/>
+        <input type="hidden" name="paytype" id="paytype" value="<{$data['paytype']}>"/>
+        <input type="hidden" name="remark" id="remark" value="<{$data['remark']}>"/>
+        <input type="hidden" name="sign" id="sign" value="<{$data['sign']}>"/>
+    </form>
+ <script language="javascript">
+       setTimeout(function(){
+          document.getElementById("frm1").submit();
+      },1500)
+    </script> 
+</body>
+</html>

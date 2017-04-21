@@ -1,0 +1,149 @@
+<{config_load file="public.conf" section="public"}>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="<{#mem_css#}>/index_main.css" />
+	<script src="<{#mem_js#}>/jquery-1.8.3.min.js"></script>
+</head>
+<body
+		style="BACKGROUND: url(<{#mem_images#}>/../private/content_bg.jpg) repeat-y left top;">
+<div id="MAMain" style="width: 767px">
+	<div id="MACenter-content">
+		<div id="MACenterContent">
+			<div id="MNav">
+				<span class="mbtn">個人信息</span>
+				<div class="navSeparate"></div>
+			</div>
+			<div id="MMainData" style="overflow-y: scroll; height: 370px">
+				<h2 class="MSubTitle">個人信息</h2>
+				<form id='myFORM' method="get">
+					<span style="height: 17px; line-height: 20px; float: right;">&nbsp;<{$totalPage}>頁&nbsp;</span>
+					<select id="page" name="page" class="za_select"
+							style="float: right;"> <{assign var=$i value=0}>
+						<{section name=total loop=$totalPage}>
+						<option value="<{$i=$i+1}><{$i}>"<{if $i ==
+						$dqpage}>selected<{/if}> ><{$i}></option> <{/section }>
+					</select>
+				</form>
+				<form name="form" id='form' method="get">
+					<input type="hidden" name="action" value="d" />
+					<table class="MMain" border="1">
+						<thead>
+						<tr>
+							<!--<th style="width:30px"><input type="checkbox" id="checkall" onclick="ckall()"/></th>-->
+							<th align=middle>狀態</th>
+							<th align=middle>標題</th>
+							<th align=middle>發布時間</th>
+							<th align=middle>操作</th>
+						</tr>
+						</thead>
+						<tbody>
+						<{if !empty($data)}> <{foreach from=$data item=v}>
+						<tr>
+							<!--<td><input type="checkbox" class="check" name="msg_id[]" value="<?=$v["msg_id"]?>"/></td>-->
+							<td align=middle class="islook<{$v.msg_id}>"><{if
+								$v.islook==1}><FONT color=#ff0000>已讀</FONT><{else}><b>未讀</b><{/if}>
+							</td>
+							<td align=middle><A target="k_memr" href="" class="toggle"> <{$v.msg_title}> </A></td>
+							<td align=middle><{date("Y-m-d",strtotime($v.msg_time))}></td>
+							<{if $v.uid neq ""}>
+							<td align=middle><a class="button_d" href="javascript:;" onclick="del_msg('<{$v.msg_id}>')">刪除</a></td>
+							<{else}>
+							<td align=middle>--</td>
+							<{/if}>
+							<input type="hidden" value="<{$v.msg_id}>"/>
+						</tr>
+						<tr style="display: none; height: 150px;">
+							<td colspan="5"><{$v.msg_info}></td>
+						</tr>
+						<{/foreach}> <{else}>
+						<tr align="center">
+							<td colspan="4">暫時沒有個人消息</td>
+						</tr>
+						<{/if}>
+						</tbody>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
+
+<script>
+	//全選。全取消
+	function ckall() {
+		if ($('#checkall').is(':checked')) {
+			$('.check').attr('checked', true);
+		} else {
+			$('.check').attr('checked', false);
+		}
+	}
+	//信息刪除
+	function del_msg(msg_id){
+		del_new = confirm('確定刪除?');
+		if(del_new == true){
+			$.ajax({
+				type : "POST",
+				url : "/index.php/member/member_news/sms_del",
+				data : {msg_id:msg_id},
+				success : function(msg) {
+					if (msg == 1) {
+						alert("刪除成功");
+						window.location.reload();
+					}else{
+						alert("刪除失敗");
+						window.location.reload();
+					}
+				}
+			});
+		}
+	}
+</script>
+
+<script>
+	$(function() {
+		$(".toggle").toggle(
+				function() {
+					$(this).parents("tr").next("tr").slideDown();
+					var uid = $(this).parents("tr").find("input[type='hidden']").val();
+					$.ajax({
+						type : "POST",
+						url : "/index.php/member/member_news/sms_change",
+						data : "type=look&uid=" + uid,
+						success : function(msg) {
+							//alert(msg);return false;
+							if (msg == 1) {
+								$('.islook' + uid).html(
+										'<FONT color=#ff0000>已讀</FONT>');
+							}
+						}
+					});
+				}, function() {
+					$(this).parents("tr").next("tr").slideUp();
+				});
+
+		window.onload = function() {
+			document.getElementById("page").onchange = function() {
+				document.getElementById('myFORM').submit()
+			}
+		}
+	})
+</script>
+
+<style>
+	.button_d {
+		background: -moz-linear-gradient(center top, white, #ededed) repeat
+		scroll 0 0 rgba(0, 0, 0, 0);
+		border: 1px solid #b7b7b7;
+		color: #3d3934;
+		border-radius: 0.5em;
+		box-shadow: 0 1px 2px rgba(97, 97, 97, 0.2);
+		font: 12px/100% Arial, Helvetica, sans-serif;
+		padding: 0.45em 0.5em 0.5em;
+		display: inline-block;
+		cursor: pointer;
+	}
+</style>

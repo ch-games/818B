@@ -1,0 +1,12 @@
+.condng {
+	background: rgb(255, 255, 255); padding: 5px; width: 190px; color: rgb(0, 0, 0); line-height: 20px; font-size: 12px;
+}
+.wet-pbet {
+	background: rgb(0, 84, 61); padding: 3px; width: 200px; right: 5px; bottom: 10px; position: fixed; z-index: 9999;
+}
+.wet-pbet .titlewei4 {
+	background: rgb(0, 50, 36); width: 200px; height: 25px;
+}
+.STYLE1 {
+	font-family: Arial, Helvetica, sans-serif; cursor: pointer;
+}

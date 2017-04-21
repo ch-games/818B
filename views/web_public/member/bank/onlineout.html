@@ -1,0 +1,26 @@
+<script>
+	$('.nav2 span').html('線上取款')
+	$('.nav2 a').removeClass('active')
+	$('.nav2').find("a[data='bank_onlineout_index']").addClass('active')
+	$('.Hyzx-nav').find("a[data='bank_onlinein_index']").addClass('active');
+</script>
+<div class="Hyzx-right">
+	<{include file="../bank_common.html"}>
+	<div class="Hyzx-content">
+		<style type="text/css">
+			.Hyzx-content{height: 350px;}
+		</style>
+		<table class="Hyzx-table">
+			<tr>
+				<th>賬戶</th>
+				<th>余額</th>
+				<th>操作</th>
+			</tr>
+			<tr>
+				<td><{$userinfo['username']}></td>
+				<td>￥<{$userinfo['money']}></td>
+				<td><a href="javascript:$.member.changeNav('Bank','show',2);">取款</a></td>
+			</tr>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,75 @@
+<{$header}>
+<{config_load file="public.conf" section="public"}>
+
+<link type="text/css" rel="stylesheet" href="<{#css#}>/layer.css" id="skinlayercss">
+<!-- 页面主体 开始-->
+<!-- 频道banner开始 -->
+<div id="banner" class="banner h262">
+    <style type="text/css">
+        #banner {
+            background: url(<{#images#}>/banner71.png) no-repeat center top;
+        }
+
+    </style>
+</div>
+
+<div class="infos mt260">
+    <span>最新公告：</span>
+    <div class="txtScroll-top">
+        <div class="bd">
+            <{$notice_html}>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    #banner {
+        background: url(<{#images#}>/banner21.png) no-repeat center top;
+    }
+</style>
+
+<section class="section71">
+    <div id="page-container">
+        <div id="page-body" class="clearfix">
+            <div id="new_center" style="width:1050px; margin:0 auto;">
+            <div id="new_right">
+                <div id="page-containers">
+                    <!-- 体育内容页 -->
+                    <div id="sportwrap" class="divc w1000 clearfix sportw t15">
+                        <div id="sportbox">
+                            <div id="sportsbox">
+                                <iframe src="<{$url}>/index.php/sports/main?token=<{$token}>&uid=<{$uid}>"
+                                        frameborder="no" style="width: 1050px; height: 620px;"
+                                        scrolling="no"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</div>
+<{$bottom}>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

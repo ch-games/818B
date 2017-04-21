@@ -1,0 +1,131 @@
+<{$header}>
+<{config_load file="public.conf" section="public"}>
+
+<link type="text/css" rel="stylesheet" href="<{#css#}>/layer.css" id="skinlayercss">
+<link href="<{#css#}>/site.css" rel="stylesheet">
+<link href="<{#css#}>/lottery.css" rel="stylesheet">
+<style>
+
+    #hover_bg{
+        width: 396px;height: 280px;background: rgba(54,54,54,0.5);position: absolute;top: 20px;opacity:0 ;
+    }
+    #hover_bg a{
+        width: 135px;height: 42px;line-height:42px;background: #6e1710;display:inline-block;
+    ;font-size: 30px;text-decoration: none;border-radius: 5px;margin: 120px 0 0 6px;color: #fff;
+
+    }
+    #hover_bg a:hover{
+        background: #e61100;
+        transition: 0.5s;
+    }
+    #hover_bg:hover{
+        opacity: 1;
+        transition: 0.5s;
+    }
+</style>
+<!-- 页面主体 开始-->
+<!-- 频道banner开始 -->
+<div id="banner" class="banner h262">
+    <style type="text/css">
+        #banner {
+            background: url(<{#images#}>/banner71.png) no-repeat center top;
+        }
+        #content_cp {
+            width: 100%;
+            background: url("<{#images#}>/section21.png") center top repeat-y #002a5f;
+            background-size: 1920px 870px;
+            padding-bottom: 20px;
+        }
+    </style>
+</div>
+<div class="infos mt260">
+    <span>最新公告：</span>
+    <div class="txtScroll-top">
+        <div class="bd">
+            <{$notice_html}>
+       </div>
+    </div>
+</div>
+
+<!--<section class="section71">-->
+<link href="<{#css#}>/site.css" rel="stylesheet">
+<link href="<{#css#}>/lottery.css" rel="stylesheet">
+<style>
+
+    #hover_bg{
+        width: 396px;height: 280px;background: rgba(54,54,54,0.5);position: absolute;top: 20px;opacity:0 ;
+    }
+    #hover_bg a{
+        width: 135px;height: 42px;line-height:42px;background: #6e1710;display:inline-block;
+    ;font-size: 30px;text-decoration: none;border-radius: 5px;margin: 120px 0 0 6px;color: #fff;
+
+    }
+    #hover_bg a:hover{
+        background: #e61100;
+        transition: 0.5s;
+    }
+    #hover_bg:hover{
+        opacity: 1;
+        transition: 0.5s;
+    }
+</style>
+<div id="content_cp">
+    <div class="wrapper">
+
+        <section id="lobby" ng-controller="LobbiesCtrl" class="ng-scope">
+            <ul class="game-list">
+                <li game-box="bb" ng-click="toBbLottery()" style="position: relative;margin:0px 40px;">
+                    <p>
+                        <span href="javascript:void(0);" <{if empty($uid)}>onclick="javascript:zhuModal.login();"<{else}>onclick="opengeme('/video/games/login?g_type=dg99')"<{/if}>>818彩票</span><br>
+                        亚洲最大最流行的彩票平台之一
+                    </p>
+                </li>
+                <li id="hover_bg" style="left: 61px;">
+                    <a href="javascript:void(0);" <{if empty($uid)}>onclick="javascript:zhuModal.login();"<{else}>onclick="opengeme('/video/games/login?g_type=dg99')"<{/if}> style="">进入游戏</a>
+                </li>
+                <li game-box="hg" ng-click="toHgCaipiao()" style="margin: 0px 40px;">
+                    <p>
+                        <span href="javascript:void(0);" <{if empty($uid)}>onclick="javascript:zhuModal.login();"<{else}>onclick="opengeme('/video/games/login?g_type=bbin')"<{/if}>>BB彩票</span><br>
+                        玩法众多 彩种齐全
+                    </p>
+                </li>
+                <li id="hover_bg" style="right: 61px;">
+                    <a href="javascript:void(0);" <{if empty($uid)}>onclick="javascript:zhuModal.login();"<{else}>onclick="opengeme('/video/games/login?g_type=bbin')"<{/if}> style="">进入游戏</a>
+                </li>
+            </ul>
+            <ul class="lottery-list">
+                <li class="lottery01"></li>
+                <li class="lottery02"></li>
+                <li class="lottery03"></li>
+                <li class="lottery04"></li>
+                <li class="lottery05"></li>
+                <li class="lottery06"></li>
+                <li class="lottery07"></li>
+            </ul>
+        </section>
+    </div>
+</div>
+<!--</section>-->
+
+<!-- 页面主体 结束-->
+
+
+<{$bottom}>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

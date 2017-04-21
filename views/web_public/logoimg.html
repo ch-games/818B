@@ -1,0 +1,15 @@
+<{config_load file="public.conf" section="public"}>
+<{if $msg neq 1}>
+<img src="<{$lgObj['logo_url']}>" class="logoObj">
+<{else}>
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,24,0" class="logoObj">
+<param name="movie" value="<{$lgObj['logo_url']}>">
+<param name="autoplay" value="true" />
+<embed flashvars="" src="<{$lgObj['logo_url']}>" class="logoObj" wmode="transparent" quality="high" menu="false" autostart="true">
+</object>
+<{/if}>
+<script type="text/javascript">
+    var lgwidth = $('.logoObj').parents('div#indexLgDIV').width();
+    var lgheight = $('.logoObj').parents('div#indexLgDIV').height();
+    $('.logoObj').css({'width': lgwidth,'height': lgheight}); 
+</script>

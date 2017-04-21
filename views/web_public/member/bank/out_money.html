@@ -1,0 +1,126 @@
+<script>
+    $('.nav2 span').html('線上取款')
+    $('.nav2 a').removeClass('active')
+    $('.nav2').find("a[data='bank_onlineout_index']").addClass('active')
+    $('.Hyzx-nav').find("a[data='bank_onlinein_index']").addClass('active');
+</script>
+<div class="Hyzx-content">
+    <div class="Hyzx-qu">
+        <style>
+            select, input {border-radius: inherit;}
+            .nav2 a[data='bank_onlineout_index']{background: <{$color}>;}
+        </style>
+        <p><label class="Hyzx-lable">當前余額:</label><span><{$userinfo['money']}></span></p>
+        <form method="post" action="/index.php/member/new/bank/getmoneydo" id="withdrawal_form" name="withdrawal">
+            <input type="hidden" name="uu_out" readonly="" value="oucd">
+            <input type="hidden" id="out_audit" value="<{$out_data['out_audit']}>">
+            <input type="hidden" id="olm_min" value="<{$pay_data['ol_atm_min']}>">
+            <input type="hidden" id="olm_max" value="<{$pay_data['ol_atm_max']}>">
+            <input type="hidden" id="usermoney" value="<{$userinfo['money']}>">
+            <ul>
+                <li><label class="Hyzx-lable">取款密碼:</label><span><input type="password" id="password" name="qk_pwd" class="Hyzx-qkm"></span></li>
+                <li><label class="Hyzx-lable">提款人:</label><span><{$userinfo['pay_name']}></span></li>
+                <li>
+                    <label class="Hyzx-lable">取款金額:</label>
+                    <div class="Hyzxinput">
+                        <input id="cash" type="text" onblur="calculate(); this.value = this.value.replace(/[^0-9]/g,'');" onkeyup="this.value = this.value.replace(/[^0-9]/g,'')" maxlength="10" size="5" name="cash">
+                        - 手續費
+                        <input id="COM" type="text" value="<{$out_data['out_fee']+0}>" readonly="" size="5" name="COM">
+                        = 實收金額
+                        <input id="real_cash" type="text" readonly="" size="5" name="real_cash">
+                    </div>
+                </li>
+                <li><span class="Hyzx-maL">出款上限:<{$pay_data['ol_atm_max']}>&nbsp;&nbsp;   出款下限:<{$pay_data['ol_atm_min']}></span></li>
+
+
+                <li class="pay_info" style="display:none">
+                    <input type="hidden" name="pay_address" size="6" maxlength="10" value="<{$userinfo['pay_address']}>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </li>
+                <li><label class="Hyzx-lable">所屬銀行:</label><span><{$userinfo['pay_card']}></span></li>
+                <li><label class="Hyzx-lable">銀行帳號:</label><span><{$userinfo['pay_num']}></span></li>
+            </ul>
+
+            <div class="fbutton">
+                <input class="btn_001 btn-sub" type="button"  name="continueWithdraw" value="確定送出" onclick="check_all()">
+                <input onclick="javascript:$.member.changeNav('Bank','bank_onlineout_index',1);" class="btn_001 btn-sub" type="button"  name="cancelWithdraw" value="放棄出款" >
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var all_fee;
+    var obj_cash;
+    var out_fee;
+    var out_audit;
+    function check_all(){
+        $("input[type=button]").disabled = true;
+        var obj_pwd = $("#password");
+        obj_cash = $("#cash");
+        obj_val = parseFloat($("#cash").val());
+        out_fee = parseFloat($("#out_fee").val());
+        out_audit = parseFloat($("#out_audit").val());
+        all_fee = out_fee+out_audit;
+        if(obj_pwd.val()=='' || obj_pwd.val().length < 4){
+            // 密碼 不得為空
+            obj_pwd.focus();
+            //alert("密碼不能為空並且為4位數字!");
+            $.member.alertpop('prompt',"密碼不能為空並且為4位數字!");
+            $("input[type=button]").disabled = false;
+            return false;
+        }
+        if(obj_val==''){
+            // 額度 不得為空
+            obj_cash.focus();
+            //alert("額度請務必輸入!");
+            $.member.alertpop('prompt',"額度請務必輸入!");
+            $("input[type=button]").disabled = false;
+            return false;
+        }
+        var atm_max = parseInt($("#olm_max").val());
+        var atm_min = parseInt($("#olm_min").val());
+        var usermoney = parseFloat($("#usermoney").val());
+        if(obj_val > usermoney){
+            obj_cash.focus();
+            //alert("取款額度不能超過余額"+usermoney);
+            $.member.alertpop('prompt',"取款額度不能超過余額"+usermoney);
+            $("input[type=button]").disabled = false;
+            return false;
+        }
+        if(obj_val>atm_max){
+            obj_cash.focus();
+            //alert("取款額度不能超過出款上限"+atm_max);
+            $.member.alertpop('prompt',"取款額度不能超過出款上限"+atm_max);
+            $("input[type=button]").disabled = false;
+            return false;
+        }
+        if(obj_val<atm_min){
+            obj_cash.focus();
+            //alert("取款額度不能低於"+atm_min);
+            $.member.alertpop('prompt',"取款額度不能低於"+atm_min);
+            $("input[type=button]").disabled = false;
+            return false;
+        }
+        var creal_cash = eval(obj_val - all_fee);
+        var audit_b = <{$out_data['out_audit']}>;
+            if(audit_b>0){
+                if(!confirm("尊敬的會員您好：\r\n您的有效打碼量未達到,取款將扣除金額"+audit_b.toFixed(2)+"，並需經財務審核方可出款\r\n(請參閱優惠活動規則)")){
+                return false;
+            }
+            }
+            $("#withdrawal_form").submit();
+            }
+    function calculate(){
+        obj_cash = $("#cash");
+        all_fee = $("#COM").val();
+        var obj_real_c = $("#real_cash");
+        real_cash = eval(obj_cash.val() - all_fee);
+        if( real_cash <= 0 ) {
+            obj_real_c.val('0');
+        }else {
+            obj_real_c.val(real_cash);
+        }
+    }
+
+</script>

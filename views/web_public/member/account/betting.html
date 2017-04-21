@@ -1,0 +1,34 @@
+
+<div class="Hyzx-conNav">
+	<a href="javascript:$.member.changeNav('Account','account_betting_index',2);" data="account_betting_index" class="Hyzx-btn flt active">體育</a><a href="javascript:$.member.changeNav('Account','account_lottery_index',2);" data="account_lottery_index" class="Hyzx-btn flt">彩票</a>
+</div>
+
+<{foreach key=key item=spval from=$spType name=foo}>
+
+<table class="Hyzx-table <{if $key != 'ft'}>mt30<{/if}>">
+	<tr onclick="Hyzx_tr_can_see(<{$smarty.foreach.foo.index}>)" style="cursor:pointer;">
+		<th style="width:195px"><{$spTitle[$key]}></th>
+		<th style="width:154px">退水設定</th>
+		<th style="width:198px">單場限額</th>
+		<th style="width:198px">單註限額</th>
+		<th style="width:154px">最低限額</th>
+	</tr>
+	<{foreach key=k item=v from=$spval}>
+	<tr class="Hyzx_not_fist_tr_<{$smarty.foreach.foo.index}>" <{if $smarty.foreach.foo.index neq 0}>style="display:none" <{/if}>>
+	<td><{$v['t_name']}></td>
+	<td><{$v['water_break']}></td>
+	<td><{$v['single_field_max']}></td>
+	<td><{$v['single_note_max']}></td>
+	<td><{$v['min']}></td>
+	</tr>
+	<{/foreach}>
+</table>
+<{/foreach}>
+
+<script>
+	function Hyzx_tr_can_see(v){
+		$(".Hyzx_not_fist_tr_"+v).toggle(100,function(){
+			$.member.atHeight();
+		});
+	}
+</script>

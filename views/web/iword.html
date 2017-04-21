@@ -1,0 +1,243 @@
+<{$header}>
+<{config_load file="public.conf" section="public" }>
+<link href="<{#css#}>/new/iword5.css" type="text/css" rel="stylesheet">
+<!-- 页面主体 开始-->
+<!-- 频道banner开始 -->
+<style>
+    /* 7关于我们 */
+    .section71 {
+        width: 100%;
+        background: url("<{#images#}>/section21.png") center top repeat-y #002a5f;
+        background-size: 1920px 870px;
+        padding-bottom: 20px;
+    }
+
+    .section71 .content {
+        background-color: #004b8e;
+        padding: 30px;
+        font-size: 12px;
+        color: #fff;
+        min-height: 600px;
+    }
+
+    .section71-left {
+        width: 218px;
+        float: left;
+    }
+
+    .section71-left h2 {
+        width: 100%;
+        height: 54px;
+        line-height: 54px;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        background-color: #0077cd;
+    }
+
+    .section71-left ul {
+        width: 100%;
+        padding: 10px;
+        background-color: #003565;
+    }
+
+    .section71-left li {
+        padding-left: 65px;
+        line-height: 32px;
+        margin: 3px 0;
+        font-size: 14px;
+    }
+
+    .section71-left a {
+        color: #fff;
+    }
+
+    .section71-left li:hover, .section71-left li.on {
+        background: url("<{#images#}>/icon71.png") left center no-repeat #0077cd;
+        background-size: 32px 32px;
+    }
+
+    .section71-left .wl {
+        width: 100%;
+        height: 192px;
+        background: url("<{#images#}>/img71.png") center top no-repeat;
+        background-size: 100% 100%;
+    }
+
+    .section71-right {
+        width: 740px;
+        float: left;
+        margin-left: 60px;
+        padding-bottom: 150px;
+    }
+
+    .section71-right h3 {
+        font-size: 16px;
+    }
+
+    .section71-right p {
+        font-size: 13px;
+        line-height: 26px;
+        text-align: justify;
+    }
+
+    .section71-right br {
+        line-height: 32px;
+    }
+</style>
+<!-- 频道banner开始 -->
+<div id="banner" class="banner h262">
+    <style type="text/css">
+        #banner {
+            background: url(<{#images#}>/banner71.png) no-repeat center top;
+        }
+
+    </style>
+</div>
+
+<div class="infos mt260">
+    <span>最新公告：</span>
+    <div class="txtScroll-top">
+        <div class="bd">
+            <!--<font style="color:#FFF">-->
+            <!--<marquee scrollamount="3" scrolldelay="150" direction="left" width="980" height="47" onmouseover="this.stop();" onmouseout="this.start();" style="float: right; height: 47px; width: 980px;">-->
+            <!--</marquee>-->
+            <{$notice_html}>
+            <!--</font>-->
+        </div>
+    </div>
+</div>
+
+
+<section class="section71">
+    <div class="content">
+        <div class="section71-left">
+            <h2>欢迎光临<{$copy_right}></h2>
+            <ul class="con">
+
+                <li class="<{if $iword['type'] eq 3 }>on<{/if}>"><a class="select-box" href="javascript:void(0);" onclick="getPager('-','iword','3');">关于我们</a>
+                </li>
+                <li class="<{if $iword['type'] eq 4 }>on<{/if}>"><a class="select-box" href="javascript:void(0);" onclick="getPager('-','iword','4');">联系我们</a>
+                </li>
+                <li class="<{if $iword['type'] eq 5 }>on<{/if}>"><a class="select-box" href="javascript:void(0);" onclick="getPager('-','iword','5');">合作伙伴</a>
+                </li>
+                <li class="<{if $iword['type'] eq 6 }>on<{/if}>"><a class="select-box" href="javascript:void(0);" onclick="getPager('-','iword','6');">存款帮助</a>
+                </li>
+                <li class="<{if $iword['type'] eq 7 }>on<{/if}>"><a class="select-box" href="javascript:void(0);" onclick="getPager('-','iword','7');">取款帮助</a>
+                </li>
+                <li class="<{if $iword['type'] eq 8 }>on<{/if}>"><a class="select-box" href="javascript:void(0);" onclick="getPager('-','iword','8');">常见问题</a>
+                </li>
+                <li class="<{if $config['is_daili'] eq 1 }>on<{/if}>"><a href="javascript:void(0);" onclick="getPager('-','daili_shenqing','JoinAgent');" target="_blank">代理注册</a>
+                </li>
+            </ul>
+            <div class="wl"></div>
+        </div>
+
+        <div class="section71-right">
+            <h2 class="inTit"><{$iword['title']}></h2>
+            <div class="FaqTxt">
+                <{if $iword['type'] == 5}>
+                <ul class="rulemeun" id="optionMenu">
+                    <li class="tabdown" id="Union1" onclick="click1()" style="border: 1px solid #fff;">
+                        <a href="javascript:;">联盟方案</a>
+                    </li>
+                    <li class="tabup" id="Union2" onclick="click2()">
+                        <a href="javascript:;">联盟协议</a>
+                    </li>
+                    <{if $iword['is_agent']}>
+                    <li class="tabup">
+                        <a onclick="getPager('-','daili_shenqing','JoinAgent');" href="javascript:void(0);">代理注册</a>
+                    </li>
+                    <li class="tabup">
+                        <a href="http://<{$agent_url}>" target="_blank">代理登入</a>
+                    </li>
+                    <{/if}>
+                </ul>
+                <div id="rulesgamecom">
+                    <ul>
+                        <li id="li1" style="display:block">
+                            <{$iword['content']}>
+                        </li>
+                        <li id="li2" style="display:none">
+                            <{$iword['content_1']}>
+                        </li>
+                    </ul>
+                </div>
+                <{else}>
+                <{$iword['content']}>
+                <{/if}>
+                <script>
+                    function click1() {
+                        $('#Union1').addClass('tabdown');
+                        $('#Union2').removeClass('tabdown');
+                        $('#li1').css('display', 'block');
+                        $('#li2').css('display', 'none');
+                    }
+                    function click2() {
+                        $('#Union2').addClass('tabdown');
+                        $('#Union1').removeClass('tabdown');
+                        $('#li2').css('display', 'block');
+                        $('#li1').css('display', 'none');
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div style="clear:both;"></div>
+<!-- 页面主体 结束-->
+
+
+<!--
+
+ <div id="center"> 
+  <div class="wrapc" id="wrapc">
+	  <div id="hdpublic" style="background:url(<{#images#}>/new//title_welcome.png) no-repeat; height:222px;"></div>
+	  <style type="text/css">
+		  #wrapc {  }
+	  </style>
+	  <div style="clear:both;"></div>
+	  <div id="wrapbox">
+		  <div id="wrapw">
+			  <div id="main" class="mainnav">
+				  <h1><span><{$iword['title']}></span></h1>
+				  <div id="left"><div id="cwrapleft">
+					  <div id="page-left">
+						  <div id="left_center">
+							  <div id="Game-Menual">
+								  <div class="Game-Menual-box">
+									  <a href="###" onclick="alert('请联系在线客服!')">忘记密码</a>
+									  <a onclick="getPager('-','zhuce');" href="javascript:void(0);">免费注册</a>
+									  <a onclick="getPager('-','daili_shenqing','JoinAgent');" href="javascript:void(0);">代理注册</a>
+									  <a href="javascript:void(0);" onclick="getPager('-','sports','m');">体育投注</a>
+									  <a href="javascript:void(0);" onclick="getPager('-','livetop','m');">真人娱乐</a>
+									  <a href="javascript:void(0);" onclick="getPager('-','egame','m');">电子游艺</a>
+									  <a href="javascript:void(0);" onclick="getPager('-','lottery');">彩票游戏</a>
+									  <a href="javascript:void(0);" onclick="getPager('-','detect');">备用网址</a>
+									  <a href="javascript:void(0);" onclick="getPager('-','youhui');">优惠活动</a>
+								  </div>
+							  </div>
+							  <div id="left_down"><img src="<{#images#}>/left_down.png" border="0"></div>
+						  </div>
+					  </div>
+				  </div>
+				  </div>
+				  <div id="middle" class="description">
+					  <div class="content">
+						  <{$iword['content']}>
+					  </div>
+				  </div>
+				  <div class="clear"></div>
+			  </div>
+		  </div>
+	  </div>
+  </div>
+</div>
+
+
+-->
+<{$bottom}>
+
+
+

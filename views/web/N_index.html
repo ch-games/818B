@@ -1,0 +1,194 @@
+<{$header}>
+<{config_load file="public.conf" section="public"}>
+<!-- 页面主体 开始-->
+
+<!-- 焦点图开始 -->
+<div id="banner" class="banner">
+	<div class="hd">
+		<ul>
+			<{foreach from=$flash item=v key=i}>
+			<li class=""></li>
+			<{/foreach}>
+		</ul>
+	</div>
+	<div class="bd">
+		<ul style="position: relative; width: 1920px; height: 488px;">
+			<{foreach from=$flash item=v key=i}>
+			<li style="position: absolute; width: 1920px; left: 0px; top: 0px; display: list-item;"><a href="#"><img src="<{$v['img']}>"></a></li>
+			<{/foreach}>
+		</ul>
+	</div>
+</div>
+
+<div class="infos mt488">
+	<span>最新公告：</span>
+	<div class="txtScroll-top">
+		<div class="bd">
+                <{$notice_html}>
+		</div>
+	</div>
+</div>
+
+
+
+<section class="section1">
+	<ul class="content">
+		<li class="on"><a href="javascript:void(0);" onclick="getPager('-','detect');">
+			<img src="<{#images#}>/icon11.png" alt="">
+			<h3>线路检测</h3>
+			<p>line detection</p>
+		</a></li>
+		<li><a href="javascript:void(0);" onclick="getPager('-','iword','5');">
+			<img src="<{#images#}>/icon12.png" alt="">
+			<h3>代理加盟</h3>
+			<p>corporation</p>
+		</a></li>
+		<li><a href="javascript:void(0);" onclick="getPager('-','iword','3');">
+			<img src="<{#images#}>/icon13.png" alt="">
+			<h3>优惠活动</h3>
+			<p>promotions</p>
+		</a></li>
+		<li><a onclick="getPager('-','zhuce');" href="javascript:void(0);">
+			<img src="<{#images#}>/icon14.png" alt="">
+			<h3>免费开户</h3>
+			<p>free account</p>
+		</a></li>
+	</ul>
+</section>
+
+
+
+<section class="section2">
+	<ul class="con1">
+		<li>
+			<a href="javascript:void(0);" onclick="getPager('-','sports','m');"><img src="<{#images#}>/img11.png" alt="" class="img"></a>
+			<div class="btm">
+				<h3><img src="<{#images#}>/icon15.png" alt="">体育投注</h3>
+				<p>2016年欧洲杯指定投注平台</p>
+			</div>
+		</li>
+		<li class="">
+			<a href="javascript:void(0);" onclick="getPager('-','livetop','m');"><img src="<{#images#}>/img12.png" alt="" class="img"></a>
+			<div class="btm">
+				<h3><img src="<{#images#}>/icon16.png" alt="">真人娱乐</h3>
+				<p>9大真人娱乐平台，极致视觉体验</p>
+			</div>
+		</li>
+		<li>
+			<a href="javascript:void(0);" onclick="getPager('-','egame','m');"><img src="<{#images#}>/img13.png" alt="" class="img"></a>
+			<div class="btm">
+				<h3><img src="<{#images#}>/icon17.png" alt="">电子游艺</h3>
+				<p>BBIN、MG双电子平台丰富电子游戏</p>
+			</div>
+		</li>
+		<li>
+			<a href="javascript:void(0);" onclick="getPager('-','lottery');"><img src="<{#images#}>/img14.png" alt="" class="img"></a>
+			<div class="btm">
+				<h3><img src="<{#images#}>/icon18.png" alt="">彩票游戏</h3>
+				<p>2016年欧洲杯指定投注平台</p>
+			</div>
+		</li>
+	</ul>
+	<style>
+		.section2 .con2 li a{font-size:14px; font-weight:bold;}
+
+	</style>
+	<ul class="con2">
+		<li><img src="<{#images#}>/icon2-1.png" alt="" class="img"><a href="">客服电话:<{$web_data['tel'][0]}></a></li>
+		<li><img src="<{#images#}>/icon2-2.png" alt="" class="img"><a href="">邮箱：<{$web_data['email'][0]}></a></li>
+		<li><img src="<{#images#}>/icon2-3.png" alt="" class="img"><a href="<{$wapBetUrl}>" >下载专区 Download Center</a></li>
+		<li><img src="<{#images#}>/icon2-4.png" alt="" class="img"><a href="javascript:void(0);" onclick="OnlineService('<{$web_data['online_service']}>');">客服中心 SERVICE CENTER</a></li>
+	</ul>
+</section>
+
+<section class="section3">
+	<div class="content">
+		<div class="part1">
+			<div class="title">
+				<img src="<{#images#}>/icon3-1.png" alt="">
+				<h3>服务优势</h3>
+				<p>Service Advantages</p>
+			</div>
+			<div class="con">
+				<div class="item">
+					<p>24小时</p>
+					<h4>活跃用户数<span><script>document.write(parseInt(Math.random()*1000+3000,10));</script>3816</span>人</h4>
+					<div class="percent"><span data-per="30%" style="width: 30%;"></span></div>
+				</div>
+				<div class="item">
+					<p>24小时</p>
+					<h4>累计注单量<span id="sj2">168086</span>注</h4>
+					<script> var i2 =160000+parseInt(Math.random()*10000,10); var max2 = 200000; var id2; function add2(){if (i2 < max2){i2 +=parseInt(Math.random()*10,10); id2 = setTimeout("add2()",2000); document.getElementById("sj2").innerHTML =i2;} else{clearTimeout(id2);} } add2(); </script>
+					<div class="percent"><span data-per="70%" style="width: 70%;"></span></div>
+				</div>
+				<div class="item">
+					<p>24小时</p>
+					<h4>累计提款量<span id="sj3">3481</span>笔</h4>
+					<script> var i3 =3000+parseInt(Math.random()*1000,10); var max3 = 10000; var id3; function add3(){if (i3 < max3){i3 +=parseInt(Math.random()*8,10); id3 = setTimeout("add3()",3000); document.getElementById("sj3").innerHTML =i3;} else{clearTimeout(id3);} } add3(); </script>
+					<div class="percent"><span data-per="50%" style="width: 50%;"></span></div>
+				</div>
+			</div>
+		</div>
+		<div class="line1"></div>
+		<div class="part2">
+			<div class="title">
+				<img src="<{#images#}>/icon3-2.png" alt="">
+				<h3>服务优势</h3>
+				<p>Service Advantages</p>
+			</div>
+			<div class="con">
+				<div class="item">
+					<h4><a href="javascript:void(0);" onclick="getPager('-','livetop','m');">真人娱乐</a><span></span></h4>
+					<p>超过250种精选游戏，包括最经典的现场荷官，精彩内容面向全部玩家。</p>
+				</div>
+				<div class="item">
+					<h4><a href="javascript:void(0);" onclick="getPager('-','egame','m');">电子游戏</a><span></span></h4>
+					<p>从老虎机到刮奖卡，我们种类丰富的在线游戏将让您体验娱乐无限的欢乐感受。</p>
+				</div>
+				<div class="item">
+					<h4><a href="javascript:void(0);" onclick="getPager('-','lottery');">彩票游戏</a><span></span></h4>
+					<p>最受全球华人喜欢的彩票游戏：时时彩，香港彩，福彩3D等在线投注方便快捷。</p>
+				</div>
+			</div>
+		</div>
+		<div class="line1"></div>
+		<div class="part3">
+			<div class="title">
+				<img src="<{#images#}>/icon3-3.png" alt="">
+				<h3>服务优势</h3>
+				<p>Service Advantages</p>
+			</div>
+			<div class="con">
+				<div class="item">
+					<h3>优惠<span></span></h3>
+					<p>新用户享有首次存款红利及开户特制 礼品。现有客户同样享有现金返水及 再次存款红利。</p>
+				</div>
+				<div class="item">
+					<h3>支付方式<span></span></h3>
+					<div class="item-con">
+						<a ><img src="<{#images#}>/link1.png" alt=""></a>
+						<a ><img src="<{#images#}>/link2.png" alt=""></a>
+						<a ><img src="<{#images#}>/link3.png" alt=""></a>
+						<a ><img src="<{#images#}>/link4.png" alt=""></a>
+						<a ><img src="<{#images#}>/link5.png" alt=""></a>
+						<a ><img src="<{#images#}>/link6.png" alt=""></a>
+						<a ><img src="<{#images#}>/link7.png" alt=""></a>
+						<a ><img src="<{#images#}>/link8.png" alt=""></a>
+						<a ><img src="<{#images#}>/link9.png" alt=""></a>
+					</div>
+				</div>
+				<div class="item">
+					<h3>帮助中心<span></span></h3>
+					<p>您可以通过常见问题栏目获得有关开 户、存款、提款及技术方面的帮助。</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div style="clear:both;"></div>
+
+
+
+<!-- 页面主体 结束-->
+<{include file="../web_public/Nindex_html.html"}>
+<{$bottom}>

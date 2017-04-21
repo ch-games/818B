@@ -1,0 +1,498 @@
+/*body {*/
+/*font-family: Arial, 'Microsoft YaHei';*/
+/*font-size: 12px;*/
+/*line-height: 1.428571429;*/
+/*}*/
+
+body.layout {
+    min-width: 1000px
+}
+
+
+
+iframe {
+    border: none
+}
+
+[ng-click] {
+    cursor: pointer
+}
+
+ol, ul {
+    display: inline-block;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none
+}
+
+.wrapper {
+    position: relative;
+    width: 1000px;
+    margin: 0 auto;
+    background-color:#3a383c;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+
+#content_cp {
+    text-align: center;
+}
+
+
+#lobby {
+    display: inline-block;
+    width: 100%;
+    padding: 20px 0
+}
+
+li[game-box] {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center top;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+#un-lobby {
+    display: inline-block;
+    width: 100%;
+    padding: 20px 0;
+    margin: 20px 0;
+    border: 4px solid #602b8c
+}
+
+#un-lobby aside {
+    float: left;
+    width: 240px;
+    padding-top: 85px;
+    background: url('/CdnRedirect/Web.Portal/DR001-01.Portal/Content/Views/Shared/images/aside_ttitle.png') no-repeat center top
+}
+
+#un-lobby ul#sidebar {
+    display: inline-block;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none
+}
+
+#un-lobby ul#sidebar li {
+    position: relative
+}
+
+#un-lobby ul#sidebar li:hover a {
+    background-position: center bottom
+}
+
+#un-lobby ul#sidebar li a {
+    display: inline-block;
+    width: 226px;
+    height: 68px;
+    padding: 18px 0 0 110px;
+    text-align: left;
+    color: #be99dc;
+    font-size: 16px;
+    text-decoration: none;
+    background: url('/CdnRedirect/Web.Portal/DR001-01.Portal/Content/Views/Shared/images/aside_libg.png') no-repeat center top
+}
+
+#un-lobby ul#sidebar li a span {
+    display: block;
+    font-size: 12px
+}
+
+#un-lobby ul#sidebar li a:before {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: 50px;
+    display: inline-block;
+    width: 47px;
+    height: 35px;
+    background: url('/CdnRedirect/Web.Portal/DR001-01.Portal/Content/Views/Shared/images/aside_icon.png') no-repeat center top
+}
+
+#un-lobby ul#sidebar li.pt a:before {
+    background-position: 0 -71px
+}
+
+#un-lobby ul#sidebar li.bb a:before {
+    background-position: 0 -137px
+}
+
+#un-lobby ul#sidebar li.ag a:before {
+    background-position: 0 -205px
+}
+
+#un-lobby ul#sidebar li.gpi a:before {
+    background-position: 0 -273px
+}
+
+#un-lobby ul#sidebar li.gns a:before {
+    background-position: 0 -342px
+}
+
+#un-lobby ul#sidebar li.live a:before {
+    background-position: 0 -410px
+}
+
+#un-lobby ul#sidebar li.sport a:before {
+    background-position: 0 -479px
+}
+
+#un-lobby ul#sidebar li.lottery a:before {
+    background-position: 0 -548px
+}
+
+#articles {
+    float: right;
+    width: 726px;
+    min-height: 700px;
+    margin-right: 25px;
+    padding: 20px 20px 30px;
+    color: #eee;
+    text-align: left;
+    background-color: #120021;
+    border: 1px solid #290446
+}
+
+#articles h2 {
+    margin: 0
+}
+
+#articles h3 {
+    color: #eee;
+    font-size: 12px;
+    text-align: left
+}
+
+#articles h4 {
+    color: #eee;
+    font-size: 12px;
+    text-align: left
+}
+
+#articles > ul {
+    list-style: none
+}
+
+#articles ul.disc {
+    padding-left: 20px;
+    list-style: disc
+}
+
+#articles ol {
+    padding-left: 20px;
+    list-style-type: decimal
+}
+
+#articles p, #articles li {
+    font-size: 12px;
+    text-align: justify;
+    line-height: 26px
+}
+
+#articles p {
+    margin: 1em 0
+}
+
+#articles table {
+    width: 100%
+}
+
+#articles table tr, #articles table th, #articles table td {
+    color: #eee;
+    font-size: 12px;
+    line-height: 35px;
+    text-align: center;
+    border: 1px solid #aaa
+}
+
+#articles table th {
+}
+
+#articles .highlight {
+    color: red
+}
+
+#articles ul.mtab-menual {
+    padding-left: 0;
+    margin-bottom: 10px;
+    text-align: left
+}
+
+#articles ul.mtab-menual li {
+    display: inline-block;
+    width: 100px;
+    height: 26px;
+    margin-right: 8px;
+    color: #eee;
+    font-size: 12px;
+    line-height: 26px;
+    text-align: center;
+    background-color: #2d0051;
+    cursor: pointer
+}
+
+#articles ul.mtab-menual li.mtab, #articles ul.mtab-menual li:hover {
+    color: #000;
+    background-color: #f8f285
+}
+
+#articles ul.deposit {
+    list-style-type: none
+}
+
+#articles ul.deposit > li {
+    counter-increment: title
+}
+
+#articles ul.deposit > li > a:before {
+    content: "方法 " counter(title, upper-alpha) "、"
+}
+
+#articles ul.deposit > li a {
+    color: red;
+    font-size: 16px;
+    font-weight: normal !important;
+    text-decoration: none
+}
+
+.body {
+    position: relative;
+    width: 1000px;
+    margin: 0 auto;
+    padding: 5px;
+    font-size: 14px;
+    font-family: PMingLiU;
+    background: #000;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.body #title {
+    color: #fff;
+    text-align: center;
+    background-color: #1e013c
+}
+
+.body.container #title, .body #account-heading, .body #withdrawal-heading {
+    color: #fff;
+    background-color: #6312ba
+}
+
+.body #show-account-info.btn {
+    color: #fff
+}
+
+.form-group .control-div input::-webkit-input-placeholder {
+    color: #999
+}
+
+.form-group .control-div input::-moz-placeholder {
+    color: #999
+}
+
+.form-group .control-div input:-ms-input-placeholder {
+    color: #999
+}
+
+.form-group .control-div input.placeholder {
+    color: #999
+}
+
+.panel {
+    width: 100%;
+    color: #5f5f5f;
+    background: url('/CdnRedirect/Web.Portal/_Common/Content/Views/Account/images/panel_background.jpg') repeat;
+    border: 0
+}
+
+#title {
+    height: 48px;
+    font-weight: bold;
+    font-size: 21px;
+    font-family: 'Microsoft JhengHei';
+    text-transform: uppercase;
+    border: none
+}
+
+#title > div {
+    margin-top: -1px;
+    text-align: center;
+    text-transform: uppercase
+}
+
+#account-panel, #withdrawal-panel {
+    width: 792px;
+    color: #5f5f5f;
+    background: url('/CdnRedirect/Web.Portal/_Common/Content/Views/WithdrawApplication/images/panel_background.jpg') repeat;
+    border: 1px solid #b7b7b7;
+    -moz-box-shadow: inset 0 0 1px 1px #fff;
+    -webkit-box-shadow: inset 0 0 1px 1px #fff;
+    box-shadow: inset 0 0 1px 1px #fff
+}
+
+#account-heading, #withdrawal-heading {
+    margin: 1px 1px;
+    font-family: PMingLiU;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: left;
+    text-transform: uppercase
+}
+
+.panel-body {
+    text-align: center
+}
+
+.panel-body > form {
+    width: 700px;
+    margin: 0 auto
+}
+
+.control-div input {
+    width: 100%;
+    padding: 3px 5px;
+    line-height: 25px;
+    background: url('/CdnRedirect/Web.Portal/_Common/Content/Views/Account/images/input_center.png') repeat-y;
+    border: 0
+}
+
+.control-div input:focus {
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(255, 249, 149, .6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(255, 249, 149, .6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(255, 249, 149, .6)
+}
+
+.tooltip {
+    position: absolute;
+    left: 93%;
+    top: -2px;
+    z-index: 1;
+    display: inline-block
+}
+
+.tooltipshowarrow_int {
+    position: absolute;
+    top: 5px;
+    right: -1px;
+    z-index: 1000;
+    display: block;
+    border: 8px solid;
+    border-color: transparent #fff;
+    border-left-width: 0;
+    -moz-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1), inset 0 -1px 0 rgba(0, 0, 0, .07);
+    -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1), inset 0 -1px 0 rgba(0, 0, 0, .07);
+    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1), inset 0 -1px 0 rgba(0, 0, 0, .07)
+}
+
+.tooltipshowarrow_out {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    z-index: 999;
+    display: block;
+    border: 8px solid;
+    border-left-width: 0;
+    border-color: transparent #bbb;
+    -moz-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1), inset 0 -1px 0 rgba(0, 0, 0, .07);
+    -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1), inset 0 -1px 0 rgba(0, 0, 0, .07);
+    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1), inset 0 -1px 0 rgba(0, 0, 0, .07)
+}
+
+.tooltipshow {
+    position: absolute;
+    z-index: 999 !important;
+    width: 250px;
+    padding: 5px;
+    background-color: #fff;
+    border: 1px solid;
+    border-color: #bbb #bbb #a8a8a8;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .2)
+}
+
+.form-control::-webkit-input-placeholder {
+    color: #878787
+}
+
+.form-control:-moz-placeholder {
+    color: #878787
+}
+
+.form-control::-moz-placeholder {
+    color: #878787
+}
+
+.form-control:-ms-input-placeholder {
+    color: #878787
+}
+
+.input-block {
+    position: relative;
+    display: inline-block;
+    width: 304px
+}
+
+.help-block {
+    color: #8a6d3b
+}
+
+.input-block-top {
+    position: absolute;
+    top: -2px;
+    left: 0;
+    display: inline-block;
+    width: 100%;
+    height: 4px;
+    background: url('/CdnRedirect/Web.Portal/_Common/Content/Views/Account/images/input-top-btm.png') no-repeat 0 0
+}
+
+.input-block-btm {
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    display: inline-block;
+    height: 10px;
+    width: 100%;
+    background: url('/CdnRedirect/Web.Portal/_Common/Content/Views/Account/images/input-top-btm.png') no-repeat 0 -4px
+}
+
+.btn-submit {
+    position: relative;
+    width: 119px;
+    height: 45px;
+    color: #454545;
+    font-size: 15px;
+    font-family: PMingLiU;
+    font-weight: bold;
+    background: url('/CdnRedirect/Web.Portal/_Common/Content/Views/Shared/images/sent_bn.png') no-repeat 0 0;
+    border: 0
+}
+
+.btn-submit:hover {
+    color: #454545;
+    background: url('/CdnRedirect/Web.Portal/_Common/Content/Views/Shared/images/sent_bn.png') no-repeat 0 -46px
+}
+
+.table {
+    color: #000
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    line-height: 2em
+}
+
+table tfoot {
+    text-align: center;
+    background: #eee
+}

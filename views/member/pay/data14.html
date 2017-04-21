@@ -1,0 +1,345 @@
+
+<{config_load file="public.conf" section="public"}>
+
+<html><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>線上入款</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+	<link type="text/css" href="<{#mem_css#}>/standard.css" rel="stylesheet">
+	<link rel="stylesheet" href="<{#mem_css#}>/template.css" type="text/css">
+	<link rel="stylesheet" href="<{#mem_css#}>/easydialog.css" type="text/css">
+	<link rel="stylesheet" href="<{#mem_css#}>/bank.css" type="text/css">
+	<style type="text/css">
+		/*美化訊窗口使用*/
+		#dialog {
+			padding-top: 20px;
+		}
+
+		.ui-dialog {
+			border: 1px solid #000;
+			background: url('/cl/tpl/commonFile/images/Mem2Bank/pay_menuBg.jpg?=')
+			no-repeat;
+		}
+
+		.ui-dialog .ui-dialog-title {
+			color: #FFFFFF;
+		}
+
+		.ui-dialog .ui-dialog-titlebar-close {
+			margin-right: 5em;
+		}
+
+		.ui-dialog .ui-dialog-buttonpane button {
+			float: left;
+			display: inline;
+		}
+
+		.ui-dialog .ui-dialog-titlebar,.ui-dialog .ui-dialog-buttonpane {
+			background: none;
+			border: 0px;
+		}
+
+		.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+			float: left;
+		}
+		/*--- 按鈕樣式 ---*/
+		.btn_001{
+			cursor: pointer;
+			margin: 0 1px 0 0;
+			width: 85px;
+			height: 26px;
+			border: none;
+			padding-top: 2px;
+			color: #FFF;
+			font-weight: bold;
+			background: #3D3D3D url(../public/images/order_btn.gif) no-repeat 0 -80px;
+		}
+		/* esball use */
+	</style>
+</head>
+<body id="bank_body">
+<div id="bank_header">
+	<div id="bank_logo"></div>
+</div>
+<div id="bank_content">
+	<div id="pay_title">填寫付款人資料</div>
+	<div id="pay_info">
+		<div style="display: none">
+			<div class="lable">支付方式：</div>
+			<label><input type="radio" id="netbank" name="bank_type" value="netbank" checked="checked">網絡銀行</label> <label><input type="radio" id="51epaybank" name="bank_type" value="51epaybank" onclick="pay_typy_link();">手機銀行</label>
+		</div>
+		<form id="myFORM" name="myFORM" action="<{$site_url}>/index.php/member/income/Hk_card/confirm_order<{$paytype}>" method="post">
+			<input type="hidden" name="order_num" value="<{$order_num}>">
+			<input type="hidden" name="act" value="card">
+			<input type="hidden" name="pay_flag" value="0">
+			<ul>
+				<li class="pay_info">
+					<div class="lable">會員帳號：</div>
+					<div class="input"><{$userinfo["username"]}></div>
+				</li>
+				<input name="username" id="username" value="<{$userinfo['username']}>" type="hidden" size="25">
+				</li>
+				<li class="pay_info"><div class="lable">
+					<span class="star">*</span>存款金額：
+				</div>
+					<div class="input">
+						<input name="s_amount" id="s_amount" onkeyup="clearNoNum(this);" onblur="offerPrompt();" type="text" size="25">&nbsp;
+					</div></li>
+
+
+
+				<li class="pay_info">
+					<div class="lable">
+						<span class="star">*</span>支付銀行：
+					</div>
+					<div id="bank_list" class="input">
+						<table>
+							<tbody>
+							<tr>
+								<td style="height: 32px">
+									<input style="float: left;" type="radio" name="bank_name" value="YDSZX">
+									<label style="font-size:12px;white-space: normal; width:95px" for="YDSZX">移動神州行</label>
+								</td>
+								<td style="height: 32px">
+									<input style="float: left;" type="radio" name="bank_name" value="DXGK">
+									<label style="font-size:12px;white-space: normal; width:95px" for="DXGK ">電信國卡</label>
+								</td>
+								<td style="height: 32px">
+									<input style="float: left;" type="radio" name="bank_name" value="QBCZK">
+									<label style="font-size:12px;white-space: normal; width:95px" for="QBCZK">Q幣充值卡</label>
+								</td>
+								<td style="height: 32px">
+									<input style="float: left;" type="radio" name="bank_name" value="LTYKT">
+									<label style="font-size:12px;white-space: normal; width:95px" for="LTYKT">聯通壹卡通</label>
+								</td>
+							</tr>
+							<tr>
+								<td style="height: 32px">
+									<input style="float: left;" type="radio" name="bank_name" value="JWYKT">
+									<label style="font-size:12px;white-space: normal; width:95px" for="JWYKT">駿網壹卡通</label>
+								</td>
+								<td style="height: 32px">
+									<input style="float: left;" type="radio" name="bank_name" value="SDYKT">
+									<label style="font-size:12px;white-space: normal; width:95px" for="SDYKT">盛大壹卡通</label>
+								</td>
+								<td style="height: 32px">
+									<input style="float: left;" type="radio" name="bank_name" value="WMYKT">
+									<label style="font-size:12px;white-space: normal; width:95px" for="WMYKT">完美壹卡通</label>
+								</td>
+								<td style="height: 32px">
+									<input style="float: left;" type="radio" name="bank_name" value="ZTYKT">
+									<label style="font-size:12px;white-space: normal; width:95px" for="ZTYKT">征途壹卡通</label>
+								</td>
+							</tr>
+							<tr>
+								<td style="height: 32px">
+									<input style="float: left;" type="radio" name="bank_name" value="WYYKT">
+									<label style="font-size:12px;white-space: normal; width:95px" for="WYYKT">網易壹卡通</label>
+								</td>
+								<td style="height: 32px">
+									<input style="float: left;" type="radio" name="bank_name" value="SHYKT">
+									<label style="font-size:12px;white-space: normal; width:95px" for="SHYKT">搜狐壹卡通</label>
+								</td>
+								<td style="height: 32px">
+									<input style="float: left;" type="radio" name="bank_name" value="JYYKT">
+									<label style="font-size:12px;white-space: normal; width:95px" for="JYYKT">九遊壹卡通</label>
+								</td>
+								<td style="height: 32px">
+									<input style="float: left;" type="radio" name="bank_name" value="THYKT">
+									<label style="font-size:12px;white-space: normal; width:95px" for="THYKT">天宏壹卡通</label>
+								</td>
+							</tr>
+							<tr>
+								<td style="height: 32px">
+									<input style="float: left;" type="radio" name="bank_name" value="TXYKT">
+									<label style="font-size:12px;white-space: normal; width:95px" for="TXYKT">天下壹卡通</label>
+								</td>
+								<td style="height: 32px">
+									<input style="float: left;" type="radio" name="bank_name" value="GYYKT">
+									<label style="font-size:12px;white-space: normal; width:95px" for="GYYKT">光宇壹卡通</label>
+								</td>
+								<td style="height: 32px">
+									<input style="float: left;" type="radio" name="bank_name" value="ZYYKT">
+									<label style="font-size:12px;white-space: normal; width:95px" for="ZYYKT">縱遊壹卡通</label>
+								</td>
+								<td style="height: 32px">
+									<input style="float: left;" type="radio" name="bank_name" value="TXYKTZX">
+									<label style="font-size:12px;white-space: normal; width:95px" for="TXYKTZX">天下壹卡通專項</label>
+								</td>
+							</tr>
+							<tr>
+								<td style="height: 32px">
+									<input style="float: left;" type="radio" name="bank_name" value="SFYKT">
+									<label style="font-size:12px;white-space: normal; width:95px" for="SFYKT">盛付通壹卡通</label>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+
+				</li>
+				<li class="pay_info"><div class="lable">&nbsp;</div>
+					<div class="input">
+						<input type="submit" id="Submit" class="btn_001" value="確認">&nbsp;&nbsp;&nbsp;
+						<input type="reset" class="btn_001" value="重設">
+					</div></li>
+
+			</ul>
+			<div style="display:none">
+				<br>
+				<br>時間字段：<input Type="text" Name="MODate" value="2010-08-16 12:20:10">
+				<br>幣      種：<input Type="text" Name="MOCurrency" value="1">
+				<br>語言選擇：<input Type="text" Name="M_Language" value="1">
+				<br>消費者姓名：<input Type="text" Name="S_Name" value="<?=$userinfo["username"];?>">
+				<br>消費者住址：<input Type="text" Name="S_Address" value="2308">
+				<br>消費者郵碼：<input Type="text" Name="S_PostCode" value="518000">
+				<br>消費者電話：<input Type="text" Name="S_Telephone" value="0755-88833166">
+				<br>消費者郵件：<input Type="text" Name="S_Email" value="service@dinpay.com">
+				<br>收貨人姓名：<input Type="text" Name="R_Name" value="wangl">
+				<br>收貨人住址：<input Type="text" Name="R_Address" value="2308">
+				<br>收貨人郵碼：<input Type="text" Name="R_PostCode" value="100080">
+				<br>收貨人電話：<input Type="text" Name="R_Telephone" value="0755-82384511">
+				<br>收貨人郵件：<input Type="text" Name="R_Email" value="service@dinpay.com">
+				<br>商品名稱：<input Type="text" Name="G_Name" value="aaa">
+				<br>商品編號：<input Type="text" Name="G_Number" value="B001">
+				<br>商品數量：<input Type="text" Name="G_Count" value="1">
+				<br>商品描述：<input Type="text" Name="G_Info" value="bbb">
+				<br>商品展示地址：<input Type="text" Name="G_Url" value="http://www.a.com">
+				<br>備     註：<input Type="text" name="MOComment" value="w">
+				<br>交易狀態：<input Type="text" Name="State" value="0">
+				<br>
+			</div>
+		</form>
+	</div>
+	<br>
+	<br>
+	<div id="note">
+		<h1>備註：</h1>
+		<ol>
+
+			<li>標記有&nbsp;<span class="star">*</span>&nbsp;者為必填項目。&nbsp;
+			</li>
+			<li>單筆最低存款金額 <{$payset.ol_catm_min}> 元以上。&nbsp;</li>
+			<li>單筆最高存款金額 <{$payset.ol_catm_max}> 元以下。&nbsp;</li>
+		</ol>
+	</div>
+	<br>
+</div>
+<div id="dialog" title="訊息窗口" style="display:none">
+	尊敬的會員您好：<br>
+	<input type="radio" name="abandon_sp_radio" value="Y" onclick="document.myFORM.abandon_sp.value='Y';">我要獲取存款優惠<br>
+	<input type="radio" name="abandon_sp_radio" value="N" onclick="document.myFORM.abandon_sp.value='N';">我要放棄存款優惠<br>
+	<br>
+</div>
+<div id="bank_footer" align="center">
+
+	<p>Copyright © <{$copy_right['copy_right']}> Reserved</p>
+</div>
+
+
+<script type="text/javascript" src="../public/js/jquery-1.8.3.min.js"></script>
+
+<script type="text/javascript">
+	var AbandonSp = '';
+	$('#myFORM').submit(function(){
+		if($('#s_amount').attr('type').toLowerCase() == 'hidden' && document.getElementById('thousand').tagName.toLowerCase() == 'select'){
+			var amount = $('#thousand').val()+$('#hundred').val()+$('#ten').val()+$('#unit').val();
+		}else{
+			var amount = $('#s_amount').val();
+		}
+		if (isNaN(amount)==true ) {
+			alert('僅能輸入數字');
+			return false;
+		}
+
+		if (amount<<?=$data_1[ol_catm_min]?>) {
+			alert('單筆最低存款金額 <?=$data_1[ol_catm_min]?> 元以上。');
+			$('#s_amount').focus();
+			return false;
+		} else if (amount><?=$data_1[ol_catm_max]?>) {
+			alert('單筆最高存款金額 <?=$data_1[ol_catm_max]?> 元以下。');
+			$('#s_amount').focus();
+			return false;
+		}
+
+		$('#s_amount').val(amount);
+
+		if (confirm("是否確定寫入?")) {
+			$('#Submit').attr('disabled',true);
+			return true;
+		}
+		return false;
+	});
+
+	function offerPrompt()
+	{
+		if (AbandonSp=='Y' && $('#s_amount').val()>=2000) {
+			$("#dialog").dialog();
+		}
+	}
+	function isInteger(str) {
+		var regu = /^[-][0-9]$/;
+		return regu.test(str);
+	}
+
+	function pay_typy_link(){
+		document.location = '51epay.php?uid=Ced1642ez1590140dz27k2hk2zlc4j6z0142';
+	}
+
+	function shwo_table(show) {
+		var obj_win = document.getElementById('jlk_num');
+		var obj_win_1 = document.getElementById('jlk_pwd');
+		if(show == 'JLK'){
+			obj_win.style.display = "block";
+			obj_win_1.style.display = "block";
+		}else{
+			obj_win.style.display = "none";
+			obj_win_1.style.display = "none";
+		}
+	}
+
+	function getKey(){
+		$.ajax({
+			type:'GET',
+			url:'/app/member/verify/mkCode.php?_='+Math.random()+(new Date).getTime(),
+			data:'',
+			success:function(data){
+				spl = data.split(";");
+				$("input[name='SS']").val(spl[0]);
+				$("input[name='SR']").val(spl[1]);
+				$("input[name='TS']").val(spl[2]);
+				$("#vPic").attr("src","/tpl/commonFile/images/gdpic/macpicforpayonline.php?langx=gb&r="+Math.random()+(new Date).getTime());
+				$("#vPic").css("display","inline");
+				$("#crPic").css("display","inline");
+				$("input[name='rmNum']").val("");
+			}
+		});
+	}
+	//數字驗證 過濾非法字符
+	function clearNoNum(obj){
+		//先把非數字的都替換掉，除了數字和.
+		obj.value = obj.value.replace(/[^\d.]/g,"");
+		//必須保證第壹個為數字而不是.
+		obj.value = obj.value.replace(/^\./g,"");
+		//保證只有出現壹個.而沒有多個.
+		obj.value = obj.value.replace(/\.{2,}/g,".");
+		//保證.只出現壹次，而不能出現兩次以上
+		obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+		if(obj.value != ''){
+			var re=/^\d+\.{0,1}\d{0,2}$/;
+			if(!re.test(obj.value))
+			{
+				obj.value = obj.value.substring(0,obj.value.length-1);
+				return false;
+			}
+		}
+	}
+
+
+	function cancelMouse(){return false;}
+	document.oncontextmenu = cancelMouse;
+</script>
+
+
+
+</body></html>

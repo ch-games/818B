@@ -1,0 +1,168 @@
+<{config_load file="public.conf" section="public"}>
+<script>
+	$('.nav2 span').html('往來記錄')
+	$('.nav2 a').removeClass('active')
+	$('.nav2').find("a[data='transaction_contacts_index']").addClass('active')
+	$('.Hyzx-nav').find("a[data='transaction_bet_index']").addClass('active');
+</script>
+<style type="text/css">
+	.Hyzx-tk{top:42%;}
+</style>
+<div class="Hyzx-right">
+	<{include file="../transaction_common.html"}>
+	<div class="Hyzx-content">
+		<div class="Hyzx-select">
+			<form  id="myFORM" method="get" name="myFORM">
+				<div class="Hyzx-module" onchange="TransactionAjax()">
+					<span >交易別類:</span>
+					<select name="deptype" id="sort_way" >
+						<option value="Monitor" <{select_check('Monitor',$deptype)}>>入款監控</option>
+						<option value="1" <{select_check(1,$deptype)}>>額度轉換</option>
+						<option value="2" <{select_check(2,$deptype)}>>體育下註</option>
+						<option value="15" <{select_check(15,$deptype)}>>體育派彩</option>
+						<option value="3" <{select_check(3,$deptype)}>>彩票下註</option>
+						<option value="14" <{select_check(14,$deptype)}>>彩票派彩</option>
+						<option value="10" <{select_check(10,$deptype)}>>線上入款</option>
+						<option value="11" <{select_check(11,$deptype)}>>公司入款</option>
+						<option value="19" <{select_check(19,$deptype)}>>線上取款</option>
+						<option value="9" <{select_check(9,$deptype)}>>優惠退水</option>
+						<option value="1-12-1" <{select_check('1-12-6',$deptype)}>>優惠活動</option>
+						<option value="1-12-3" <{select_check('1-12-3',$deptype)}>>人工存入</option>
+						<option value="2-12-4" <{select_check('2-12-4',$deptype)}>>人工取出</option>
+
+						<option value="12" <{select_check('12',$deptype)}>>人工存款與取款</option>
+						<option value="in" <{select_check('in',$deptype)}>>入款明細</option>
+						<option value="out" <{select_check('out',$deptype)}>>出款明細</option>
+
+					</select>
+				</div>
+				<div class="Hyzx-module">
+					<span>時間:</span>
+					<div class="Hyzx-data">
+						從
+						<input type="text" value="<{$s_date}>" id="start_date" name="start_date" data="start_date" onclick="laydate({istime: false, format: 'YYYY-MM-DD'})" class="Wdate" readonly/>
+						至<input type="text" value="<{$e_date}>" id="end_date" name="end_date" data="end_date" onclick="laydate({istime: false, format: 'YYYY-MM-DD'})" class="Wdate" readonly/>
+					</div>
+				</div>
+				<a href="javascript:;" name="subbtn" class="flt Hyzx-btn"
+				   onclick="TransactionAjax()" data="aa" >查詢</a>
+			</form>
+		</div>
+		<table class="Hyzx-table mt10" id="ajax_add">
+			<tr>
+				<th>日期</th>
+				<th>類型</th>
+				<th>交易別類</th>
+				<th>交易額度</th>
+				<th>現有額度</th>
+				<th>備註</th>
+			</tr>
+			<tr>
+				<td colspan="6">暫無交易記錄</td>
+			</tr>
+
+		</table>
+		<div class="Hyzx-pageBox mt20" id = 'pagediv'>
+			<a href="javascript:;"  class="Hyzx-btn">上壹頁</a>
+			<a href="javascript:;" class="Hyzx-btn active">1</a>
+			<a href="javascript:;" class="Hyzx-btn">下壹頁</a>
+		</div>
+		<script>
+			function TransactionAjax(a){
+				//判斷時間區間
+				var date1 = $('#start_date').val();
+				var date2 = $('#end_date').val();
+				if (parseInt(date1.replace(/\-/g,'')) > parseInt(date2.replace(/\-/g,''))) {
+					$.member.alertpop('','請選擇正確時間區間！');
+					return false;
+				}
+				if(!arguments[0]) a  = 1;
+				var deptype = $("#sort_way").val();
+				var start_date = $("#start_date").val();
+				var end_date = $("#end_date").val();
+				if(start_date > end_date){
+					$.member.alertpop('','請選擇正確時間區間！');
+					return false;
+				}
+				if (a < 1) {
+					page = 1;
+				}else{
+					page = a;
+				}
+
+				$.ajax({
+					type: "get",
+					url: "/index.php/member/new/Transaction/transaction_contacts_ajax_do?start_date="+start_date+"&end_date="+end_date+"&page="+page+"&deptype="+deptype,
+					//data:"",
+					dataType:"json",
+					beforeSend: function(){
+						$.member.maskLayer();
+					},
+					success: function(msgall){
+						$('#HyZzc').remove();
+						var nr = '';
+						if(deptype == 'Monitor'){
+							var nr = '<tbody><tr><th>日期</th><th>類型</th><th>交易類別</th><th>交易額度</th><th>優惠金額</th><th>狀態</th></tr>';
+						}else{
+							var nr = '<tbody><tr><th>日期</th><th>類型</th><th>交易類別</th><th>交易額度</th><th>現有額度</th><th>備註</th></tr>';
+						}
+						msg = msgall.data;
+						totalPage = parseInt(msgall.totalPage);
+						thisPage = parseInt(msgall.thisPage);
+						prvepage = (thisPage - 1)>0?thisPage - 1:1;
+						nextpage = (thisPage + 1)<totalPage?thisPage + 1:totalPage;
+						if( msg != ""){
+
+							for(var i=0; i<msg.length; i++){
+								nr += "<tr><td>"+ msg[i].cash_date+"</td>";
+								nr += "<td style='text-align:center;'>"+msg[i].cash_type_fy+"</td>";
+								nr += "<td style='text-align:center;'>"+msg[i].cash_do_type_fy+"</td>";
+								if(deptype == 'Monitor'){
+									nr += "<td style='text-align:center;'>"+parseFloat(msg[i].cash_num).toFixed(2)+"</td>";
+									nr += "<td style='text-align:center;'>"+parseFloat(msg[i].discount_num).toFixed(2)+"</td>";
+								}else{
+									nr += "<td style='text-align:center;'>"+parseFloat(msg[i].cash_num+msg[i].discount_num).toFixed(2)+"</td>";
+									nr += "<td style='text-align:center;'>"+parseFloat(msg[i].cash_balance).toFixed(2)+"</td>";
+								}
+
+								nr += "<td style='text-align:center;'>"+msg[i].remark+"</td>";
+								nr += "</tr>";
+							}
+
+							nr += "</tbody>";
+
+							var pagediv = "";
+							pagediv += "<a href='javascript:;' onclick='TransactionAjax("+prvepage+")' class='Hyzx-btn'>上壹頁</a>"
+							for (var i = 1; i <= totalPage; i++) {
+								if(thisPage == i){
+									pagediv += "<a  onclick='TransactionAjax("+i+")' id='page' href='javascript:;' class='Hyzx-btn active'>"+i+"</a>";
+								}else{
+									pagediv += "<a  onclick='TransactionAjax("+i+")' id='page' href='javascript:;' class='Hyzx-btn'>"+i+"</a>";
+								}
+
+							}
+							pagediv += "<a href='javascript:;' onclick='TransactionAjax("+nextpage+")' class='Hyzx-btn'>下壹頁</a>"
+
+						}else{
+							nr += '<tr><td colspan="6">暫無交易記錄</td></tr>';
+							nr += "</tbody>";
+						}
+
+						$('#ajax_add').html(nr);
+						$('#pagediv').html(pagediv);
+						$.member.atHeight();
+					}
+				});
+			}
+
+			$(function(){
+				var deptype = $("#sort_way").val();
+				if(deptype == 'Monitor'){
+					TransactionAjax();
+				}
+			})
+
+		</script>
+
+	</div>
+</div>

@@ -1,0 +1,163 @@
+<div class="Hyzx-right">
+	<h3>
+		<span class="flt">個人信息</span>
+	</h3>
+	<div class="Hyzx-content">
+		<table class="Hyzx-table">
+			<tr>
+				<th>狀態</th>
+				<th>標題</th>
+				<th>發布時間</th>
+				<th>操作</th>
+			</tr>
+			<{if !empty($data)}>
+			<{foreach from=$data item=v}>
+			<tr>
+				<td class="islook<{$v.msg_id}>"><{if $v.islook==0}><b>未讀</b><{else}><FONT color=#ff0000>已讀</FONT><{/if}></td>
+				<td><a href="javascript:;" data="<{$v.msg_id}>" class="toggle"> <{$v['msg_title']}> </a></td>
+				<td><{date("Y-m-d",strtotime($v.msg_time))}></td>
+				<td><{if !empty($v['uid'])}><a class="button_d memnew_del" data="<{$v.msg_id}>" href="javascript:;">刪除</a><{/if}></td>
+			</tr>
+			<tr style="display: none; height: 80px;">
+				<td colspan="4" style="word-wrap:break-word;word-break:break-all;"><{$v['msg_info']}></td>
+			</tr>
+			<{/foreach}>
+			<{else}>
+			<tr>
+				<td colspan="4">暫時沒有個人消息</td>
+			</tr>
+			<{/if}>
+		</table>
+		<input type="hidden" name="memnews_page" value="<{$page}>" />
+		<input type="hidden" name="totalPage" value="<{$totalPage}>" />
+		<div class="Hyzx-pageBox mt20">
+			<!-- 分頁 -->
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		// 分頁加載
+		var page = $(".Hyzx-pageBox").siblings("input[name='memnews_page']").val();
+		page = Number(page);
+		var totalPage = $(".Hyzx-pageBox").siblings("input[name='totalPage']").val();
+		if(totalPage > 1){
+			var page_html ='';
+			page_html += '<a href="javascript:;" class="Hyzx-btn news_home">首頁</a>';
+			page_html += '<a href="javascript:;" class="Hyzx-btn news_prev">上壹頁</a>';
+			for (var page_i=0; page_i < totalPage; page_i++) {
+				if(page_i >= ( page - 3 ) && page_i <= (page+1)){
+					if(page_i == (page - 1)){
+						page_html += '<a href="javascript:;" class="Hyzx-btn active">'+page+'</a>';
+					}else{
+						page_html += '<a href="javascript:;" class="Hyzx-btn news_page">'+(page_i +1)+'</a>';
+					}
+				}
+			}
+			page_html += '<a href="javascript:;" class="Hyzx-btn news_next">下壹頁</a>';
+			page_html += '<a href="javascript:;" class="Hyzx-btn news_end">尾頁</a>';
+			$(".Hyzx-pageBox").html(page_html);
+		}else{
+			$(".Hyzx-pageBox").html("");
+		}
+	})
+</script>
+
+<script type="text/javascript">
+	$(function() {
+		//點擊標題事件   點擊標題  顯示消息內容並提交ajax
+		$(".toggle").on('click', function() {
+			// msg_id 信息的msg_id
+			var msg_id = $(this).attr('data');
+			//這裏規定消息內容的顯示隱藏速度和顯示隱藏時觸發的事件
+			$(this).parents("tr").next("tr").toggle(200,function(){
+				$.member.atHeight();
+				$.post('/index.php/member/new/Memnews/memnews_read_do', {msg_id: msg_id}, function(msg) {
+					if (msg == 1) {
+						// 插入已讀記錄後改變信息狀態 msg 1 插入成功  0 插入失敗
+						$('.islook' + msg_id).html('<FONT color=#ff0000>已讀</FONT>');
+					}
+				});
+			});
+		});
+		// 刪除會員信息
+		$(".memnew_del").on('click', function() {
+			var _this = $(this);
+			var msg_id = _this.attr('data');
+			var del_new = confirm('確定刪除?');
+
+			if(del_new == true){
+				$.post('/index.php/member/new/Memnews/memnews_del_do', {msg_id: msg_id}, function(msg) {
+					if(msg == 1){
+						$.member.alertpop('success','信息刪除成功！');
+						_this.parents("tr").remove();
+					}else{
+						$.member.alertpop('','信息刪除失敗！');
+					}
+				});
+			}
+		});
+
+		var page = $(".Hyzx-pageBox").siblings("input[name='memnews_page']").val();
+		var totalPage = $(".Hyzx-pageBox").siblings("input[name='totalPage']").val();
+		//首頁
+		$(".Hyzx-pageBox .news_home").on('click', function() {
+			if(page > 0){
+				$.member.changeNav('Memnews','memnews_personal_index',1);
+			}else{
+				return false;
+			}
+		});
+		//上壹頁
+		$(".Hyzx-pageBox .news_prev").on('click', function() {
+			if(page > 1){
+				var prev = Number(page) - 1;
+				$.member.changeNav('Memnews','memnews_personal_index?page='+prev,1);
+			}else{
+				return false;
+			}
+		});
+		//下壹頁
+		$(".Hyzx-pageBox .news_next").on('click', function() {
+			if(page >= 1 && totalPage > 1 && page < totalPage){
+				var next = Number(page) + 1;
+				$.member.changeNav('Memnews','memnews_personal_index?page='+next,1);
+			}else{
+				return false;
+			}
+		});
+		//尾頁
+		$(".Hyzx-pageBox .news_end").on('click', function() {
+			if(page < totalPage){
+				totalPage = Number(totalPage);
+				$.member.changeNav('Memnews','memnews_personal_index?page='+totalPage,1);
+			}else{
+				return false;
+			}
+		});
+		//跳轉頁數
+		$(".Hyzx-pageBox .news_page").on('click', function() {
+			var page_sum = $(this).text();
+			page_sum = Number(page_sum);
+			if(page_sum <= totalPage){
+				$.member.changeNav('Memnews','memnews_personal_index?page='+page_sum,1);
+			}else{
+				return false;
+			}
+		});
+	})
+</script>
+<style>
+	.button_d {
+		background: -moz-linear-gradient(center top, white, #ededed) repeat
+		scroll 0 0 rgba(0, 0, 0, 0);
+		border: 1px solid #b7b7b7;
+		color: #3d3934;
+		border-radius: 0.5em;
+		box-shadow: 0 1px 2px rgba(97, 97, 97, 0.2);
+		font: 12px/100% Arial, Helvetica, sans-serif;
+		padding: 0.45em 0.5em 0.5em;
+		display: inline-block;
+		cursor: pointer;
+	}
+</style>

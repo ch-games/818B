@@ -1,0 +1,38 @@
+<{config_load file="public.conf" section="public"}>
+<link rel="stylesheet" href="/shared/new_member/css/easydialog.css">
+<script src="/shared/new_member/js/easydialog.min.js"></script>
+<!-- <div class="Hyzx-body"> -->
+<style>
+	.Hyzx-conNav a[data="<{$data}>"]{background: <{$color}>;}
+</style>
+<div class="Hyzx-out">
+	<div class="audit-tip">
+		<i></i>
+		<div>
+			<h4>您的存款申請已經<span class="sp-red">進入審核</span>隊列</h4>
+			<p>若您支付成功<span class="sp-red">1分鐘</span>之內系統會為您自動加款，請等待...</p>
+							<span class="forms-btn-g">
+								<input type="button" onclick="open_new_member();" id="goToPageB" class="btn-sub" value="已完成存款">
+								<a href="javascript:void(0);" onclick="OnlineService(<{$copy_right['online_service']}>);" class="btn-reset" target="_blank">存款遇到問題未完成</a>
+
+
+							</span>
+		</div>
+	</div>
+</div>
+<!-- </div>
+        </div> -->
+<script>
+
+	function OnlineService(url){
+		newWin=window.open(url,'','width=900,height=600,top=0,left=0,status=no,toolbar=no,scrollbars=yes,resizable=no,personalbar=no');
+		window.opener=null;//出掉關閉時候的提示窗口
+		window.open('','_self'); //ie7
+		window.close();
+	}
+	function open_new_member(){
+		// var func = 'transaction_contacts_index';
+		// $.member.JumpHYPage('Transaction',func,'1-2');
+		$.member.changeNav('Transaction','transaction_contacts_index',1);
+	}
+</script>

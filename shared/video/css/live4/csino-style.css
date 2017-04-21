@@ -1,0 +1,235 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.list_warp {
+    width: 860px;
+    height: 800px;
+    position: relative;
+    margin: 0 70px;
+}
+
+.list_warp ul li {
+    width: 300px;
+    height: 400px;
+    background: #fff;
+    border: 1px solid #2a6496;
+    border-radius: 12px;
+    display: inline-block;
+    position: absolute;
+    top: 62px;
+    box-shadow: 1px 1px 5px #000;
+    transition: 0.5s;
+}
+
+.list_warp ul li img {
+    width: 100%;
+    height: 100%;
+}
+.list_warp ul li .live4_button{
+    position: absolute;
+    top:294px;
+    left:0;
+    opacity:0;
+    transition: 0.5s;
+}
+#li4 .live4_button{
+    top:315px;
+}
+.list_warp ul li .live4_button a{
+    display: inline-block;
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 20px;
+    text-align: center;
+    background-color: rgb(212, 46, 46);
+    margin-left: 18px;
+    margin-top: 18px;
+    color: rgb(255, 255, 255);
+    font-family: STHeiti, "Microsoft YaHei", 微软雅黑, SimSun, 宋体, arial;
+    text-decoration: none;
+}
+
+.list_warp ul li .live4_button a:hover{
+    background: rgb(167, 38, 38);
+}
+/*
+#li1{
+    left: 280px;
+    height: 425px;
+}
+#li2{
+    z-index: 1;
+    left: 280px;
+    height: 425px;
+}
+.li3{
+    z-index: 2;
+    left: 280px;
+    height: 425px;
+}
+#li4{
+    z-index: 3;
+    left: 280px;
+    height: 425px;
+}
+#li5{
+    z-index: 2;
+    left: 280px;
+    height: 425px;
+}
+#li6{
+    z-index: 1;
+    left: 280px;
+    height: 425px;
+}
+#li7{
+    background: #b2dba1;
+    left: 280px;
+    height: 425px;
+}
+.list_warp:hover #li3{
+    transform: rotate(-10deg);
+    left: 210px;
+    top: 93px;
+}
+.list_warp:hover #li5{
+    transform: rotate(10deg);
+    z-index: 2;
+    left: 350px;
+    top: 93px;
+}
+.list_warp:hover #li2{
+    transform: rotate(-20deg);
+    z-index: 1;
+    left: 155px;
+    top: 105px;
+}
+.list_warp:hover #li6{
+    transform: rotate(20deg);
+    z-index: 1;
+    left: 400px;
+    top: 105px;
+}
+.list_warp:hover #li1{
+    transform: rotate(-28deg);
+    left: 95px;
+    top: 145px;
+}
+.list_warp:hover #li7{
+    transform: rotate(28deg);
+    left: 455px;
+    top: 145px;
+}
+*/
+
+#li1 {
+    transform: rotate(-28deg);
+    background: red;
+    left: -10px;
+    top: 145px;
+}
+
+#li2{
+    transform: rotate(-20deg);
+    z-index: 1;
+    background: yellow;
+    left: 85px;
+    top: 105px;
+}
+
+#li3{
+    transform: rotate(-10deg);
+    z-index: 2;
+    background: blue;
+    left: 170px;
+    top: 93px;
+}
+
+#li4{
+    z-index: 3;
+    background: #b2dba1;
+    left: 280px;
+    height: 425px;
+}
+
+#li5{
+    transform: rotate(10deg);
+    z-index: 2;
+    background: #0A1C5A;
+    left: 390px;
+    top: 93px;
+}
+
+#li6{
+    transform: rotate(20deg);
+    z-index: 1;
+    background: #fff;
+    left: 470px;
+    top: 105px;
+}
+
+#li7{
+    transform: rotate(28deg);
+    background: #0a0a0a;
+    left: 567px;
+    top: 145px;
+}
+#li1:hover .live4_button{
+    opacity: 1;
+}
+#li1:hover{
+    transform: scale(1.1) rotate(-26deg);
+    z-index: 10;
+}
+#li2:hover .live4_button{
+    opacity: 1;
+}
+#li2:hover {
+    background: #000;
+    transform: scale(1.1) rotate(-18deg);
+    z-index: 10;
+}
+#li3:hover .live4_button{
+    opacity: 1;
+}
+#li3:hover {
+    background: #000;
+    transform: scale(1.1) rotate(-8deg);
+    z-index: 10;
+}
+#li4:hover .live4_button{
+    opacity: 1;
+}
+#li4:hover {
+    background: #000;
+    transform: scale(1.1) rotate(2deg);
+    z-index: 10;
+}
+#li5:hover .live4_button{
+    opacity: 1;
+}
+#li5:hover {
+    background: #000;
+    transform: scale(1.1) rotate(12deg);
+    z-index: 10;
+}
+#li6:hover .live4_button{
+    opacity: 1;
+}
+#li6:hover {
+    background: #000;
+    transform: scale(1.1) rotate(22deg);
+    z-index: 10;
+}
+#li7:hover .live4_button{
+    opacity: 1;
+}
+#li7:hover {
+    background: #000;
+    transform: scale(1.1) rotate(30deg);
+    z-index: 10;
+}

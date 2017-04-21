@@ -1,0 +1,217 @@
+<{config_load file="public.conf" section="public"}>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script language="javascript" type="text/javascript" src="<{#mem_js#}>/jquery-1.8.3.min.js"></script>
+	<link rel="stylesheet" href="<{#mem_css#}>/index_main.css" />
+	<link rel="stylesheet" href="<{#mem_css#}>/standard.css" />
+</head>
+<body style="BACKGROUND: url(<{#mem_images#}>/../private/content_bg.jpg) repeat-y left top;" >
+<div id="MAMain" style="width:767px;">
+	<div id="MACenter-content" >
+		<div id="MACenterContent">
+			<div id="MNav">
+				<span class="mbtn">基本資訊</span>
+				<div class="navSeparate"></div>
+				<a target="k_memr"  class="mbtn"
+				   href="<{$site_url}>/index.php/member/account/advisory">投註資訊</a>
+				<{if empty($userinfo['pay_num'])}>
+				<a href="#" class="mbtn" onclick="window.open('/index.php/member/cash/show?type=1','newwindow','height=580,width=800,top=20,left=200,toolbar=no,menubar=no,scrollbars=yes,resizable=yes,location=no,status=no')">取款銀行</a>
+				<{/if}>
+				<{if $is_self}>
+				<a target="k_memr"  class="mbtn"
+				   href="<{$site_url}>/index.php/member/account/user_self_fd">自助返水</a><{/if}>
+			</div>
+			<div style="overflow-y:scroll; height:370px">
+				<div id="MMainData" style="margin-top: 8px;">
+					<h2 class="MSubTitle"><{$userinfo['username']}>的基本信息:</h2>
+					<table class="MMain" border="1" style="margin-bottom: 8px;">
+						<tbody>
+						<tr>
+							<th nowrap=""  colspan="2" style="text-align: center;">幣別</th>
+							<th nowrap=""  colspan="2" style="text-align: center;">最後登錄時間</th>
+
+						</tr>
+
+						<tr>
+							<td style="text-align: center;" class=""  colspan="2">人民蔽(RMB)</td>
+							<td style="text-align: center;" class="" colspan="2">
+								<{$userinfo['login_time']}>
+							</td>
+						</tr>
+
+
+						<tr>
+							<th style="width:25%;" nowrap="">系統余額</th>
+							<{foreach key=cid item=con from=$video_config1}>
+							<th style="width:25%;" nowrap=""><{if $con=='dg99'}>818彩票<{else}><{strtoupper($con)}>余額<{/if}></th>
+							<{/foreach}>
+						</tr>
+
+						<tr>
+							<td style="text-align: center;" id="local_money" class="MNumber"><{$userinfo['money']}></td>
+
+							<{foreach key=cid item=con from=$video_config1}>
+							<{assign var="name" value="$con"}>
+							<{assign var="money" value='_money'}>
+							<td style="text-align: center;"  id="<{$name|cat:$money}>" class="MNumber"><{$userinfo[$name|cat:$money]}></td>
+							<{/foreach}>
+
+						</tr>
+
+
+						<tr>
+							<{foreach key=cid item=con from=$video_config2}>
+							<th style="width:25%;" nowrap=""><{if $con=='dg99'}>818彩票<{else}><{strtoupper($con)}>余額<{/if}></th>
+							<{/foreach}>
+						</tr>
+
+						<tr>
+							<{foreach key=cid item=con from=$video_config2}>
+							<{assign var="name" value="$con"}>
+							<{assign var="money" value='_money'}>
+							<td style="text-align: center;"  id="<{$name|cat:$money}>" class="MNumber"><{$userinfo[$name|cat:$money]}></td>
+							<{/foreach}>
+						</tr>
+
+
+						<tr>
+							<{foreach key=cid item=con from=$video_config3}>
+							<th style="width:25%;" nowrap=""><{if $con=='dg99'}>818彩票<{else}><{strtoupper($con)}>余額<{/if}></th>
+							<{/foreach}>
+						</tr>
+
+						<tr>
+
+							<{foreach key=cid item=con from=$video_config3}>
+							<{assign var="name" value="$con"}>
+							<{assign var="money" value='_money'}>
+							<td style="text-align: center;"  id="<{$name|cat:$money}>" class="MNumber"><{$userinfo[$name|cat:$money]}></td>
+							<{/foreach}>
+						</tr>
+
+						<tr>
+							<th>合計</th>
+							<th>刷新</th>
+							<th nowrap="">密碼</th>
+							<th nowrap="">轉換</th>
+						</tr>
+
+						<tr>
+							<td id="allmoney" class="" style="text-align: center;"><{$allmoney}>&nbsp;RMB</td>
+							<td style="text-align: center;"><input type='button' value="刷新額度" id="bet"></td>
+							<td style="text-align: center;" class="">
+								<a target="k_memr"  href="password"><input type="button" value="修改密碼"  ></a>
+							</td>
+							<td style="text-align: center;">
+								<a target="k_memr" <{if $userinfo['shiwan'] == 1}>onclick="alert('試玩賬號不能額度轉換，請註冊正式賬號！')"<{else}>href='<{$site_url}>/index.php/member/cash/zr_money'<{/if}>><input type='button' value="額度轉換" ></a><span>
+							</td>
+						</tr>
+
+						</tbody>
+					</table>
+				</div>
+				<div id="MMainData" style="margin-top: 20px;">
+					<h2 class="MSubTitle">最近十筆記錄</h2>
+					<table class="MMain" border="1" style="margin-bottom: 8px;">
+						<tbody>
+						<tr>
+							<th nowrap="">交易時間</th>
+							<th nowrap="">金額</th>
+							<th nowrap="">類型</th>
+							<th nowrap="">交易類別</th>
+							<th nowrap="">余額</th>
+							<th nowrap="" style="width:244px;"> 備註</th>
+						</tr>
+						<{if !empty($cash_data)}>
+						<{foreach key=cid item=con from=$cash_data}>
+						<tr>
+							<td style="text-align: center;" class=""><{$con['cash_date']}></td>
+							<td style="text-align: center;" class=""><{$con['cash_num']}></td>
+							<td style="text-align: center;" class=""><{$con['cash_type']}></td>
+							<td style="text-align: center;" class=""><{$con['cash_do_type']}></td>
+							<td style="text-align: center;" class="MNumber"><{$con['cash_balance']}></td>
+							<td style="text-align: center;Word-break: break-all;" class=""><{$con['remark']}></td>
+						</tr>
+						<{/foreach}>
+						<{else}>
+						<tr><td style="text-align: center;" colspan='6'>暫無交易記錄</td></tr>
+						<{/if}>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="info" style="display:none">
+	<{foreach key=cid item=con from=$video_config}>
+	<{assign var="name" value="$con"}>
+	<{assign var="money" value='_money'}>
+	<span class="<{$name|cat:$money}>"><{$userinfo[$name|cat:$money]}></span>
+	<{/foreach}>
+</div>
+<script type="text/javascript">
+	$('#bet').click(function () {
+		var local_money=$(".MMain #local_money").html();
+		<{foreach key=cid item=con from=$video_config}>
+			<{assign var="name" value="$con"}>
+				<{assign var="money" value='_money'}>
+					var <{$name|cat:$money}>=$(".info .<{$name|cat:$money}>").html();
+					<{/foreach}>
+
+						//動態加載
+						$.ajax({
+						type: 'GET',
+						url: "<{$site_url}>/index.php/member/video/getallbalance?action=save",
+						dataType: "json",
+						beforeSend: function(){
+						var nr="<img src='<{#mem_images#}>/load_pk.gif'/>";
+						$(".MMain #local_money").html(nr);
+						<{foreach key=cid item=con from=$video_config}>
+						<{assign var="name" value="$con"}>
+						<{assign var="money" value='_money'}>
+						$(".MMain #<{$name|cat:$money}>").html(nr);
+						<{/foreach}>
+						$(".MMain #allmoney").html(nr);
+					},
+						success: function (rdata) {
+						if(rdata.error){
+						alert(rdata.error);
+						window.location.href = "<{$site_url}>/index.php/member/account/userinfo";
+					}else if(rdata.data.Code ==10017){
+						$(".MMain #local_money").html(parseFloat(local_money).toFixed(2));
+
+						<{foreach key=cid item=con from=$video_config}>
+						<{assign var="name" value="$con"}>
+						<{assign var="money" value='_money'}>
+						if(rdata.data.<{$con}>status){
+						$(".MMain #<{$name|cat:$money}>").html(parseFloat(rdata.data.<{$con}>balance).toFixed(2));
+						$(".info .<{$name|cat:$money}>").html(parseFloat(rdata.data.<{$con}>balance).toFixed(2));
+					}else{
+						$(".MMain #<{$name|cat:$money}>").html(parseFloat(<{$name|cat:$money}>).toFixed(2));
+					}
+						if(rdata.data.<{$con}>info == 9999){
+						$(".MMain #<{$name|cat:$money}>").html('維護');
+					}
+						<{/foreach}>
+						countallmoney();
+					}
+					}
+					});
+
+						function countallmoney(){
+						allm = parseFloat($(".MMain #local_money").html());
+						<{foreach key=cid item=con from=$video_config}>
+						<{assign var="name" value="$con"}>
+						<{assign var="money" value='_money'}>
+						allm +=  parseFloat($(".info .<{$name|cat:$money}>").html());
+						<{/foreach}>
+						$(".MMain #allmoney").html(parseFloat(allm).toFixed(2)+" RMB")
+					}
+
+						});
+</script>
+</body>
+</html>

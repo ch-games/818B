@@ -1,0 +1,33 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+  <title>充值接口-提交信息處理</title>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <form action="<{$data['form_url']}>" method="post" id="form1">
+      <input type="hidden" id="version" name="version" value="<{$data['version']}>" size="50">
+      <input type="hidden" id="agent_id" name="agent_id" value="<{$data['agent_id']}>" size="50">
+      <input type="hidden" id="agent_bill_id" name="agent_bill_id" value="<{$data['agent_bill_id']}>" size="50">
+      <input type="hidden" id="agent_bill_time" name="agent_bill_time" value="<{$data['agent_bill_time']}>" size="50">
+      <input type="hidden" id="pay_type" name="pay_type" value="<{$data['pay_type']}>" size="50">
+      <input type="hidden" id="pay_code" name="pay_code" value="<{$data['pay_code']}>" size="50">
+      <input type="hidden" id="pay_amt" name="pay_amt" value="<{$data['pay_amt']}>" size="50">
+      <input type="hidden" id="notify_url" name="notify_url" value="<{$data['notify_url']}>" size="50">
+      <input type="hidden" id="return_url" name="return_url" value="<{$data['return_url']}>" size="50">
+      <input type="hidden" id="user_ip" name="user_ip" value="<{$data['user_ip']}>" size="50">
+      <input type="hidden" id="goods_name" name="goods_name" value="<{$data['goods_name']}>" size="50">
+      <input type="hidden" id="goods_num" name="goods_num" value="<{$data['goods_num']}>" size="50">
+      <input type="hidden" id="goods_note" name="goods_note" value="<{$data['goods_note']}>" size="50">
+      <input type="hidden" id="remark" name="remark" value="<{$data['remark']}>" size="50">
+	  <input type="hidden" name="user_ip" value="<{$data['user_ip']}>">
+      <input type="hidden" id="sign" name="sign" value="<{$data['sign']}>" size="50">
+	  <input type="hidden" name="act" value="heepay">
+    </form>
+    <script language="javascript">
+       setTimeout(function(){
+          document.getElementById("form1").submit();
+      },2000)
+    </script>
+
+</body></html>

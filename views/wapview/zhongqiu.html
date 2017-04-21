@@ -1,0 +1,44 @@
+		<link rel="stylesheet" href="../../shared/Nindex/zhongqiu/css/dw-style.css" />
+		<div class="Dw-bg">
+			<div class="Dw-yuan-img Dw-yuan-H5 Dw-yuan-H5-2"></div>
+			
+			<div class="Dw-mm-img Dw-mm-H5"></div>
+			
+			<div class="Dw-zqwz-img"></div>
+			
+			<div class="Dw-scDiv-img">
+				<span class="Dw-sc-1"></span>
+				<span class="Dw-sc-2"></span>
+				<span class="Dw-sc-3"></span>
+				<span class="Dw-sc-4"></span>
+				<span class="Dw-sc-5"></span>
+				<span class="Dw-sc-6"></span>
+				<span class="Dw-sc-7"></span>
+				<span class="Dw-sc-8"></span>
+				<span class="Dw-sc-9"></span>
+				<span class="Dw-sc-10"></span>
+			</div>
+			
+			<div class="Dw-close-btn"></div>
+			
+			<div class="Dw-cm-img"></div>
+			
+			<div class="Dw-bottom-img Dw-bottom-H5"></div>
+		</div>
+		
+		<div class="Dw-bgCol"></div>
+		
+		<script>
+			$(document).ready(function(){
+				$(".Dw-close-btn").click(function(){
+					$(".Dw-bg").hide();
+					$(".Dw-bgCol").hide();
+				});
+				
+				setInterval(function Dw_H5()
+					{
+						$(".Dw-bg").fadeOut();
+						$(".Dw-bgCol").fadeOut();
+					},10000);
+			});
+		</script>

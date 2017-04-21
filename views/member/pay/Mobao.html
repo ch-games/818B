@@ -1,0 +1,31 @@
+<html><head>
+    <title>跳轉......</title>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+  
+    <form action="<{$data['req_url']}>" method="post" id="form1">
+      <input type="hidden" id="apiVersion" name="apiVersion" value="<{$data['apiVersion']}>" size="50">
+      <input type="hidden" id="apiName" name="apiName" value="<{$data['apiName']}>" size="50">
+      <input type="hidden" id="platformID" name="platformID" value="<{$data['platformID']}>" size="50">
+      <input type="hidden" id="merchNo" name="merchNo" value="<{$data['merchNo']}>" size="50">
+      <input type="hidden" id="orderNo" name="orderNo" value="<{$data['orderNo']}>" size="50">
+	  
+      <input type="hidden" id="bankCode" name="bankCode" value="<{$data['bankCode']}>" size="50">
+      <input type="hidden" id="tradeDate" name="tradeDate" value="<{$data['tradeDate']}>" size="50">
+	  <input type="hidden" id="mbp_key" name="mbp_key" value="<{$data['mbp_key']}>" size="50">
+      <input type="hidden" id="amt" name="amt" value="<{$data['amt']}>" size="50">
+      <input type="hidden" id="merchParam" name="merchParam" value="<{$data['merchParam']}>" size="50">
+      <input type="hidden" id="tradeSummary" name="tradeSummary" value="<{$data['tradeSummary']}>" size="50">
+      <input type="hidden" id="merchUrl" name="merchUrl" value="<{$data['merchUrl']}>" size="50">
+	<input type="hidden" name="form_url" value="<{$data['form_url']}>">
+	  <input type="hidden" name="act" value="mobao">
+    </form>
+    <script language="javascript">
+       setTimeout(function(){
+          document.getElementById("form1").submit();
+      },2000)
+    </script>
+  
+
+</body></html>

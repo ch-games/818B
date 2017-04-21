@@ -1,0 +1,195 @@
+.FaqTxt .fTxt,.lotteryFrame .lotteryCon .fTxt {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fbf20a;
+}
+.contactUs p,.FaqTxt p {
+    color: #fff;
+    margin-bottom: 5px;
+}
+.FaqTxt .Faqcenter {
+    margin-bottom: 50px;
+}
+
+.FaqTxt .faqCont {
+    color: #004bb2;
+    font-size: 16px;
+}
+
+.FaqTxt .faqCT {
+    color: #004bb2;
+    margin-bottom: 15px;
+}
+
+.contactUs,.FaqTxt {
+    padding: 0 20px;
+    line-height: 24px;
+}
+
+.FaqTxt {
+    color: #cdcbcc;
+}
+
+.FaqTxt h5 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.FaqTxt strong {
+    display: block;
+    margin: 10px 0;
+}
+
+.FaqTxt .guidetit {
+    margin-bottom: 30px;
+    line-height: 26px;
+}
+
+.FaqTxt span {
+    margin-bottom: 5px;
+}
+
+.FaqTxt .otable {
+    text-align: center;
+    font-size: 12px;
+    line-height: 22px;
+    margin-bottom: 20px;
+    background: #fff;
+}
+
+.FaqTxt .otable td {
+    padding: 3px;
+    color: #ffffff;
+    background: #013980;
+}
+
+.FaqTxt .otable .bg333 td {
+    background: #cc3300;
+    color: #ffff00;
+}
+
+.FaqTxt .olist {
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.FaqTxt .olist li {
+    list-style: decimal;
+    margin-left: 22px;
+    line-height: 24px;
+}
+
+.FaqTxt .olist li p {
+    margin: 5px 0;
+}
+
+.FaqTxt .bankpic {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.FaqTxt .txtlist {
+    margin: 10px 0 20px;
+    color: #fff;
+}
+
+.FaqTxt .txtlist li {
+    list-style: decimal;
+    margin: 0 0 10px 20px;
+    line-height: 22px;
+}
+
+.FaqTxt .side_tit {
+    border-bottom: 1px dashed #9f2702;
+    padding-bottom: 10px;
+    font-size: 16px;
+}
+
+.FaqTxt .side_Abox {
+    display: block;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.FaqTxt .side_Abox:hover {
+    color: #32cd32;
+}
+
+.FaqTxt h4 {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.rulemeun {
+    overflow: hidden;
+    zoom: 1;
+    height: 30px;
+}
+
+.rulemeun li {
+    display: inline;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    margin-right: 5px;
+    padding: 0 10px;
+    text-align: center;
+    border-bottom: 0 none;
+}
+
+.rulemeun li a {
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.rulemeun li.tabdown {
+    border: 1px solid #fff;
+    border-top: 2px solid #fcff00;
+}
+
+.rulemeun li.tabdown a {
+    color: #ffff00;
+}
+
+.rulemeun li.tabup {
+    border: 1px solid #fff;
+}
+
+.lotteryFrame .lotterytab li.tabdown {
+    background: #fb9744;
+}
+
+.lotteryFrame .lotterytab li.tabdown a {
+    color: #000;
+}
+
+.inTit {
+    width: 606px;
+    padding-bottom: 15px;
+    margin: 15px auto 20px;
+    text-align: center;
+    font-size: 18px;
+    color: #ffffff;
+    background: url(/public/images/new/16041316200485742.png) no-repeat 0 bottom;
+}
+#rulesgamecom .ruleCon .yongjin strong {
+    color: #ffff00;
+    display: block;
+    border-bottom: 1px solid #610111;
+}
+
+#rulesgamecom .ruleCon .yongjin p {
+    color: #ffff00;
+}
+
+#rulesgamecom .ruleCon p {
+    color: #ffffff
+}
+
+
+
+
+

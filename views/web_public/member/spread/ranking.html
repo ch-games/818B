@@ -1,0 +1,31 @@
+
+<h4>人數排行榜</h4>
+<table class="Hyzx-table mt10">
+	<tr>
+		<th>排行</th>
+		<th>賬號</th>
+		<th>推廣人數</th>
+	</tr>
+	<{foreach from=$sdata['num'] key=i item=val}>
+	<tr>
+		<td><span class="<{if $i <3}>c-r<{/if}>"><{$val['order']}></span></td>
+		<td><{$val['username']}></td>
+		<td><{$val['spread_num']}></td>
+	</tr>
+	<{/foreach}>
+</table>
+<h4 class="mt20">土豪排行榜</h4>
+<table class="Hyzx-table mt10">
+	<tr>
+		<th>排行</th>
+		<th>賬號</th>
+		<th>推廣獲利</th>
+	</tr>
+	<{foreach from=$sdata['money'] key=i item=val}>
+	<tr>
+		<td><span class="<{if $i <3}>c-r<{/if}>"><{$val['order']}></span></td>
+		<td><{$val['username']}></td>
+		<td><{$val['spread_money']}></td>
+	</tr>
+	<{/foreach}>
+</table>

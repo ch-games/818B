@@ -1,0 +1,206 @@
+<{config_load file="public.conf" section="public"}>
+<link rel="stylesheet" href="/shared/new_member/css/easydialog.css">
+<script src="/shared/new_member/js/easydialog.min.js"></script>
+<script>
+    //确认发送
+    function confirm(){
+        easyDialog.open({
+            container : 'confirm',
+            fixed : false
+        });
+    }
+    function myFunction(){
+        var s_amount = $('#s_amount1').val();
+        $('#s_amount').val(s_amount);
+        $('#amount').val(s_amount);
+        $('#edu').html(s_amount);
+    }
+
+</script>
+<style>
+    .hah{
+        width:100px;height:22px;text-align:center;
+    }
+</style>
+<div class="Hyzx-gsrk ">
+    <div class="Hyzx-wy">
+        <p class="p-tit"><{$deposit['title']}></p>
+        <div class="wy-left">
+            <{$deposit['content']}>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+    <form>
+        <div class="Hyzx-yhxz">
+            <p><label>会员账号:</label><span><{$userinfo['username']}></span></p>
+            <p><label><i class="sp-red">*</i>充值金额:</label><input type="text" placeholder="充值金额" name="s_amount1" id="s_amount1" onkeyup="clearNoNum(this);" onblur="myFunction();"><span>请输入充值金额</span></p>
+            <{if !empty($bank_info)}>
+            <div class="yhxz-div" id="bank_list">
+                <div class="tit-name">
+                    <span><i class="sp-red">*</i>支付银行:</span>
+                </div>
+                <div class="yn-img Hyzx-btn-show">
+
+                    <{foreach key=cid item=con from=$bank_info }>
+                    <div class="Hyzx-radio" style="width:120px">
+                        <input type="radio" name="bank" value="<{$con.values}>"/>
+                        <div class="hah">
+                            <span title="<{$con.bank_name}>" class=""><{$con.bank_name}></span>
+                        </div>
+                    </div>
+
+
+                    <{/foreach}>
+
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+            <{/if}>
+
+
+            <div class="Hyzx-zf-btn">
+                <button type="button" class="btn-sub" onclick="if (check_money()) confirm();">确定</button>
+                <button type="reset" class="btn-sub">重置</button>
+
+                <p>备注：</p>
+                <p>1.标记有<span class="sp-red">*</span>者为必填项目。</p>
+                <p>2.单笔最低存款金额 <{$payset.ol_catm_min}>元以上</p>
+                <p>3.单笔最高存款金额 <{$payset.ol_catm_max}> 元以下</p>
+            </div>
+        </div>
+</div>
+</form>
+<script type="text/javascript">
+    function check_money(){
+
+        var amount = $('#s_amount1').val();
+        if(amount == '' || amount == 0){
+            $.member.alertpop('prompt',"请填写您要支付的金额，而且不能为0!");
+            $('#s_amount1').focus();
+            return false;
+        }
+        if (amount<<{$payset.ol_catm_min}>) {
+            $.member.alertpop('prompt',"单笔最低存款金额 <{$payset.ol_catm_min}> 元以上。");
+            $('#s_amount1').focus();
+            return false;
+        } else if (amount><{$payset.ol_catm_max}>) {
+            $.member.alertpop('prompt',"单笔最低存款金额 <{$payset.ol_catm_max}> 元以下。");
+            $('#s_amount1').focus();
+            return false;
+        }
+
+    <{if $bank_info}>
+        if (!$('#bank_list input[type=radio]:checked').val()) {
+            $.member.alertpop('prompt',"请选择支付银行");
+            return false;
+        }
+        var bank = $('#bank_list input[type=radio]:checked').val();
+        $('#bank_code').val(bank);
+        $('#bank').val(bank);
+    <{/if}>
+        return true;
+    }
+
+
+
+    //数字验证 过滤非法字符
+    function clearNoNum(obj){
+        //先把非数字的都替换掉，除了数字和.
+        obj.value = obj.value.replace(/[^\d.]/g,"");
+        //必须保证第一个为数字而不是.
+        obj.value = obj.value.replace(/^\./g,"");
+        //保证只有出现一个.而没有多个.
+        obj.value = obj.value.replace(/\.{2,}/g,".");
+        //保证.只出现一次，而不能出现两次以上
+        obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+        if(obj.value != ''){
+            var re=/^\d+\.{0,1}\d{0,2}$/;
+            if(!re.test(obj.value))
+            {
+                obj.value = obj.value.substring(0,obj.value.length-1);
+                return false;
+            }
+        }
+    }
+
+</script>
+
+
+<div id="confirm" style="display:none;background-color:#F0F9FB;" class="con_menu"  >
+    <form action="<{$site_url}>/index.php<{$url}>" method="post" name="confirm1"  id="confirm1" target="_blank">
+        <table class="Hyzx-table" style="width:600px;margin:0;text-align: left;">
+            <tbody><tr class="de_title" style="background:#F0F9FB;">
+                <th colspan="3" height="27" class="table_bg" align="left">
+                    <span id="de_title" style="color: #fff;font-weight: bold;">您的资料如下：</span>
+                </th>
+            </tr>
+
+
+
+            <tr class="m_title" style="background: #fff;">
+                <td width=100 align=right class="m_bc_ed" ><span id="ypwd">商家订单号：</span></td>
+                <td class=hong width=150 align=left><{$order_num}></td>
+                <td id="oldpass_txt" class=hong align=left>&nbsp;</td>
+            </tr>
+            <tr class="m_title">
+                <td align=right class="m_bc_ed" id="xpwd">会员帐号:</td>
+                <td class=hong width=150 align=left><{$userinfo['username']}></td>
+                <td id="oldpass_txt" class=hong align=left>&nbsp;</td>
+            </tr>
+            <tr class="m_title">
+                <td align=right class="m_bc_ed">额度：</td>
+                <td class=hong width=150 align=left id="edu"><{$s_amount}></td>
+                <td id="oldpass_txt" class=hong align=left>&nbsp;</td>
+            </tr>
+
+
+            <input type="hidden" name="order_num" value="<{$order_num}>" >
+            <input type="hidden" name="s_amount" value="<{$s_amount}>" id="s_amount">
+            <input type="hidden" name="bank" value="<{$bank_info}>" id="bank">
+            <input type="hidden" name="act" value="remittance" >
+            <input type="hidden" name="Amount" value="1">
+            <input type="hidden" name="bank_code" value="<{$bank_info}>" id="bank_code">
+            <input type="hidden" name="order_no" value="<{$order_num}>">
+            <input type="hidden" name="TradeDate" value="<{$time}>">
+            <input type="hidden" name="order_amount" value="<{$s_amount}>" id='order_amount'>
+            <input type="hidden" name="Amount" value="1">
+            <input type="hidden" name="return_params" value="<{$username}>">
+            <input type="hidden" name="AdditionalInfo" value="">
+            <input type="hidden" name="NoticeType" value="1">
+            <input type="hidden" name="pay_id" value="<{$pay_id}>">
+            <input type="hidden" name="amount" value="<{$s_amount}>" id='amount'>
+            <input type="hidden" name="username" value="<{$username}>">
+            <input type="hidden" name="order_num" value="<{$order_num}>">
+
+
+
+
+            <tr>
+                <td colspan="3" align="center">
+                    <p><input type="button" value="确定送出" class="Hyzx-btn active" style="border: none;float: left;margin-left: 220px;margin-right: 10px;" onclick="doSubmit();">
+                        <input type="reset" value="关闭" onclick="easyDialog.close();" class="Hyzx-btn active" style="border: none;float: left;"></p>
+                </td>
+            </tr>
+            </tbody></table>
+    </form>
+</div>
+
+<script>
+    function doSubmit(){
+        var url = "<{$site_url}>/index.php/member/income/Index/common";
+        $('#confirm1').submit();
+        $('#confirm').remove();
+        $('#overlay').remove();
+        setTimeout(function(){
+            $.member.changeNav('Bank','bank_online_bank_index',3);
+        },0)
+    }
+    $('.Hyzx-radio').on('click',function(){
+        $(this).addClass('checked');
+        $(this).siblings().removeClass('checked');
+        $(this).find('input').prop("checked" , "true");
+        $(this).siblings().find('input').removeAttr("checked" , "true");
+    });
+</script>

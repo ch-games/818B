@@ -1,0 +1,156 @@
+<{config_load file="public.conf" section="public"}>
+<link rel="stylesheet" href="/shared/new_member/css/easydialog.css">
+<script src="/shared/new_member/js/easydialog.min.js"></script>
+<script>
+    //確認發送
+    function confirm(){
+        easyDialog.open({
+            container : 'confirm',
+            fixed : false
+        });
+    }
+    function myFunction(){
+        var s_amount = $('#s_amount1').val();
+        $('#s_amount').val(s_amount);
+        $('#amount').val(s_amount);
+        $('#edu').html(s_amount);
+    }
+
+</script>
+<div class="Hyzx-gsrk">
+    <div class="Hyzx-wy">
+        <p class="p-tit"><{$deposit['title']}></p>
+        <div class="wy-left">
+            <{$deposit['content']}>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+    <form>
+        <div class="Hyzx-yhxz">
+            <p><label>會員帳號:</label><span><{$userinfo['username']}></span></p>
+            <p><label><i class="sp-red">*</i>充值金額:</label>
+                <input type="text" placeholder="充值金額" name="s_amount1" id="s_amount1" onkeyup="clearNoNum(this);" onblur="myFunction();">
+                <span>請輸入充值金額</span>
+            </p>
+            <button type="button" class="btn-sub" style="margin-left: 140px" onclick="if (check_money()) confirm();">提交</button>
+            <button type="reset" class="btn-sub" >重置</button>
+            <input type="hidden" name="order_num" value="<{$order_num}>">
+            <input type="hidden" name="bank" value="<{$bank_info}>">
+        </div>
+    </form>
+    <div class="Hyzx-zf-btn">
+        <p>備註：</p>
+        <p>1.標記有<span class="sp-red">*</span>者為必填項目。</p>
+        <p>2.單筆最低存款金額 <{$payset.ol_catm_min}>元以上</p>
+        <p>3.單筆最高存款金額 <{$payset.ol_catm_max}> 元以下</p>
+    </div>
+</div>
+<script type="text/javascript">
+    function check_money(){
+        var amount = $('#s_amount1').val();
+        if(amount == ''){
+            alert('請填寫您要支付的金額!');
+            $('#s_amount1').focus();
+            return false;
+        }
+        if (amount<<{$payset.ol_catm_min}>) {
+            alert('單筆最低存款金額 <{$payset.ol_catm_min}> 元以上。');
+            $('#s_amount1').focus();
+            return false;
+        } else if (amount><{$payset.ol_catm_max}>) {
+            alert('單筆最高存款金額 <{$payset.ol_catm_max}> 元以下。');
+            $('#s_amount1').focus();
+            return false;
+        }
+        return true;
+    }
+
+
+
+    //數字驗證 過濾非法字符
+    function clearNoNum(obj){
+        //先把非數字的都替換掉，除了數字和.
+        obj.value = obj.value.replace(/[^\d.]/g,"");
+        //必須保證第壹個為數字而不是.
+        obj.value = obj.value.replace(/^\./g,"");
+        //保證只有出現壹個.而沒有多個.
+        obj.value = obj.value.replace(/\.{2,}/g,".");
+        //保證.只出現壹次，而不能出現兩次以上
+        obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+        if(obj.value != ''){
+            var re=/^\d+\.{0,1}\d{0,2}$/;
+            if(!re.test(obj.value))
+            {
+                obj.value = obj.value.substring(0,obj.value.length-1);
+                return false;
+            }
+        }
+    }
+
+</script>
+
+
+<div id="confirm" style="display:none;background-color:#F0F9FB;" class="con_menu"  >
+    <form action="<{$site_url}>/index.php<{$url}>" method="post" name="confirm1"  id="confirm1" target="_blank">
+        <table class="Hyzx-table" style="width:600px;margin:0;text-align: left;">
+            <tbody><tr class="de_title" style="background:#F0F9FB;">
+                <th colspan="3" height="27" class="table_bg" align="left">
+                    <span id="de_title" style="color: #fff;font-weight: bold;">您的資料如下：</span>
+                </th>
+            </tr>
+
+            <tr class="m_title" style="background: #fff;">
+                <td width=100 align=right class="m_bc_ed" ><span id="ypwd">商家訂單號：</span></td>
+                <td class=hong width=150 align=left><{$order_num}></td>
+                <td id="oldpass_txt" class=hong align=left>&nbsp;</td>
+            </tr>
+            <tr class="m_title">
+                <td align=right class="m_bc_ed" id="xpwd">會員帳號:</td>
+                <td class=hong width=150 align=left><{$userinfo['username']}></td>
+                <td id="oldpass_txt" class=hong align=left>&nbsp;</td>
+            </tr>
+            <tr class="m_title">
+                <td align=right class="m_bc_ed">額度：</td>
+                <td class=hong width=150 align=left id="edu"><{$s_amount}></td>
+                <td id="oldpass_txt" class=hong align=left>&nbsp;</td>
+            </tr>
+            <input type="hidden" name="order_num" value="<{$order_num}>" >
+            <input type="hidden" name="s_amount" value="<{$s_amount}>" id="s_amount">
+            <input type="hidden" name="bank" value="<{$bank_info}>" >
+            <input type="hidden" name="act" value="remittance" >
+            <input type="hidden" name="Amount" value="1">
+            <input type="hidden" name="bank_code" value="<{$bank_info}>" id="bank_code">
+            <input type="hidden" name="order_no" value="<{$order_num}>">
+            <input type="hidden" name="TradeDate" value="<{$time}>">
+            <input type="hidden" name="order_amount" value="<{$s_amount}>" id='order_amount'>
+            <input type="hidden" name="Amount" value="1">
+            <input type="hidden" name="return_params" value="<{$username}>">
+            <input type="hidden" name="AdditionalInfo" value="">
+            <input type="hidden" name="NoticeType" value="1">
+            <input type="hidden" name="pay_id" value="<{$pay_id}>">
+            <input type="hidden" name="amount" value="<{$s_amount}>" id='amount'>
+            <input type="hidden" name="username" value="<{$username}>">
+            <input type="hidden" name="order_num" value="<{$order_num}>">
+            <tr>
+                <td colspan="3" align="center">
+                    <p><input type="button" value="確定送出" class="Hyzx-btn active" style="border: none;float: left;margin-left: 220px;margin-right: 10px;" onclick="doSubmit();">
+                        <input type="reset" value="關閉" onclick="easyDialog.close();" class="Hyzx-btn active" style="border: none;float: left;"></p>
+                </td>
+            </tr>
+            </tbody></table>
+    </form>
+</div>
+
+<script>
+    function doSubmit(){
+        var url = "<{$site_url}>/index.php/member/income/Index/common";
+        $('#confirm1').submit();
+        $('#confirm').remove();
+        $('#overlay').remove();
+        setTimeout(function(){
+            $.member.changeNav('Bank','bank_online_wechat_index',3);
+//$.member.changeNav('Transaction','transaction_contacts_index',2);
+        },0)
+    }
+</script>

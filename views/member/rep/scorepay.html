@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>To scorepay Page</title>
+</head>
+
+<body >
+<form name='scorepay' action="<{$data['form_url']}>" method='get' id="form1">
+<input type='hidden' name='body'                          value="<{$data['body']}>">
+<input type='hidden' name='cardAttr'                        value="<{$data['cardAttr']}>">
+<input type='hidden' name='channel'                        value="<{$data['channel']}>">
+<input type='hidden' name='defaultBank'                          value="<{$data['defaultBank']}>">
+<input type='hidden' name='inputCharset'                          value="<{$data['inputCharset']}>">
+<input type='hidden' name='merchantId'                          value="<{$data['merchantId']}>">
+<input type='hidden' name='notifyUrl'                         value="<{$data['notifyUrl']}>">
+<input type='hidden' name='outOrderId'                        value="<{$data['outOrderId']}>">
+<input type='hidden' name='returnUrl'                          value="<{$data['returnUrl']}>">
+<input type='hidden' name='service'                          value="<{$data['service']}>">
+<input type='hidden' name='subject'                                 value="<{$data['subject']}>">
+<input type='hidden' name='transAmt'                        value="<{$data['transAmt']}>">
+<input type='hidden' name='sign'                        value="<{$data['sign']}>">
+<input type='hidden' name='signType'                        value="<{$data['signType']}>">
+<input type='hidden' name='payMethod'                        value="<{$data['payMethod']}>">
+<input type='hidden' name='outAcctId'                        value="<{$data['outAcctId']}>">
+<input type='hidden' name='cardType'                        value="<{$data['cardType']}>">
+
+</form>
+
+<script language="javascript">
+      document.getElementById("form1").submit();
+    </script>
+</body>
+</html>

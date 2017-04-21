@@ -1,0 +1,562 @@
+* {
+	list-style: none; margin: 0px; padding: 0px;
+}
+.fl{ float:left;} .fr{ float:right;}
+.abcd{ float:left; margin:1px 0;}
+.a{ height:34px; width:90px; border:1px solid #ccc; background:#39c; color:#fff100; text-align:center; margin-left:12px; display:inline; line-height:34px;}
+.b{ height:34px; width:36px; line-height:36px;}
+.c{ height:34px; width:244px; line-height:34px; border:1px solid #ccc; background:#39c; color:#FFF; text-align:center;}
+.d{ height:38px; width:88px; line-height:36px;  background:url(button.png) no-repeat; border:none; margin-left:14px; display:inline; cursor:pointer;}
+
+.mc .l .but{ margin-left:180px; cursor:pointer;}
+
+body {
+	-webkit-text-size-adjust: auto;   
+}
+body {
+	font: 12px/1.5em Arial, Verdana, "SimSun", "Microsoft YaHei", "SimHei", "STHeiti", Helvetica, sans-serif; color: rgb(122, 122, 122); font-size-adjust: none; font-stretch: normal; 
+}
+body a {
+	color: rgb(255, 255, 255); text-decoration: none; margin: 0 auto; text-align:center; 
+}
+body a:hover {
+	color: rgb(255, 255, 255); text-align:center; margin: 0 auto; text-align:center; 
+}
+body #loginSpan a {
+	color: rgb(255, 255, 255); text-decoration: none; margin: 0 auto; text-align:center; 
+}
+body #loginSpan a:hover {
+	color: #ffdf1b; text-align:center; margin: 0 auto; text-align:center; 
+}
+body #loginSpan b:hover {
+	color: #ffdf1b; text-align:center; margin: 0 auto; text-align:center; 
+}
+table {
+	border-collapse: collapse;
+}
+a img {
+	border: currentColor; vertical-align:bottom; border:0px;
+}
+td {
+	border: currentColor;
+}
+button {
+	border: currentColor;
+}
+ul li {
+	list-style: none; cursor: pointer;
+}
+i {
+	font-style: normal;
+}
+em {
+	font-style: normal;
+}
+button {
+	color: rgb(85, 85, 85); cursor: pointer;
+}
+label {
+	color: rgb(102, 102, 102); vertical-align: ;
+}
+input {
+	font: 12px/1.5em Verdana, Arial, "SimSun", Helvetica, sans-serif;
+	border: 0px solid rgb(2, 9, 28); 
+}
+.noinput {
+	width: 20px;
+}
+.check {
+	font-size: 10px;
+}
+.red {
+	color: rgb(197, 13, 0);
+}
+.blue {
+	color: rgb(0, 94, 156);
+}
+.green {
+	color: rgb(0, 128, 0);
+}
+.yellow {
+	color: rgb(238, 133, 10);
+}
+.gold {
+	color: rgb(173, 148, 68);
+}
+.fLeft {
+	
+}
+.fRight {
+	float: right;
+}
+.tLeft {
+	text-align: left;
+}
+.tRight {
+	text-align: right;
+}
+#wrap {
+	margin: 0px auto; width: 100%; background-image: url("main-bg.gif");
+}
+#main {
+	background-position: top; margin: 0px auto; width: 100%; height: 364px; padding-bottom: 5px; background-image: url("bg-game.png");background-repeat: no-repeat; background-color: rgb(2, 9, 28);
+}
+.top-wrap {
+	width: 100%; height: 85px; background-color: rgb(17, 15, 32);
+}
+.top-wrap div.top {
+	margin: 0px auto; width: 1024px;
+}
+.top-wrap div.top .fl-left {
+	background-position: bottom; width: 365px; height: 75px; padding-top: 5px; float: left; background-image: url("word.png"); background-repeat: no-repeat;
+}
+.top-wrap div.top .fl-left span.choose-language {
+	color: rgb(255, 255, 255); 
+}
+.top-wrap div.top .fl-left ul {
+	margin-bottom: -9px; display: inline-block;
+}
+.top-wrap div.top .fl-left ul li {
+	width: 75px; height: 25px; text-align: center; line-height: 25px; float: left;
+}
+.top-wrap div.top .fl-left ul li a {
+	color: rgb(255, 255, 255);
+}
+.top-wrap div.top .fl-left ul li a::after {
+	color: rgb(255, 255, 255); float: right; display: block;
+}
+.top-wrap div.top .fl-left ul::after {
+	height: 0px; clear: both; display: block; visibility: hidden; content: "";
+}
+.top-wrap div.top .fl-right {
+	width: 365px; height: 75px; padding-top: 10px; float: right;
+}
+.top-wrap div.top .fl-right-login {
+	width: 365px; height: 75px; padding-top: 10px; float: right;
+}
+.top-wrap div.top .fl-right span {
+	width: 280px; height: 70px; float: left; display: block;
+}
+.top-wrap div.top .fl-right span a {
+	color: rgb(255, 255, 255); display: inline-block;
+}
+.top-wrap div.top .fl-right span a.login {
+	width: 68px; height: 28px; text-align: center; color: rgb(0, 0, 0); line-height: 24px; font-family: "Microsoft YaHei"; font-size: 16px; background-image: url("bg-login-btn.png");
+}
+.top-wrap div.top .fl-right a.reg {
+	width: 75px; height: 56px; float: left; display: block;
+}
+.top-wrap div.top .fl-right span input {
+	padding: 0px 5px; border: currentColor; width: 124px; height: 25px; color: rgb(255, 255, 255); margin-bottom: 5px; background-image: url("bg-input.png"); background-repeat: no-repeat;
+}
+.top-wrap div.top .fl-right::after {
+	height: 0px; clear: both; display: block; visibility: hidden; content: "";
+}
+.top-wrap div.top::after {
+	height: 0px; clear: both; display: block; visibility: hidden; content: "";
+}
+.menu {
+	width: 100%; height: 48px; line-height: 51px; overflow: hidden; background-image: url("menu-bg.png"); background-repeat: repeat-x;
+}
+#header {
+	margin: 8px auto 0px; width: 1000px; height: 49px;
+}
+#header ul {
+	top: 85px; width: 1000px; height: 49px; bottom: 0px; position: absolute;
+}
+#header li {
+	width: 85px; height: 49px; float: left; position: relative; z-index: 1;
+}
+#header li a {
+	width: 85px; height: 49px; text-align: center; color: rgb(255, 255, 255); line-height: 50px; font-family: "Microsoft YaHei"; font-size: 14px; text-decoration: none; float: left;
+}
+#header .normal {
+	width: 85px; height: 49px; float: left; position: relative; z-index: 1;
+}
+#header .active {
+	width: 85px; height: 49px; float: left; position: relative; z-index: 1;
+}
+#header li.selected {
+	background: url("menu-hover.png") no-repeat top;
+}
+
+#header li:hover {
+	background: url("menu-hover.png") no-repeat top;
+}
+
+#move_ul li.back {
+	background: url("menu-hover.png") no-repeat top;
+}
+#header li.selected a {
+	color: rgb(6, 13, 16); z-index: 10;
+}
+#header li.selected#menu_06 a {
+	color: rgb(200, 150, 100);
+}
+#btn_bg {
+	background: url("menu-hover.png") no-repeat center; left: 0px; width: 85px; height: 49px; bottom: 0px; overflow: hidden; position: absolute; z-index: 2;
+}
+#btn_bg ul {
+	left: 0px; width: 1000px; position: absolute;
+}
+div.logo {
+	width: 319px; height: 49px; float: left; position: relative;
+}
+div.logo .img {
+	left: 25px; top: -86px; width: 319px; height: 190px; position: absolute; z-index: 999; background-image: url("logo.png"); background-repeat: no-repeat;
+}
+.ban-wrap {
+	width: 100%; position: relative; background-color: rgb(2, 9, 28);
+}
+.ban-wrap div.bg-wrap {
+	background-position: center; height: 287px; overflow: hidden; background-image: url("live.jpg"); background-repeat: no-repeat;
+}
+.ban-wrap div.scroll-wrap {
+	background-position: top; left: -270px; top: 0px; width: 100%; height: 75px; text-align: center; color: rgb(255, 255, 255); position: absolute; background-image: url("bg-announce.png"); margin: 268px; background-repeat: no-repeat;
+}
+.ban-wrap div.scroll-wrap div.logo-botttom {
+	margin: auto; width: 319px; height: 28px;
+}
+.ban-wrap div.scroll-wrap marquee {
+	/* width: 700px; */ height: 40px; line-height: 20px; /* margin-left: 300px; */
+}
+#main div.register {
+    margin: auto; width: 1100px; height: 95px; position: relative;
+}
+#main div.register div {
+	top: -5px; margin-left: 85px; position: absolute;
+}
+#main div.register a {
+	margin-left: -68px; margin-top:-17px; float: left; display: block;
+}
+#main dl.index {
+	margin: -30px auto 0px; width: 1000px;
+}
+#main dl.index dd {
+	margin: 0px 0px 12px 0px; width: 173px; height: 260px; float: left;
+}
+#main dl.index dd a {
+	background-position: top; width: 193px; height: 240px; margin-top:23px; display: block; background-repeat: no-repeat; text-align:center;
+}
+#main dl.index dd a:hover {
+	background-position: center -260px;
+}
+#main dl.index dd.live a {
+	background-image: url("items-01.png");
+}
+#main dl.index dd.event a {
+	background-image: url("items-02.png");
+}
+#main dl.index dd.guodong  {
+	background-image: url("items-05.png");width: 238px; height: 260px; margin-left: 22px; margin-top:15px;
+}
+#main dl.index dd.lottery a {
+	background-image: url("items-03.png");
+}
+#main dl.index dd.video a {
+	background-image: url("items-04.png");
+}
+div.connent-wrap {
+	width: 100%; height: 739px; text-align: center; background-color: rgb(2, 9, 28);
+}
+div.connent-wrap .wrap {
+	margin: auto; width: 1000px;
+}
+div.connent-wrap div.fl-left {
+	float: left;
+}
+div.connent-wrap div.product {
+	width: 340px; height: 462px; text-align: left; overflow: hidden;
+}
+div.connent-wrap div.product div.title {
+	margin: auto; width: 310px;
+}
+div.connent-wrap div.product div.con {
+	margin: auto; width: 310px;
+}
+div.connent-wrap div.product div.title {
+	height: 30px; line-height: 30px;
+}
+div.connent-wrap div.product div.title span {
+	color: rgb(255, 255, 255); font-family: "Microsoft YaHei"; font-size: 20px; float: left; display: block;
+}
+div.connent-wrap div.product div.title a {
+	padding: 0px 5px; color: rgb(255, 255, 255); font-family: "Microsoft YaHei"; float: right; display: block; background-color: rgb(27, 82, 100);
+}
+div.connent-wrap div.product div.title::after {
+	height: 0px; clear: both; display: block; visibility: hidden; content: "";
+}
+div.connent-wrap div.product div.con {
+	height: 90px; color: rgb(91, 146, 165); line-height: 20px; overflow: hidden; padding-top: 5px;
+}
+div.connent-wrap div.about {
+	width: 330px;
+}
+div.connent-wrap div.help {
+	width: 330px;
+}
+div.connent-wrap div.about div.con {
+	margin: auto; width: 310px; height: 160px; text-align: left; color: rgb(91, 146, 165); line-height: 20px; overflow: hidden;
+}
+div.connent-wrap div.about div.con span.img {
+	margin-top: 10px; float: left; display: block;
+}
+div.connent-wrap div.about div.con div {
+	width: 190px; margin-top: 10px; margin-left: 7px; float: left;
+}
+div.connent-wrap div.about div.con::after {
+	height: 0px; clear: both; display: block; visibility: hidden; content: "";
+}
+div.connent-wrap div.partnrrs {
+	width: 334px;
+}
+div.connent-wrap div.help ul {
+	margin-left: 30px;
+}
+div.connent-wrap div.help ul.item li {
+	background-position: left; width: 100px; height: 30px; text-align: left; line-height: 30px; float: left; background-image: url("icon-help-li.png"); background-repeat: no-repeat;
+}
+div.connent-wrap div.help ul::after {
+	height: 0px; clear: both; display: block; visibility: hidden; content: "";
+}
+div.connent-wrap div.help ul.item li a {
+	color: rgb(112, 170, 190); margin-left: 19px; display: block;
+}
+div.connent-wrap div.help ul.download {
+	margin: 10px 10px 10px 30px;
+}
+div.connent-wrap div.help ul.download li {
+	background-position: left; width: 145px; height: 40px; text-align: left; line-height: 40px; float: left; background-repeat: no-repeat;
+}
+div.connent-wrap div.help ul.download li.google {
+	background-image: url("google.png");
+}
+div.connent-wrap div.help ul.download li.firefox {
+	background-image: url("firefox.png");
+}
+div.connent-wrap div.help ul.download li.ie {
+	background-image: url("ie.png");
+}
+div.connent-wrap div.help ul.download li.flash {
+	background-image: url("flash.png");
+}
+div.connent-wrap div.help ul.download li a {
+	color: rgb(112, 170, 190); margin-left: 35px; display: block;
+}
+div.connent-wrap .wrap::after {
+	height: 0px; clear: both; display: block; visibility: hidden; content: "";
+}
+div.link-wrap {
+	width: 100%; height: 90px; background-image: url("foot-bg.png"); 
+}
+div.link-wrap div {
+	height: 39px; text-align: center;
+}
+div.link-wrap ul.link {
+	background-position: bottom; margin: auto; width: 1000px; height: 50px; text-align: center; line-height: 50px; 
+}
+div.link-wrap ul.link li {
+	display: inline-block;
+}
+div.link-wrap ul.link li a {
+	padding: 0px 10px; color: rgb(73, 131, 252);
+}
+div.link-wrap ul.link li:last-child a {
+	border: currentColor;
+}
+div.link-wrap ul.link li a:hover {
+	color: rgb(255, 255, 255); text-decoration: none;
+}
+div.footerWrap {
+	height: 95px; text-align: center; color: rgb(53, 149, 181); line-height: 20px; padding-top: 10px; background-color: rgb(5, 20, 60);
+}
+div.page-main {
+	padding: 60px 0px; width: auto; min-height: 100px;  background-image: url("bg-min.png");background-repeat: repeat-x; background-color: rgb(2, 9, 28); margin:0px auto;
+}
+.ui-main .ui-maindel dl {
+	width: 970px; height:auto;	border:10px solid #113057; 
+}
+.gameList {
+	list-style: none;
+	margin: 0px auto;
+	width: 1008px;
+	height: 320px;
+}
+.gameList li {
+	background-position: top; width: 252px; height: 183px; overflow: hidden; margin-bottom: 5px; float: left; background-image: url("gameitem-list-bg.png");   background-repeat: no-repeat;
+}
+.gameList li a {
+	padding: 10px 3px 10px 17px; width: 232px; height: 113px; text-decoration: none; display: block;
+}
+.gameList li:hover {
+	background-position: center -183px;
+}
+.gameList li span {
+	padding: 0px 15px 0px 20px; width: 217px; height: 40px; color: rgb(255, 246, 0); line-height: 30px; font-size: 14px; font-weight: bold; display: block;
+}
+.gameList img {
+	background: rgb(26, 26, 26);
+}
+.gameList li span em {
+	font-style: normal; font-weight: 100; float: right;
+}
+.gameList li span em a {
+	font: 14px/20px "SimSun", "Microsoft YaHei", "SimHei", Arial, Helvetica, sans-serif; padding: 2px; width: 113px; height: 38px; text-align: center; color: rgb(0, 7, 68); display: block; font-size-adjust: none; font-stretch: normal; background-image: url("bg-buttom.png"); background-repeat: no-repeat;
+}
+.gameList::after {
+	height: 0px; clear: both; display: block; visibility: hidden; content: "";
+}
+.casinoList {
+	list-style: none;
+	margin: 0px auto;
+	width: 1008px;
+	height: 1650px;
+}
+.casinoList li {
+	background-position: top; width: 252px; height: 183px; overflow: hidden; margin-bottom: 5px; float: left; background-image: url("gameitem-list-bg.png");   background-repeat: no-repeat;
+}
+.casinoList li a {
+	padding: 10px 3px 10px 17px; width: 232px; height: 113px; text-decoration: none; display: block;
+}
+.casinoList li:hover {
+	background-position: center -183px;
+}
+.casinoList li span {
+	padding: 0px 15px 0px 20px; width: 217px; height: 40px; color: rgb(255, 246, 0); line-height: 30px; font-size: 14px; font-weight: bold; display: block;
+}
+.casinoList img {
+	background: rgb(26, 26, 26);
+}
+.casinoList li span em {
+	font-style: normal; font-weight: 100; float: right;
+}
+.casinoList li span em a {
+	font: 14px/20px "SimSun", "Microsoft YaHei", "SimHei", Arial, Helvetica, sans-serif; padding: 2px; width: 113px; height: 38px; text-align: center; color: rgb(0, 7, 68); display: block; font-size-adjust: none; font-stretch: normal; background-image: url("bg-buttom.png"); background-repeat: no-repeat;
+}
+.casinoList::after {
+	height: 0px; clear: both; display: block; visibility: hidden; content: "";
+}
+ul.promotions {
+	width: 960px; min-height: 100px;
+}
+ul.promotions li {
+	margin-top: 10px;
+}
+.liveList {
+	list-style: none; margin: 0px auto; width: 1008px; min-height: 440px;
+}
+.liveList li {
+	background-position: top; width: 327px; height: 489px; float: left; background-image: url("bg-live-item.png"); background-repeat: no-repeat;
+}
+.liveList li a {
+	margin: 30px auto; width: 274px; text-align: center; display: block;
+}
+
+.liveList li a:hover {
+	text-decoration: none;
+}
+.liveList::after {
+	height: 0px; clear: both; display: block; visibility: hidden; content: "";
+}
+.page-main h2 {
+	margin: -10px auto 0px; width: 670px; height: 37px; color: rgb(255, 255, 255); line-height: 37px; text-indent: 15px; font-size: 14px; background-image: url("bg-about-title.png"); background-repeat: no-repeat;80;
+}
+.page-main dl.about {
+	background-position: bottom; margin: 5px auto 0px; width: 1003px; min-height: 100px; background-image: url("bg-about-con-bottom.png"); background-repeat: no-repeat;
+}
+.page-main dl.about  dt {
+	background-position: top; height: 7px; background-color: rgb(4, 13, 42);
+}
+.page-main dl.about dd {
+	color: rgb(255, 255, 255); min-height: 87px; background-color: rgb(4, 13, 42);  margin-left: 0px; border:2px solid #EAD180;
+}
+.page-main dl.about dd div {
+	padding: 25px; line-height: 30px;
+}
+.page-main dl.about dd div h6 {
+	font-size: 12px;
+}
+.page-main dl.about dd div p {
+	text-indent: 2em;
+}
+.register-wrap {
+	margin: 5px auto 0px; padding: 25px; width: 953px; min-height: 100px; background-color: rgb(242, 242, 242);
+}
+.register-wrap img.reg {
+	margin: auto; display: block;
+}
+.register-wrap span.title {
+	height: 30px; line-height: 30px; font-size: 16px; display: block;
+}
+.register-wrap ul li span.fl-left {
+	width: 250px; height: 30px; text-align: right; color: rgb(102, 102, 102); line-height: 30px; float: left; display: block;
+}
+.register-wrap i.icon {
+	color: rgb(211, 41, 102);
+}
+.register-wrap ul li div {
+	margin-left: 15px; float: left;
+}
+.register-wrap input {
+	border: 1px solid rgb(175, 175, 175); height: 25px; color: rgb(84, 84, 84); line-height: 25px; margin-bottom: 10px; background-color: rgb(255, 255, 255);
+}
+.register-wrap ul li div select {
+	border: 1px solid rgb(175, 175, 175); height: 25px; color: rgb(84, 84, 84); line-height: 25px; margin-bottom: 10px; background-color: rgb(255, 255, 255);
+}
+.register-wrap input {
+	width: 200px; padding-left: 10px; display: block;
+}
+.register-wrap input.check {
+	margin: 13px 10px 0px 15px; width: auto; height: auto; float: left;
+}
+.register-wrap ul li div span {
+	height: 28px; line-height: 20px; display: block;
+}
+.co-red {
+	color: rgb(255, 0, 0);
+}
+.register-wrap ul li div span i.co-red {
+	color: rgb(255, 0, 0); font-weight: bold;
+}
+.register-wrap ul li::after {
+	height: 0px; clear: both; display: block; visibility: hidden; content: "";
+}
+.register-wrap hr {
+	border-style: none none solid; margin: 8px 0px 10px; border-bottom-color: rgb(204, 204, 204); border-bottom-width: 1px;
+}
+.register-wrap i.icon {
+	width: 146px; height: 62px; overflow: hidden;
+}
+.register-wrap i.icon img {
+	width: 146px; height: 62px; margin-bottom: 10px;
+}
+.register-wrap div.confirmation {
+	margin: auto; border: 1px solid rgb(204, 204, 204); width: 960px; height: 40px; line-height: 40px; background-color: rgb(225, 225, 225);
+}
+.register-wrap button {
+	margin: 10px auto 0px; display: block;
+}
+.top-wrap div.top .fl-right-login h4 {
+	background: url("login-status.png") no-repeat 4px 6px rgb(10, 24, 86); border: 1px solid rgb(63, 71, 229); height: 22px; color: rgb(255, 255, 255); line-height: 22px; padding-left: 25px; font-weight: 400; margin-bottom: 10px; float: left; min-width: 186px;
+}
+.top-wrap div.top .fl-right-login ul {
+	clear: left;
+}
+.top-wrap div.top .fl-right-login li {
+	background: url("login-status.png") no-repeat 0px -33px; width: 70px; height: 30px; text-align: center; line-height: 26px; margin-right: 3px; float: left;
+}
+.top-wrap div.top .fl-right-login li a {
+	color: rgb(255, 255, 255);
+}
+.top-wrap div.top .fl-right-login li.logout {
+	background: url("login-status.png") no-repeat 0px -81px; margin-right: 0px;
+}
+.top-wrap div.top .fl-right-login li.logout a {
+	color: rgb(0, 0, 0);
+}
+.mg-left10 {
+	margin-left: 10px;
+}
+
+
+.sp_comtain_main{color:#fff; line-height:180%; padding-left:100px;}

@@ -1,0 +1,306 @@
+
+<link href="/shared/new_member/js/date/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/shared/new_member/css/easydialog.css">
+<script src="/shared/new_member/js/easydialog.min.js"></script>
+
+<div class="Hyzx-ck">
+	<div class="Hyzx-img-tit">
+		<img src="<{$qr['logo_url']}>" class="img-thumbnail" width="126" height="126">
+	</div>
+	<div class="Hyzx-text ">
+		<div class="bank-logo">
+			<span class="logo-WXZF"></span>
+		</div>
+		<ul>
+			<li class="demo-area">
+				<span>昵稱:</span>
+				<span id="fe_text_1"><{$card_msg['card_userName']}></span>
+				<span class="btn-copy d_clip_button" title="復制姓名到剪切板" data-clipboard-target="fe_text_1" data-clipboard-text="Default clipboard text from attribute">復制</span>
+			</li>
+			<li class="demo-area">
+				<span>賬號:</span>
+				<span id="fe_text_2"><{$card_msg['card_ID']}></span>
+				<span class="btn-copy d_clip_button" title="復制姓名到剪切板" data-clipboard-target="fe_text_2" data-clipboard-text="Default clipboard text from attribute">復制</span>
+			</li>
+			<li>
+				<span>備註:</span>
+				<span><{$card_msg['remark']}></span>
+			</li>
+		</ul>
+	</div>
+	<p>手機掃描二維碼快捷存款</p>
+	<div class="clearfix"></div>
+</div>
+<div class="div-form">
+	<p>以下信息在您存款後再填寫</p>
+	<form action="">
+		<div class="div-table">
+			<ul>
+				<li>
+					<label>訂單號</label>
+					<input id="order_num" class="form-control" name="order_num" disabled="disabled" value="<{$order}>" type="text">
+				</li>
+				<li>
+					<label><span class="sp-red">*</span>支付金額</label>
+					<input type="text" class="form-control" placeholder="支付金額" id="deposit_num" name="deposit_num" onkeyup="clearNoNum(this);" onblur="offerPrompt();">
+				</li>
+				<li>
+					<label><span class="sp-red">*</span>轉賬昵稱</label>
+					<input type="text" class="form-control" placeholder="轉賬昵稱" id="in_name" name="in_name">
+				</li>
+				<li>
+					<label><span class="sp-red">*</span>轉賬時間</label>
+					<input type="text" class="form-control Wdate" placeholder="轉賬時間" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" readonly="readonly" id="in_date" name="in_date" value="<{$date}>">
+				</li>
+
+			</ul>
+		</div>
+		<p class="ti-btn"><input class="btn-sub" type="button" value="提交" onclick="order_show();"></p>
+	</form>
+</div>
+<script>
+	$(document).ready(function(){
+		var clip = new ZeroClipboard($('.d_clip_button'));
+
+		clip.on('ready', function(){
+			debugstr('Flash 已經準備完成。');
+			this.on('aftercopy', function(event){
+				//alert(event.data['text/plain']);
+				$.member.alertpop('success',event.data['text/plain']);
+				debugstr('已經復制剪貼板：' + event.data['text/plain']);
+			});
+		});
+
+		clip.on('error', function(event){
+			$('.demo-area').hide();
+			debugstr('error[name="' + event.name + '"]: ' + event.message);
+			ZeroClipboard.destroy();
+		});
+
+		// jquery stuff (optional)
+		function debugstr(text){
+			$('#d_debug').append($('<p>').text(text));
+		}
+	});
+</script>
+<script>
+	window.onload = function() {
+		var from = sessionStorage.getItem("from");
+		if(from == 'pageA') {
+			$('.Hyzx-tk').show();
+			$('.Hyzx-main').click(function(){
+				$('.Hyzx-tk').hide();
+			});
+			$('.messenger-close').click(function(){
+				$('.Hyzx-tk').hide();
+			});
+			sessionStorage.setItem("from","");
+		}
+	}
+</script>
+
+
+<script type="text/javascript">
+	var bid = <{$card_msg['id']}>;
+	var order_num,deposit_num,in_date,in_name,deposit_way,bank_style;
+	if (<{$type}> == 21) {
+		deposit_way = 8;
+		bank_style = 101;
+	}else if(<{$type}> == 22){
+		deposit_way = 6;
+		bank_style = 100;
+	}
+	//訂單確認彈框
+	function order_show(){
+
+		order_num = $.trim($("input[name='order_num']").val());
+		deposit_num = $.trim($("input[name='deposit_num']").val());
+		in_date = $.trim($("input[name='in_date']").val());
+		in_name = $.trim($("input[name='in_name']").val());
+
+
+		if(deposit_num == '' || deposit_num == 0){
+			$.member.alertpop('prompt',"請填寫您要支付的金額，而且不能為0!");
+			$('#deposit_num').focus();
+			return false;
+		}
+		if(in_date == ""){
+			//alert("存款時間為空！");
+			$.member.alertpop('prompt',"存款時間不能為空！");
+			return false;
+		}
+		if(in_name == ""){
+			//alert("存款姓名為空！");
+			$.member.alertpop('prompt',"存款姓名不能為空！");
+			return false;
+		}
+
+		$(".order_info:eq(0)").text(order_num);
+		$(".order_info:eq(1)").text(deposit_num);
+		$(".order_info:eq(2)").text(in_date);
+		$(".order_info:eq(3)").text(in_name);
+		$(".order_info:eq(4)").text("<{$qr['name']}>");
+
+		easyDialog.open({
+			container : 'd_order',
+			fixed : false
+		});
+	}
+
+	//訂單提交
+	function order_submit(){
+		if(!confirm("是否確認提交？")){
+			return false;
+		}else{
+			var dt = new Date();
+			var now_date =  (dt.getFullYear()+'-'+(dt.getMonth()+1)+'-'+dt.getDate()+' '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds()).replace(/([\-\: ])(\d{1})(?!\d)/g,'$10$2');
+
+			$.ajax({
+				type: "POST",
+				url: "/index.php/member/new/bank/bank_ajax",
+				dataType: "json",
+				data: {
+					action:"add_form",
+					order_num:order_num,
+					bid:bid,
+					bank_style:bank_style,
+					deposit_way:deposit_way,
+					deposit_num:deposit_num,
+					in_date:in_date,
+					in_name:in_name,
+					now_date:now_date
+				},
+				success:function(msg){
+					console.log(msg);
+					if(msg.ok=="1"){
+						//alert("提交申請成功，財務將在15分鐘內為您加入額度，謝謝您!");
+						$.member.alertpop('success',"提交申請成功，財務將在15分鐘內為您加入額度，謝謝您!");
+						$.member.changeNav('Transaction','transaction_contacts_index',1);
+						/*open_new_member();*/
+					}else if(msg.statu==1){
+						//alert("存款金額超過該層級上限"+msg.infos+"！");
+						$.member.alertpop('prompt',"存款金額超過該層級上限"+msg.infos+"！");
+					}else if(msg.statu==2){
+						//alert("存款金額低於該層級下限"+msg.infos+"！");
+						$.member.alertpop('prompt',"存款金額低於該層級下限"+msg.infos+"！");
+					}else if(msg.statu==3){
+						//alert("操作非法。請聯系客服人員");
+						$.member.alertpop('prompt',"操作非法。請聯系客服人員");
+						self.opener = null;
+						self.close();
+					}else if(msg.statu==4){
+						$.member.alertpop('prompt',"試玩賬號不允許存取款操作，請註冊正式賬號！");
+						self.opener = null;
+						self.close();
+					}else if(msg.statu==5){
+						$.member.alertpop('',"演示站禁止出入款！");
+						self.opener = null;
+						self.close();
+					}else{
+						//alert("存入失敗！請聯系客服！");
+						$.member.alertpop('',"存入失敗！請聯系客服！");
+					}
+
+					easyDialog.close();
+					//window.location.reload();
+				}
+			});
+		}
+	}
+
+	function open_new_member(){
+		var func = 'transaction_bet_index-transaction_contacts_index';
+		$.member.JumpHYPage('Transaction',func,'1-1');
+	}
+
+	//數字驗證 過濾非法字符
+	function clearNoNum(obj) {
+		//先把非數字的都替換掉，除了數字和.
+		obj.value = obj.value.replace(/[^\d.]/g, "");
+		//必須保證第壹個為數字而不是.
+		obj.value = obj.value.replace(/^\./g, "");
+		//保證只有出現壹個.而沒有多個.
+		obj.value = obj.value.replace(/\.{2,}/g, ".");
+		//保證.只出現壹次，而不能出現兩次以上
+		obj.value = obj.value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+		if (obj.value != '') {
+			var re = /^\d+\.{0,1}\d{0,2}$/;
+			if (!re.test(obj.value))
+			{
+				obj.value = obj.value.substring(0, obj.value.length - 1);
+				return false;
+			}
+		}
+	}
+
+	function offerPrompt(){
+		var amount = parseFloat($("#deposit_num").val());
+		if(amount == '' || amount == 0){
+			$.member.alertpop('prompt',"請填寫您要支付的金額，而且不能為0!");
+			$('#deposit_num').focus();
+			return false;
+		}
+		var minamount = parseFloat(<{$levelinfo['line_catm_min']}>);
+			var maxamount = parseFloat(<{$levelinfo['line_catm_max']}>);
+				if(amount > maxamount || amount < minamount)
+				{
+					//alert("您的存款金額限定是：[" + <{$levelinfo['line_catm_min']}> + "~" + <{$levelinfo['line_catm_max']}> + " ]之間\r\n請重新輸入存款金額.");
+					$.member.alertpop('prompt',"您的存款金額限定是：[" + <{$levelinfo['line_catm_min']}> + "~" + <{$levelinfo['line_catm_max']}> + " ]之間\r\n請重新輸入存款金額.");
+					$("#deposit_num").focus();
+				}
+				}
+</script>
+
+
+
+
+
+
+<!-- <script type="text/javascript">
+    var inval = new Date();
+    var inval_date =  (inval.getFullYear()+'-'+(inval.getMonth()+1)+'-'+inval.getDate()+' '+inval.getHours()+':'+inval.getMinutes()+':'+inval.getSeconds()).replace(/([\-\: ])(\d{1})(?!\d)/g,'$10$2');
+    $('#in_date').val(inval_date);
+</script> -->
+
+
+
+<!-- 確認訂單 -->
+<div id="d_order" style="display:none;background-color:#F0F9FB;" class="con_menu">
+	<form action="/index.php/member/new/bank/userpwd" method="post" name="add_form" onsubmit="return check_submit1()" id="add_form2">
+		<table class="Hyzx-table" style="width:600px;margin:0;text-align: left;">
+			<tbody><tr class="de_title" style="background:#F0F9FB;">
+				<th colspan="3" height="27" class="table_bg" align="left">
+					<span id="de_title" style="color: #fff;font-weight: bold;">確認訂單</span>
+				</th>
+			</tr>
+
+			<tr class="m_title">
+				<td width="100px" align=right class="m_bc_ed">訂單號</td>
+				<td align=left class="order_info hong"></td>
+			</tr>
+			<tr class="m_title">
+				<td align=right class="m_bc_ed">存款金額</td>
+				<td align=left class="order_info hong"></td>
+			</tr>
+			<tr class="m_title">
+				<td align=right class="m_bc_ed">存款時間</td>
+				<td align=left class="order_info hong"></td>
+			</tr>
+			<tr class="m_title">
+				<td align=right class="m_bc_ed">存款姓名</td>
+				<td align=left class="order_info hong"></td>
+			</tr>
+			<tr class="m_title">
+				<td align=right class="m_bc_ed">存款方式</td>
+				<td align=left class="order_info hong"></td>
+			</tr>
+
+			<tr>
+				<td colspan="3" align="center">
+					<p><input type="button" value="確定" class="Hyzx-btn active" style="border: none;float: left;margin-left: 220px;margin-right: 10px;" onclick="order_submit();">
+						<input type="reset" value="關閉" onclick="easyDialog.close();" class="Hyzx-btn active" style="border: none;float: left;"></p>
+				</td>
+			</tr>
+			</tbody></table>
+	</form>
+</div>

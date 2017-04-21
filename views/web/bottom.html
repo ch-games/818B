@@ -1,0 +1,88 @@
+<{config_load file="public.conf" section="public"}>
+<!-- footer 开始-->
+
+<footer>
+	<div class="content">
+		<p>
+			<{foreach from=$meau_foot item=v}>
+			<a href="javascript:void(0);" onclick="getPager('-','iword','<{$v['type']}>');" target="mem_index" data-color="" class="js-article-color"><{$v['title']}>&nbsp;<{$v['str_m']}>&nbsp;</a>
+			<{/foreach}>
+		<p>Copyright © <{$copy_right}> Reserved</p>
+		<img src="<{#images#}>/footer.png" alt="" class="img">
+	</div>
+</footer>
+<!-- footer 结束-->
+
+
+
+
+<div style="display: none">10.133.72.136</div>
+<!--<script type="text/javascript" src="<{#js#}>/comet.js"></script>-->
+
+<!--<script type="text/javascript" src="<{#js#}>/jquery-1.10.2.min.js"></script>-->
+<!--<script type="text/javascript" src="<{#js#}>/jquery.placeholder.min.js"></script>-->
+<!--<script type="text/javascript" src="<{#js#}>/app.js"></script>-->
+<!--<script src="<{#js#}>/css.js"></script>-->
+<!--<script type="text/javascript" src="<{#js#}>/common.js"></script>-->
+<!--<script type="text/javascript" src="<{#js#}>/float.js"></script>-->
+<!--<script type="text/javascript" src="<{#js#}>/slide.min.js"></script>-->
+<!--<script type="text/javascript" src="<{#js#}>/tab.js"></script>-->
+<!--<script src="<{#js#}>/main.js"></script>-->
+<!--<script type="text/javascript" src="<{#js#}>/swfobject.js"></script>-->
+<!--<script type="text/javascript" src="<{#js#}>/main.js"></script>-->
+<!--<script type="text/javascript" src="<{#js#}>/selectivizr.min.js"></script>-->
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#sItem li:not(:first)").css("display", "none");
+		var B = $("#sItem li:last");
+		var C = $("#sItem li:first");
+		setInterval(function () {
+			if (B.is(":visible")) {
+				C.fadeIn(500).addClass("in");
+				B.hide()
+			} else {
+				$("#sItem li:visible").addClass("in");
+				$("#sItem li.in").next().fadeIn(500);
+				$("li.in").hide().removeClass("in")
+			}
+		}, 5000) //每5秒钟切换一条，你可以根据需要更改
+	})
+</script>
+<script type="text/javascript">
+	//文字閃爍
+	new toggleColor('#textGlitter', ['#DD1B20', '#fff'], 500);
+	//按鈕特效
+	$('.hover_fade > a, .hover_fade > span, #downlaod a').hover(
+			function () {
+				$(this).stop().animate({'opacity': 0}, 650);
+			}, function () {
+				$(this).stop().animate({'opacity': 1}, 650);
+			}
+	);
+	$("li.LS-ball, li.LS-live, li.LS-game, li.LS-lottery").subTabs();
+	// 設為首頁
+	function setfirst(url) {
+		if (document.all) {
+			document.body.style.behavior = 'url(images/#default#homepage)';
+			document.body.setHomePage(url);
+		} else {
+			alert("您的瀏覽器目前不支援此功能!");
+		}
+	}
+	// 加入最愛
+	function bookmarksite(url, title) {
+		if (window.sidebar || window.opera) {
+			// for firfox
+			window.sidebar.addPanel(title, url, "");
+		} else if (document.all) {
+			// for IE
+			window.external.AddFavorite(url, title);
+		} else {
+			alert("您的瀏覽器目前不支援此功能!");
+		}
+	}
+</script>
+
+<{include file="../web_public/bottom_html.html"}>
+</body>
+</html>

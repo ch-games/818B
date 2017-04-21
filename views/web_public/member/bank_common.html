@@ -1,0 +1,9 @@
+<h3 class="nav2">
+	<span class="flt">线上存款</span>
+	<a href="javascript:$.member.changeNav('Bank','bank_transf_index',1);" data="bank_transf_index" class="Hyzx-btn flt">额度转换</a>
+	<a href="javascript:$.member.changeNav('Bank','bank_onlinein_index',1);" data="bank_onlinein_index" class="Hyzx-btn flt active">线上存款</a>
+	<{if empty($userinfo['pay_num'])}>
+	<a href="javascript:$.member.changeNav('Bank','hk_money',2);" data="hk_money" class="Hyzx-btn flt">取款银行</a>
+	<{/if}>
+	<a href="javascript:$.member.changeNav('Bank','bank_onlineout_index',1);" data="bank_onlineout_index" class="Hyzx-btn flt">线上取款</a>
+</h3>

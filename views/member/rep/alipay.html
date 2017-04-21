@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>To Alipay Page</title>
+</head>
+
+<body >
+<form name='alipay' action="<{$data['form_url']}>" method='get' id="form1">
+<input type='hidden' name='service'                          value="<{$data['service']}>">
+<input type='hidden' name='partner'                        value="<{$data['partner']}>">
+<input type='hidden' name='seller_id'                        value="<{$data['seller_id']}>">
+<input type='hidden' name='payment_type'                          value="<{$data['payment_type']}>">
+<input type='hidden' name='notify_url'                          value="<{$data['notify_url']}>">
+<input type='hidden' name='return_url'                          value="<{$data['return_url']}>">
+<input type='hidden' name='anti_phishing_key'                         value="<{$data['anti_phishing_key']}>">
+<input type='hidden' name='exter_invoke_ip'                        value="<{$data['exter_invoke_ip']}>">
+<input type='hidden' name='out_trade_no'                          value="<{$data['out_trade_no']}>">
+<input type='hidden' name='subject'                          value="<{$data['subject']}>">
+<input type='hidden' name='total_fee'                                 value="<{$data['total_fee']}>">
+<input type='hidden' name='body'                        value="<{$data['body']}>">
+<input type='hidden' name='sign'                        value="<{$data['sign']}>">
+<input type='hidden' name='sign_type'                        value="MD5">
+<input type='hidden' name='_input_charset'                        value="utf-8">
+
+</form>
+<script language="javascript">
+      document.getElementById("form1").submit();
+    </script>
+</body>
+</html>

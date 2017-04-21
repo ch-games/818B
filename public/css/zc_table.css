@@ -1,0 +1,487 @@
+.index_conent {
+	background: url("../images/black-bg.png") repeat-x; margin: 0px auto; width: 100%; overflow: hidden;
+}
+.index_conent1 {
+	margin: 0px auto; padding: 10px; width: 960px;
+}
+.tupiand {
+	border: currentColor; height: 336px; cursor: pointer; background-color: rgb(51, 51, 51);
+}
+.index_right {
+	width: 345px; line-height: 14px; overflow: hidden; padding-right: 16px; float: right; cursor: default;
+}
+.index_right1 {
+	border: 1px solid rgb(0, 0, 0); width: 359px; height: 154px; overflow: hidden;
+}
+.index_left {
+	border: 1px solid rgb(32, 32, 32); width: 601px; height: 154px;
+}
+.index_left1 {
+	border: 3px solid rgb(70, 70, 70); width: 972px; height: 330px;
+}
+#playBanner {
+	width: 972px; height: 330px; overflow: hidden; position: relative;
+}
+#playBanner .mainpic {
+	width: 972px; height: 330px;
+}
+#playBanner .mainpic img {
+	width: 972px; height: 330px;
+}
+#playBanner ol {
+	list-style: none; width: 930px; text-align: center; bottom: 10px; position: absolute; z-index: 2;
+}
+#playBanner ol li {
+	background: url("../images/nav.png") no-repeat left top rgba(0, 0, 0, 0); list-style: none; margin: 0px 2px; width: 13px; height: 13px; display: inline-block; zoom: 1;
+}
+#playBanner ul .change {
+	background-position: right top;
+}
+.blank1 {
+	background: url("../images/top_linebg.jpg") repeat-x; width: 978px; height: 7px; overflow: hidden; clear: both; margin-top: 5px; display: table;
+}
+.banner {
+	background: url("../images/outputbj.jpg") repeat-x bottom rgb(39, 39, 39); width: 978px; height: 385px;
+}
+#feature_list {
+	width: 978px; height: 385px; overflow: hidden; float: left; position: relative;
+}
+#tabs {
+	left: 0px; width: 978px; height: 213px; z-index: 2;
+}
+#tabs li {
+	padding: 0px 4px 0px 3px; width: 237px; text-align: center; float: left;
+}
+#tabs li img {
+	border: currentColor; margin-top: 3px; position: relative;
+}
+#tabs li a {
+	height: 235px; margin-top: 3px; display: block; position: relative;
+}
+#tabs li a:hover {
+	text-decoration: underline;
+}
+#tabs li a.current {
+	background: url("../images/tabsbj.gif") no-repeat bottom;
+}
+#tabs li a.current:hover {
+	text-decoration: none; cursor: default;
+}
+#output {
+	width: 920px; height: 121px; position: relative;
+}
+#output li {
+	left: 40px; top: 50px; width: 920px; height: 121px; position: absolute;
+}
+#output li a {
+	top: 30px; width: 142px; height: 45px; right: 50px; position: absolute;
+}
+#output li a:hover {
+	width: 142px; height: 45px;
+}
+.opus {
+	height: 100px; line-height: 100px; background-color: rgb(25, 48, 64);
+}
+.opus li {
+	width: 244px; height: 80px; text-align: center; line-height: 100px; padding-top: 8px; float: left;
+}
+.opus li img {
+	text-align: center;
+}
+.three {
+	width: 698px; margin-top: 12px; display: table;
+}
+.column {
+	position: relative;
+}
+.columns {
+	position: relative;
+}
+.m-directgamelaunch {
+	background: 0px 0px rgb(16, 16, 16); border: 1px solid rgb(0, 0, 0); text-transform: uppercase; overflow: hidden; clear: both;
+}
+.m-directgamelaunch .dg-launch-content {
+	width: 100%; margin-top: -17px; border-top-color: rgb(39, 39, 39); border-top-width: 1px; border-top-style: solid; float: left; position: relative; z-index: 1;
+}
+.m-directgamelaunch .dg-launch-content p {
+	padding: 2px 0px; text-align: center; color: rgb(255, 255, 255);
+}
+.m-directgamelaunch .dg-launch-content .cav {
+	background: 0px 0px rgba(0, 0, 0, 0); margin: 12px auto 0px; width: 630px;
+}
+.m-directgamelaunch #e-games-carousel .cav {
+	margin: 12px 0px 0px;
+}
+.dg-selection-type-one {
+	margin: 25px 0px 25px 12px; width: 124px; height: 190px; float: left;
+}
+.dg-selection-type-two {
+	margin: 5px 15px 6px; width: 127px; height: 104px; float: left;
+}
+.tabs {
+	padding: 0px; width: 100%;
+}
+.tabs li {
+	width: 50%; height: 48px; float: left; display: block; list-style-type: none;
+}
+.tabs .arrow {
+	background: url("../images/arrow-active-tab.png") no-repeat 50% 31px rgba(0, 0, 0, 0); position: relative; z-index: 10;
+}
+.btn-play-now-s {
+	background-position: 0px -2800px; width: 72px; height: 18px;
+}
+.btn-play-now-s:hover {
+	background-position: 0px -2758px;
+}
+.play-now-s_hover.btn-play-now-s {
+	background-position: 0px -2758px;
+}
+.play-now-s-hover.btn-play-now-s {
+	background-position: 0px -2758px;
+}
+.btn-sprite {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-accept {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-apply-now {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-back {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-bal-transfer-funds {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-bal-transfer-more-funds {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-bal-try-again {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-bet-now {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-claim-now {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-close {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-confirm {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-deposit-now {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-download-now-b {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-download-now {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-download {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-join-now {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-join-promo {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-learn-more {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-login-big {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-login {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-next-step {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-next {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-ok {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-play-now-s {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-play-now {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-read-more {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-submit-application {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-submit {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-transfer-funds {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-transfer-more-funds {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-try-again {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.btn-update {
+	background-image: url("btn.png"); background-repeat: no-repeat; background-color: rgba(0, 0, 0, 0);
+}
+.tabs a {
+	background: 0px 0px rgb(0, 0, 0); padding: 8px 0px 5px; outline: 0px; width: 100%; text-align: center; color: rgb(165, 165, 165); font-size: 14px; font-weight: bold; text-decoration: none; border-right-color: rgb(28, 28, 28); border-left-color: rgb(28, 28, 28); border-right-width: 1px; border-left-width: 1px; border-right-style: solid; border-left-style: solid; float: left;
+}
+.tabs a:hover {
+	background: 0px 0px rgb(28, 28, 28); color: rgb(255, 255, 255);
+}
+.tabs a.active {
+	background: 0px 0px rgb(28, 28, 28); color: rgb(255, 255, 255);
+}
+.tab-content {
+	height: 238px; color: rgb(255, 255, 255); clear: both;
+}
+.element {
+	width: 100%; height: 191px; overflow: hidden; margin-bottom: 2px; float: left; position: relative; cursor: pointer;
+}
+.dg-selection-type-two .element {
+	border: 1px solid rgb(41, 44, 45); height: 89px;
+}
+.img-placeholder {
+	top: 0px; position: absolute;
+}
+.pullup {
+	top: 0px; width: 100%; height: 382px; text-align: center; display: block; position: absolute;
+}
+.dg-selection-type-two .pullup {
+	height: 178px;
+}
+.pullup .hovered-content {
+	left: 0px; width: 100%; height: 50%; text-align: center; bottom: 0px; position: absolute; z-index: 33;
+}
+.pullup .hovered-bg {
+	background: 0px 0px rgb(0, 0, 0); left: 0px; width: 100%; height: 51%; bottom: 0px; position: absolute; z-index: 22; opacity: 0.7;
+}
+.dg-selection-type-two .pullup .hovered-bg {
+	opacity: 0.7;
+}
+.pullup a {
+	color: rgb(255, 255, 255);
+}
+.pullup a:hover {
+	color: rgb(255, 255, 255); text-decoration: underline;
+}
+.pullup a:visited {
+	color: rgb(255, 255, 255);
+}
+.pullup .btn-play-now-s {
+	margin: 80px auto 2px; text-align: center; text-indent: -9999px; text-decoration: none; display: block;
+}
+.dg-selection-type-two .pullup .btn-play-now-s {
+	margin: 35px auto 0px;
+}
+.xinzeng-01 {
+	width: 978px; height: auto; margin-bottom: 3px;
+}
+.xinzeng-01left {
+	width: 700px; height: 380px; float: left;
+}
+.xinzeng-aniu {
+	width: 700px; height: 78px;
+}
+.xinzeng-01right {
+	width: 267px; height: 380px; float: right;
+}
+.xinzeng-guang {
+	border: 2px solid rgb(103, 106, 100); width: 263px; height: 133px;
+}
+.xinzeng-guang:hover {
+	border: 2px solid rgb(255, 223, 27);
+}
+.mainRight {
+	color: rgb(255, 255, 255); background-color: rgb(4, 14, 42); margin-left: 20px; border:2px solid #EAD180;
+}
+p {
+	
+}
+td {
+	
+}
+th {
+	
+}
+li {
+	
+}
+a:link {
+	
+}
+a {
+	
+}
+h2 {
+	font-size: 24px; font-weight: bold; margin-top: 20px;
+}
+.article {
+	border-width: 0px 0px 1px; border-style: solid; border-color: rgb(204, 204, 204); margin: 0px 0px 10px; padding: 8px 0px; zoom: 1;
+}
+.subtitle {
+	border-width: 0px 0px 1px; border-style: solid; border-color: rgb(204, 204, 204); margin: 0px 0px 10px; padding: 8px 0px; zoom: 1;
+}
+p {
+	margin: 10px 0px;
+}
+label {
+	/*width: 250px;*/ height: 22px; text-align: right; color: rgb(255, 255, 255); line-height: 22px; font-size: 12px; margin-top: 5px; margin-right: 20px; display: inline-block;
+}
+select {
+	color: rgb(84, 84, 84); font-size: 12px;
+}
+.index_conent input {
+	padding: 0px 0px 0px 3px; /*width: 203px;*/ /*height: 16px;*/ color: rgb(84, 84, 84); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px;
+}
+img {
+	display: inline;
+}
+.index_conent input .input {
+	padding: 3px; border: 1px solid rgb(175, 175, 175);
+}
+.index_conent input {
+	padding: 3px; border: 1px solid rgb(175, 175, 175);
+}
+.button {
+	width: 100px;
+}
+.memCash_text {
+	margin: 0px 0px 0px 275px;
+}
+.star {
+	color: rgb(209, 41, 30); font-weight: normal;
+}
+.required {
+	color: rgb(209, 41, 30); font-weight: normal;
+}
+span.error {
+	background: url("../images/cross.png") no-repeat; color: red; font-size: 12px;
+}
+span.success {
+	background: url("../images/tick.png") no-repeat; color: red; font-size: 12px;
+}
+span.error_msg {
+	padding: 4px 0px 2px 20px; height: 18px; line-height: 18px; font-size: 12px; font-weight: bold;
+}
+input.submit {
+	background: url("../images/1x52-grad-btn.gif") repeat-x top; border: 0px solid currentColor; width: 132px; height: 45px; color: rgb(255, 255, 255); margin-bottom: 20px;
+}
+.rfsubmit {
+	background: 0px 0px rgb(18, 153, 113); border-radius: 8px; border: 0px solid rgb(19, 110, 86); width: 100px; height: 40px; color: white; line-height: 40px; font-size: 12px; margin-top: 20px; margin-left: 10px; display: inline-block;
+}
+input.submit_select {
+	background: url("../images/1x52-grad-btn.gif") repeat-x bottom; border: 0px solid currentColor; width: 132px; height: 45px; color: rgb(255, 255, 255); margin-bottom: 20px;
+}
+input.submit:hover {
+	background: url("../images/1x52-grad-btn.gif") repeat-x bottom; border: 0px solid currentColor; width: 132px; height: 45px; color: rgb(255, 255, 255); margin-bottom: 20px;
+}
+#toShowResendEmailDialog {
+	height: 160px !important; display: none;
+}
+#toShowResendEmailDialog .input {
+	width: 120px;
+	border:1px solid rgb(30, 49, 45)
+}
+.memCash_text {
+	font-size: 12px;
+}
+.za_button {
+	width: 100px; height: 22px; line-height: 16px;
+}
+.agent_btn {
+	background: url("../images/1x52-grad-btn.gif") repeat-x top; border: 0px solid currentColor; width: 110px; height: 30px; color: rgb(255, 255, 255); margin-bottom: 20px;
+}
+.agent_btn:hover {
+	background: url("../images/1x52-grad-btn.gif") repeat-x bottom; border: 0px solid currentColor; width: 110px; height: 30px; color: rgb(255, 255, 255); margin-bottom: 20px;
+}
+.register_box {
+	margin: 0px auto; padding: 10px 0px; width: 1000px;
+}
+.register_left {
+	background: url("../images/register_active.png") no-repeat top; width: 209px; height: 475px; margin-right: 11px; float: left;
+}
+.register_left ul {
+	margin-top: 130px;
+}
+.register_left ul li {
+	background: url("../images/register_active.png") no-repeat left -515px; margin: 10px auto 7px; width: 195px; height: 27px; text-align: center; line-height: 20px; overflow: hidden; font-family: "Î¢ÈíÑÅºÚ"; font-size: 14px;
+}
+.register_left ul li a {
+	color: rgb(255, 255, 255); font-weight: 700;
+}
+.register_right {
+	background: rgb(4, 14, 42); padding: 0px 50px 20px; width: 680px; color: rgb(255, 255, 255); margin-left: 220px; border:2px solid #EAD180;
+}
+.register_right fieldset {
+	margin: 5px auto; border: 1px solid rgb(100, 100, 100); color: rgb(255, 255, 255); padding-bottom: 10px; display: block;
+}
+.mainRight fieldset {
+	margin: 5px auto; border: 1px solid rgb(100, 100, 100); color: rgb(255, 255, 255); padding-bottom: 10px; display: block;
+}
+.register_right fieldset {
+	width: 680px;
+}
+.mainRight fieldset.safebox {
+	padding: 5px 10px;
+}
+.register_right legend {
+	color: rgb(254, 219, 112); letter-spacing: 3px; font-size: 12px; font-weight: 700; margin-left: 10px;
+}
+.mainRight legend {
+	color: rgb(254, 219, 112); letter-spacing: 3px; font-size: 12px; font-weight: 700; margin-left: 10px;
+}
+.mainRight fieldset.safebox legend {
+	margin-left: 0px;
+}
+.register_right label {
+	/*width: 140px;*/ height: 22px; text-align: right; color: rgb(255, 255, 255); line-height: 22px; font-size: 12px; margin-top: 5px; margin-right: 5px; display: inline-block;
+}
+.register_right .star {
+	color: rgb(255, 0, 0);
+}
+.register_right .required {
+	color: rgb(61, 126, 128);
+}
+.register_right .memCash_text {
+	margin: 0px 0px 0px 145px;
+}
+.register_right input {
+	padding: 2px; border-radius: 3px; border: 1px solid rgb(30, 49, 45); /*width: 110px;*/ /*height: 16px;*/ color: rgb(84, 84, 84); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px;
+}
+.register_right select {
+	padding: 0px; border-radius: 3px; border: 1px solid rgb(30, 49, 45); height: 20px;
+}
+.register_right .agreement {
+	background: rgb(4, 14, 42); margin: 10px auto; border: 0px currentColor; color: rgb(255, 255, 255);
+}
+.mainRight .agreement {
+	background: rgb(4, 14, 42); margin: 10px auto; border: 0px currentColor; color: rgb(255, 255, 255);
+}
+.register_right .agreement {
+	width: 680px;
+}
+.agreement input {
+	width: 12px; margin-left: 12px;
+}
+.register_right .register-btn {
+	text-align: center;
+}
+.register_right .register-btn button {
+	background: url("../images/register-btn.jpg") repeat-x 0px bottom rgb(255, 255, 255); margin: 0px 5px; padding: 0px; border-radius: 3px; border: 1px solid rgb(50, 50, 50); width: 38px; height: 20px; color: rgb(0, 0, 0); line-height: 20px; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px;
+}
+.register_right .register-btn input {
+	background: url("../images/register-btn.jpg") repeat-x 0px bottom rgb(255, 255, 255); margin: 0px 5px; padding: 0px; border-radius: 3px; border: 1px solid rgb(50, 50, 50); width: 38px; height: 20px; color: rgb(0, 0, 0); line-height: 20px; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px;
+}

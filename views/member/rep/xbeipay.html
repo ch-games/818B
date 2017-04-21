@@ -1,0 +1,27 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <title>充值接口-提交信息處理</title>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+      <form action="<{$data['form_url']}>" method="post" id="form1">
+     <input type="hidden" id="Version" name="Version" value="<{$data['Version']}>"/>
+    <input type="hidden" id="MerchantCode" name="MerchantCode" value="<{$data['MerchantCode']}>" />
+    <input type="hidden" id="OrderId" name="OrderId" value="<{$data['OrderId']}>" />
+    <input type="hidden" id="Amount" name="Amount" value="<{$data['Amount']}>" />
+    <input type="hidden" id="AsyNotifyUrl" name="AsyNotifyUrl" value="<{$data['AsyNotifyUrl']}>" />
+    <input type="hidden" id="SynNotifyUrl" name="SynNotifyUrl" value="<{$data['SynNotifyUrl']}>" />
+    <input type="hidden" id="OrderDate" name="OrderDate" value="<{$data['OrderDate']}>"  />
+    <input type="hidden" id="TradeIp" name="TradeIp" value="<{$data['TradeIp']}>" />
+    <input type="hidden" id="PayCode" name="PayCode" value="<{$data['PayCode']}>" />
+	
+	   <input type="hidden"  id="SignValue" name="SignValue" value="<{$data['SignValue']}>" />
+    </form>
+    <script language="javascript">
+       setTimeout(function(){
+          document.getElementById("form1").submit();
+      },2000)
+    </script>
+
+</body></html>

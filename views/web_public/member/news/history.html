@@ -1,0 +1,116 @@
+<table class="Hyzx-table">
+	<tr>
+		<th>日期</th>
+		<th>內容</th>
+	</tr>
+	<{if empty($news) }>
+	<tr>
+		<td colspan="2">
+			暫無最新消息
+		</td>
+	</tr>
+	<{else}>
+	<{foreach from=$news key=i item=v}>
+	<tr>
+		<td style="width:200px;"><{$v.add_time}></td>
+		<td class="open-yl" style="cursor: pointer;"><{mb_substr($v['chn_simplified'],0,40,'utf-8')}><{if strlen($v['chn_simplified']) gt 40}>······<{/if}></td>
+	</tr>
+	<tr class="z-yl-tr" style="display:none;">
+		<td colspan="2" style="width:920px;"><{$v['chn_simplified']}></td>
+	</tr>
+	<{/foreach}>
+	<{/if}>
+</table>
+<input type="hidden" name="memnews_page" value="<{$page}>" />
+<input type="hidden" name="totalPage" value="<{$totalPage}>" />
+<div class="Hyzx-pageBox mt20">
+	<!-- 分頁 -->
+</div>
+<script type="text/javascript">
+	$(function(){
+		$(".open-yl").click(function(){
+			$(this).parents('tr').next().siblings('tr.z-yl-tr').hide();
+			$(this).parents('tr').next().toggle('200', function() {
+				$.member.atHeight();
+			});
+		});
+	})
+</script>
+<script type="text/javascript">
+	$(function(){
+		// 分頁加載
+		var page = $(".Hyzx-pageBox").siblings("input[name='memnews_page']").val();
+		page = Number(page);
+		var totalPage = $(".Hyzx-pageBox").siblings("input[name='totalPage']").val();
+		if(totalPage > 1){
+			var page_html ='';
+			page_html += '<a href="javascript:;" class="Hyzx-btn news_home">首頁</a>';
+			page_html += '<a href="javascript:;" class="Hyzx-btn news_prev">上壹頁</a>';
+			for (var page_i=0; page_i < totalPage; page_i++) {
+				if(page_i >= ( page - 3 ) && page_i <= (page+1)){
+					if(page_i == (page - 1)){
+						page_html += '<a href="javascript:;" class="Hyzx-btn active">'+page+'</a>';
+					}else{
+						page_html += '<a href="javascript:;" class="Hyzx-btn news_page">'+(page_i +1)+'</a>';
+					}
+				}
+			}
+			page_html += '<a href="javascript:;" class="Hyzx-btn news_next">下壹頁</a>';
+			page_html += '<a href="javascript:;" class="Hyzx-btn news_end">尾頁</a>';
+			$(".Hyzx-pageBox").html(page_html);
+		}else{
+			$(".Hyzx-pageBox").html("");
+		}
+	})
+</script>
+<script type="text/javascript">
+	$(function() {
+		var page = $(".Hyzx-pageBox").siblings("input[name='memnews_page']").val();
+		var totalPage = $(".Hyzx-pageBox").siblings("input[name='totalPage']").val();
+		//首頁
+		$(".Hyzx-pageBox .news_home").on('click', function() {
+			if(page > 0){
+				$.member.changeNav('Latestnews','latestnews_history_index',2);
+			}else{
+				return false;
+			}
+		});
+		//上壹頁
+		$(".Hyzx-pageBox .news_prev").on('click', function() {
+			if(page > 1){
+				var prev = Number(page) - 1;
+				$.member.changeNav('Latestnews','latestnews_history_index?page='+prev,2);
+			}else{
+				return false;
+			}
+		});
+		//下壹頁
+		$(".Hyzx-pageBox .news_next").on('click', function() {
+			if(page >= 1 && totalPage > 1 && page < totalPage){
+				var next = Number(page) + 1;
+				$.member.changeNav('Latestnews','latestnews_history_index?page='+next,2);
+			}else{
+				return false;
+			}
+		});
+		//尾頁
+		$(".Hyzx-pageBox .news_end").on('click', function() {
+			if(page < totalPage){
+				totalPage = Number(totalPage);
+				$.member.changeNav('Latestnews','latestnews_history_index?page='+totalPage,2);
+			}else{
+				return false;
+			}
+		});
+		//跳轉頁數
+		$(".Hyzx-pageBox .news_page").on('click', function() {
+			var page_sum = $(this).text();
+			page_sum = Number(page_sum);
+			if(page_sum <= totalPage){
+				$.member.changeNav('Latestnews','latestnews_history_index?page='+page_sum,2);
+			}else{
+				return false;
+			}
+		});
+	})
+</script>

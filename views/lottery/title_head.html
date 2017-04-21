@@ -1,0 +1,235 @@
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			.nav_bg{
+				width: 1000px; 
+				background-image: url(<{#timages#}>/nav_bg.png);
+				background-repeat:repeat-x;
+				height: 35px;
+			}
+			
+			.nav-items li {
+				float: left;
+				margin-right: 1px;
+				list-style: none;
+				height: 35px;
+			}
+			
+			.nav-items li a {
+				text-decoration: none;
+			}
+			
+			.nav-item {
+				color: #605144;
+				font-weight: bold;
+				margin-left: 5px;
+			}
+			.nav_top_bg{
+				background-image: url(<{#timages#}>/nav_top_bg.png);
+				background-size: 100%;
+				background-repeat: no-repeat;
+				height: 1px;
+				padding-top: 1px;
+				position: absolute;
+				z-index: 9999;
+				width: 156px;
+				margin-top: 10px;
+			}
+			
+			#nav4 .small:hover {
+				 background-image: url(<{#timages#}>/nav_bg_1.png);
+				background-repeat:repeat-x;
+				text-decoration: none;
+				color: #fffff;
+			}
+			.small,
+			.eventtext {
+				display: block;
+				color: #fff;
+				line-height: 35px;
+			}
+			
+			#nav4 span {
+				font-size: 12px;
+				font-weight: bold;
+				float: left;
+				line-height: 35px;
+				height: 35px;
+			}
+			
+			#nav4 .small{
+				cursor: pointer;
+				text-align: center;
+				width: 75px;
+			}
+			#nav4 .small .sj_img{
+				float: right;
+				position: relative;
+				top: 11px;
+			}
+			#nav4 .eventtext a {
+				height: 35px;
+				float: left;
+				min-width: 79px;
+				text-align: center;
+				
+			}
+			
+			#nav4 .eventtext a:hover {
+				background-image: url(<{#timages#}>/nav_hover.png);
+				background-repeat:repeat-x;
+				min-width: 79px;
+				height: 35px;
+				color: #FFFFFF;
+			}
+			
+			.eventtext {
+				background-image: url(<{#timages#}>/nav_bg_2.png);
+				background-repeat:repeat-x;
+				height: 35px;
+				line-height: 35px;
+				vertical-align: middle;
+			}
+			
+			 .current {
+				color: #FFFFFF;
+				background-image: url(<{#timages#}>/nav_hover.png);
+				background-repeat:repeat-x;
+				text-align: center;
+			}
+			.hide{display: none;}
+			.selected{
+				color: #FFFFFF; 
+			    background-image: url(<{#timages#}>/nav_bg_1.png);
+				background-repeat:repeat-x;
+				height: 35px;
+				}
+			#nav4 .img_left{
+				background-image: url(<{#timages#}>/img_left.png);
+				background-repeat: no-repeat;
+				width: 2px;
+				height: 35px;
+				padding:0px;
+				margin-top: 2px;}
+			.img{
+					position: relative;
+					left: 7px;
+					float: right;
+				}
+			.img_lt{
+				position: relative;
+				left:6px;
+			}
+			.em{
+				padding-left: 13px;
+			}
+			.btl{
+				border-top-left-radius:8px
+			}
+		</style>
+<div class="nav-icons fr">
+
+           <!--  <a class="odfi need-auth" href="javascript:void(0)" data-href="" title="个人资料" data-height="500"><i class="icon icon-account"></i></a> -->
+        <a class="odfi" href="javascript:void(0)" data-href="/index.php/lottery/History/index?lotteryId=<{$smarty.get.type}>" title="历史开奖"><i class="icon icon-history"></i></a>
+        <{if !empty($uid)}>
+        <a class="odfi need-auth" href="javascript:void(0)" data-href="/index.php/lottery/lottery/notCount" title="注单"><i class="icon icon-list"></i></a>
+        <{/if}>
+        <a class="odfi" href="javascript:void(0)" data-href="/index.php/lottery/lottery/Rule?lotteryId=<{$smarty.get.type}>" title="规则"><i class="icon icon-rule"></i></a>
+
+    </div>
+<ul class="nav-items clearfix">
+		<div id="nav" class="nav clearfix nav_bg">
+			<ul class="nav-items clearfix">
+			<{foreach from=$head item=v1 key=k1}>
+				<li id="nav4">
+					<span class="small">
+						<em class="em"><{$v1['name']}></em>
+						<img class="hide sj_img" src="<{#timages#}>/sj_img.png" />
+						<img src="<{#timages#}>/img_left.png"  class="img img_hide"/>
+					</span>
+					
+					<span class="eventtext hide">
+					<{foreach $v1['data'] item=v key=k}>
+						<a href="./index?type=<{$v['type']}>" class="nav-item <{if $type == $v['type']}>current<{/if}>"><{$v['name']}> </a>
+						<input type="hidden" name="<{$type}>" value="<{$v['type']}>" >
+					<{/foreach}>
+					<img src="<{#timages#}>/img_left.png"  class="img_lt"/>
+				</span>
+				</li>
+				<{/foreach}>
+			</ul>
+		</div>
+
+    </ul>
+
+
+<script src="<{#tjs#}>/jquery-1.7.2.min.js"></script>
+<style> .black_overlay{display: none; position: absolute; top: 0%;  width: 1000px; height: 100%; background-color:#000; z-index:1001; -moz-opacity: 0.6; opacity:.60; filter: alpha(opacity=80); margin: 34px auto 0 auto;}
+.white_content {display: none; position: absolute; top:30%; left:30%; width: 520px; height: 410px; /*background-image:url(123.png);*/ z-index:1002; overflow: auto; }
+#MyDiv { color:#FFF;}
+#div1{ line-height: 60px; margin: auto; text-align: center; font-size: 45px; } </style>
+<script>
+$(document).ready(function(){
+  	if( $(".eventtext a").hasClass('current') ) {
+		$(".current").parent().removeClass("hide");
+		$(".current").parent().parent().find('.small').first().addClass("selected");
+		$(".selected .sj_img").removeClass("hide");
+		$(".current").parent().parent().find('.img_hide').addClass("hide");
+		$(".current").parent().parent().find('.small').first().addClass("btl");
+	} else {
+		$(".current").parent().addClass('hide');
+	}
+  
+  	$("#nav4 .small").click(function() {
+  	  $("#nav4 .small .sj_img").addClass("hide");
+  	  $("#nav4 .selected .img_hide").removeClass("hide");
+	var index = $(this).index();
+	if ($(this).hasClass('selected')) {
+		$(this).removeClass("selected");
+		$(this).parent().find('.eventtext').first().hide(500);
+	} else {
+		$(".small").removeClass("selected");
+		$(this).addClass("selected");
+		$(".selected .sj_img").removeClass("hide");
+		$("#nav4 .selected .img_hide").addClass("hide");
+		$(".eventtext").hide(500);
+		var big = $(this).parent().find('.eventtext').first();
+		big.show(500);
+	}
+	
+    });
+});
+		</script>
+<script type="text/javascript">
+
+  function ShowDiv(show_div,bg_div){
+
+  document.getElementById(show_div).style.display='block';
+  document.getElementById(bg_div).style.display='block' ;
+  var bgdiv = document.getElementById(bg_div);
+  bgdiv.style.width = document.body.scrollWidth;
+  // document.getElementById(bg_div).style.height =  hh_height;
+  $("#"+bg_div).height($(document).height());
+  };
+
+
+
+//弹出隐藏层
+
+</script>
+
+
+
+<!--弹出层时背景层DIV-->
+<div id="fade" class="black_overlay">
+</div>
+<div id="MyDiv" class="white_content">
+  <div style="text-align: right; color:#FFF; cursor: default; height: 40px;">
+    <span style="font-size: 16px;position:relative; right:15px; top:15px; cursor:pointer; " >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  </div>
+  <p id="div1">
+  此彩种维护中！
+  </p>
+</div>

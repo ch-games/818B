@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>To scorepay Page</title>
+</head>
+
+<body >
+<form name='scorepay' action="<{$data['form_url']}>" method='get' id="form1">
+<input type="hidden" name="body" value="<{$data['body']}>">
+<input type="hidden" name="detailUrl" value="<{$data['detailUrl']}>">
+<input type="hidden" name="inputCharset" value="UTF-8">
+<input type="hidden" name="merchantId" value="<{$data['merchantId']}>">
+<input type="hidden" name="notifyUrl" value="<{$data['notifyUrl']}>">
+<input type="hidden" name="outAcctId" value="<{$data['outAcctId']}>">
+<input type="hidden" name="outOrderId" value="<{$data['outOrderId']}>">
+<input type="hidden" name="payMethod" value="<{$data['payMethod']}>">
+<input type="hidden" name="returnUrl" value="<{$data['returnUrl']}>">
+<input type="hidden" name="service" value="directPay">
+<input type="hidden" name="subject" value="chongzhi">
+<input type="hidden" name="transAmt" value="<{$data['transAmt']}>">
+<input type="hidden" name="sign" value="<{$data['sign']}>">
+<input type="hidden" name="signType" value="MD5">
+
+</form>
+
+<script language="javascript">
+      document.getElementById("form1").submit();
+    </script>
+</body>
+</html>

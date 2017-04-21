@@ -1,0 +1,287 @@
+<{config_load file="public.conf" section="public"}>
+<script>
+    $('.nav2 span').html('額度轉換')
+    $('.nav2 a').removeClass('active')
+    $('.nav2').find("a[data='bank_transf_index']").addClass('active')
+    $('.Hyzx-nav').find("a[data='bank_onlinein_index']").addClass('active');
+</script>
+<div class="Hyzx-right">
+    <{include file="../bank_common.html"}>
+    <div class="Hyzx-content">
+        <span style="color: red">轉入轉出平臺不能相同,只能在系統余額和視訊余額之間轉換!</span>
+        <div class="MMain">
+            <div class="Hyzx-form">
+                <form action="" onsubmit="return false;" method="post" id="form1">
+                    <input type="hidden" id="edcashtoken" name="edcashtoken" value="<{$data['userinfo']['edcashtoken']}>" />
+                    <div id="divselect" class="Hyzx-label dropdown flt">
+                        <span>轉出:</span>
+                        <select name="trtype1" id="trtype1">
+                            <option value="sport">系統余額</option>
+                            <{foreach from=$data['video_config'] key=key item=val}>
+                            <option value="<{$val}>"><{strtoupper($val)}>遊戲廳</option>
+                            <{/foreach}>
+                        </select>
+
+                    </div>
+
+
+                    <div id="divselect" class="Hyzx-label dropdown flt ml20-i">
+                        <span>轉入:</span>
+                        <select name="trtype2" id="trtype2">
+                            <option value="sport">系統余額</option>
+                            <{foreach from=$data['video_config'] key=key item=val}>
+                            <option value="<{$val}>"><{strtoupper($val)}>遊戲廳</option>
+                            <{/foreach}>
+                        </select>
+                    </div>
+                    <div class="clr"></div>
+                    <div class="Hyzx-label">
+                        <span>金額:</span><input type="text" name="p3_Amt" id="p3_Amt" placeholder="轉換金額不能小於<{$data['MinInMoney']}>元" onkeyup="clearNoNum(this);" />
+                    </div>
+                    <div class="Hyzx-label">
+                        <span class="flt">&nbsp;</span><a class="Hyzx-btn flt" href="javascript:;" id="SubTran">確認轉賬</a>
+                    </div>
+                </form>
+            </div>
+            <table class="Hyzx-table mt20">
+                <tr>
+                    <th colspan="4"><{$data['userinfo']['username']}>目前額度(幣別:人民幣)<a href="javascript:;" class="frt Hyzx-repeatBtn" title="刷新余額" id="bet"></a></th>
+                </tr>
+                <tr>
+                    <{assign var='i' value=0}>
+                    <{foreach from=$data['moneyarr'] key=key item=val}>
+                    <td><span class="c-9 mr10"><{$val['name']}>:</span><span id="<{$val['key']}>"><{$val['money']}></span></td>
+                    <{if $i%4==3}></tr><tr><{/if}>
+                <{assign var="i" value="`$i+1`"}>
+                <{/foreach}>
+            </tr>
+            </table>
+            <div class="Hyzx-txt">
+                <p class="c-r">戶內轉賬說明</p>
+                <p class="c-r">1、戶內最低轉帳金額<{$data['MinInMoney']}>人民幣，最高轉帳金額不限。</p>
+                <p class="c-r">2、戶內轉帳不收任何手續費。</p>
+                <p class="c-r">3、如果有任何疑問請咨詢24小時在線客服。</p>
+                <p class="c-r">提示：系統額度可以下註EG電子、皇冠體育、彩票遊戲。真人娛樂場需轉入額度!</p>
+            </div>
+            <{foreach key=cid item=con from=$data['moneyarr']}>
+            <input type="hidden" id="<{$con['key']}>_money" value="<{$con['money']}>" />
+            <{/foreach}>
+
+            <{foreach key=cid item=con from=$data['moneyarr']}>
+            <{if $con['key'] != 'sport' && $con['key'] != 'allmoney'}>
+            <input type="hidden" id="<{$con['key']}>_info" value="<{$con['money']}>" />
+            <{/if}>
+            <{/foreach}>
+            <script type="text/javascript">
+                //數字驗證 過濾非法字符
+                function clearNoNum(obj) {
+                    obj.value=obj.value.replace(/[^\d+]/g,'');
+                }
+
+                //去掉空格
+                function check_null(string) {
+                    var i = string.length;
+                    var j = 0;
+                    var k = 0;
+                    var flag = true;
+                    while (k < i) {
+                        if (string.charAt(k) != " ")
+                            j = j + 1;
+                        k = k + 1;
+                    }
+                    if (j == 0) {
+                        flag = false;
+                    }
+                    return flag;
+                }
+                $(function () {
+                    $('#bet').click(function(){
+                        bet();
+                    })
+                    var local_money=$(".MMain #allmoney").html();
+                    <{foreach key=cid item=con from=$data['video_config']}>
+                        <{assign var="name" value="$con"}>
+                            <{assign var="money" value='_money'}>
+                                var <{$name|cat:$money}>=$(".MMain #<{$name|cat:$money}>").html();
+                                <{/foreach}>
+                                    //動態加載
+                                    function bet(){
+                                    $.ajax({
+                                        type: 'GET',
+                                        url: '<{$site_url}>/index.php/member/video/getallbalance?action=save',
+                                        dataType: "json",
+                                        beforeSend: function(){
+                                            var nr="<img src='<{#mem_images#}>/load_pk.gif'/>";
+                                            $(".MMain #allmoney").html(nr);
+                                            <{foreach key=cid item=con from=$data['moneyarr']}>
+                                            $(".MMain #<{$con['key']}>").html(nr);
+                                            <{/foreach}>
+                                            $(".MMain #allmoney").html(nr);
+
+                                        },
+                                        success: function (rdata) {
+                                            if(rdata.error){
+                                                $.member.alertpop('',rdata.error);
+                                                window.location.href = window.location.href;
+                                            }else if(rdata.data.Code == '10017'){
+                                                $(".MMain #allmoney").html(local_money);
+
+                                            <{foreach key=cid item=con from=$data['moneyarr']}>
+                                            <{if $con['key'] neq 'allmoney'}>
+                                                if(rdata.data.<{$con['key']}>status){
+                                                    $(".MMain #<{$con['key']}>").html(parseFloat(rdata.data.<{$con['key']}>balance).toFixed(2));
+                                                    $("#<{$con['key']}>").val(parseFloat(rdata.data.<{$con['key']}>balance).toFixed(2));
+                                                }else{
+                                                    $(".MMain #<{$con['key']}>").html(parseFloat(<{$con['money']}>).toFixed(2));
+                                                    $("#<{$con['key']}>").val(parseFloat(<{$con['money']}>).toFixed(2));
+                                                }
+                                                if(rdata.data.<{$con['key']}>info == 9999){
+                                                    $(".MMain #<{$con['key']}>").html('維護');
+                                                }
+                                                $("#<{$con['key']}>_info").val(parseFloat(rdata.data.<{$con['key']}>info));
+                                            <{/if}>
+                                            <{/foreach}>
+                                                //countallmoney();
+                                            }
+                                        }
+                                    });
+                                }
+                                    bet();
+
+                                    /*function countallmoney(){
+                                    allm = parseFloat($("#sport_money").val());
+                                    <{foreach key=cid item=con from=$data['video_config']}>
+                                    <{if $cid neq 'allmoney'}>
+                                    allm +=  parseFloat($("#<{$con}>_money").val());
+                                    <{/if}>
+                                    <{/foreach}>
+
+                                    $(".MMain #allmoney").html(allm);
+                                }*/
+                                    });
+
+                var states = 0;
+                $("#SubTran").click(function(){
+                    if(states == 0){
+                        states = states + 1;
+                        //$(this).attr('disabled',true);
+                        edzh();
+                    }
+
+                })
+                $("#form1").keypress(function(e) {
+                    // 回車鍵事件
+                    if(e.which == 13) {
+                        if(states == 0){
+                            states = states + 1;
+                            //$('#SubTran').attr('disabled',true);
+                            edzh();
+                        }
+                    }
+                });
+                function edzh(){
+
+                    var trtype1 = $('#trtype1').val();
+                    var trtype2 = $('#trtype2').val();
+                    //var p3_Amt  = parseInt($('#p3_Amt').val());
+                    var p3_Amt  = $('#p3_Amt').val();
+                    var edcashtoken = $('#edcashtoken').val();
+                    <{foreach key=cid item=con from=$data['video_config']}>
+                        var <{$con}> = parseInt($('#<{$con}>').val());
+                        <{/foreach}>
+                            var sport   = parseInt($('#sport').val());
+
+
+
+                            <{foreach key=cid item=con from=$data['video_config']}>
+                                <{assign var="name" value="$con"}>
+                                    <{assign var="money" value='#'}>
+                                        var <{$con}>_info = parseInt($('<{$money|cat:$name}>_info').val());
+                                        <{/foreach}>
+
+
+
+                                            if(trtype1==trtype2){
+                                            $.member.alertpop('',"轉入轉出平臺不能相同，請重新選擇！");
+                                            $.member.changeNav('Bank','bank_transf_index',1);
+                                            return false;
+                                        }
+                                            if(trtype1!='sport'&&trtype2!='sport'){
+                                            $.member.alertpop('',"額度轉換,只能在系統余額和視訊余額之間轉換\n 視訊余額之間不能直接轉換!");
+                                            $.member.changeNav('Bank','bank_transf_index',1);
+                                            return false;
+                                        }
+                                            if(p3_Amt==''){
+                                            $.member.alertpop('',"請輸入轉換金額！");
+                                            $.member.changeNav('Bank','bank_transf_index',1);
+                                            $('#p3_Amt').focus();
+                                            return false;
+                                        }
+                                            if (p3_Amt != "") {
+                                            if (p3_Amt < parseInt(<{$data['MinInMoney']}>))
+                                        {
+                                            $.member.alertpop('',"轉換金額不能小於<<{$data['MinInMoney']}>元！")
+                                            $.member.changeNav('Bank','bank_transf_index',1);
+                                            $('#p3_Amt').focus();
+                                            return false;
+                                        }
+                                        }
+
+                                            <{foreach key=cid item=con from=$data['video_config']}>
+                                                if((trtype1 == '<{$con}>' || trtype2 == '<{$con}>') && <{$con}>_info == 9999){
+                                                $.member.alertpop('',"<{$con}>遊戲正在進行例行維護！\n請您選擇其他遊戲！祝您遊戲開心！")
+                                                $.member.changeNav('Bank','bank_transf_index',1);
+                                                $('#p3_Amt').focus();
+                                                return false;
+                                            }
+                                                <{/foreach}>
+
+                                                    if(trtype1!='sport'){
+                                                    switch(trtype1)
+                                                {
+                                                    <{foreach key=cid item=con from=$data['video_config']}>
+                                                    case '<{$con}>':
+                                                    if(p3_Amt><{$con}>){
+                                                    $.member.alertpop('',"轉換金額不能大於<{$con}>余額>"+<{$con}>+"元！")
+                                                    $.member.changeNav('Bank','bank_transf_index',1);
+                                                    $('#p3_Amt').focus();
+                                                    return false;
+                                                }
+                                                    break;
+                                                    <{/foreach}>
+
+                                                }
+                                                }
+                                                    if(trtype2!='sport'){
+                                                    if(p3_Amt>sport){
+                                                    $.member.alertpop('',"轉換金額不能大於系統額度余額>"+sport+"元！")
+                                                    $.member.changeNav('Bank','bank_transf_index',1);
+                                                    $('#p3_Amt').focus();
+                                                    return false;
+                                                }
+                                                }
+
+                                                    $.ajax({
+                                                    type: "POST",
+                                                    url: "<{$site_url}>/index.php/member/new/bank/bank_transf_index_do",
+                                                    beforeSend: function(){
+                                                    $.member.maskLayer();
+                                                },
+                                                    data: "trtype1="+trtype1+"&trtype2="+trtype2+"&p3_Amt="+p3_Amt+'&edcashtoken='+edcashtoken,
+                                                    dataType: 'json',
+                                                    success: function(msg){
+                                                    $('#HyZzc').remove();
+                                                    if(msg.status==18){
+                                                    $.member.alertpop('success','轉換成功!');
+                                                    $.member.changeNav('Bank','bank_transf_index',1);
+                                                }else{
+                                                    $.member.alertpop('',msg.info);
+                                                    $.member.changeNav('Bank','bank_transf_index',1);
+                                                }
+                                                }
+                                                });
+                                                    }
+            </script>
+        </div>
+    </div>
+</div>

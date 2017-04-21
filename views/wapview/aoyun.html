@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="/shared/aoyun/css/style.css" />
+	<div id="aoyun">
+		<div class="ay-blue"></div>
+		<div class="ay-black"></div>
+		<div class="ay-red"></div>
+		<div class="ay-yellow"></div>
+		<div class="ay-green"></div>
+		<div class="ay-star"></div>
+		<div class="ay-logo"></div>
+		<div class="ay-2016"></div>
+		<div class="ay-close"></div>
+		
+		<div class="aoyun-img1"></div>
+		<div class="aoyun-img2"></div>
+		<div class="overimg">
+			<i class="light"></i>
+		</div>
+		
+		<div class="stage" id="stage"></div>
+	</div>
+	
+	<div class="bg-col-block"></div>
+	<script type="text/javascript" src="/shared/aoyun/js/script.js" ></script>
+	<script>
+	$(document).ready(function(){
+		$(".ay-close").click(function(){
+			$("#aoyun").hide();
+			$(".bg-col-block").hide();
+		});
+		
+		setInterval(function aohide()
+			{
+				$("#aoyun").fadeOut();
+				$(".bg-col-block").fadeOut();
+			},10000);
+	});
+	</script>
+

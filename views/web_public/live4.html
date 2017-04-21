@@ -1,0 +1,41 @@
+<{config_load file="public.conf" section="public"}>
+		<link rel="stylesheet" href="../../shared/video/css/live4/csino-style.css" />
+
+<!-- 如果要刪除，必須成對的刪。按下列順序刪除：li1 li7 , li2  li 6  , li3  li5  -->
+<div class="list_warp">
+	<ul>
+		<{foreach from=$video_config item=val key=k}>
+		<li id="li<{$linum[$k]}>">
+			<img src="../../shared/video/images/live4/<{$val}>live_img.png" alt="">
+            <span class="live4_button">
+                <a href="javascript:;" onclick="opengeme('/video/rule.html')">游戏规则</a>
+                <a href="javascript:;" <{if empty($uid)}>onclick="javascript:zhuModal.login();"<{else}>onclick="opengeme('/video/games/login.php?g_type=<{$val}>')"<{/if}>>进入游戏</a>
+            </span>
+		</li>
+		<{/foreach}>
+		<{if count($video_config)%2 eq 0}>
+		<li id="li<{$linum[count($video_config)]}>">
+			<img src="../../shared/video/images/live4/expect_img.png" alt="">
+            <span class="live4_button">
+                <a href="javascript:;" onclick="opengeme('/video/rule.html')">游戏规则</a>
+                <a href="javascript:;" <{if empty($uid)}>onclick="javascript:zhuModal.login();"<{else}>onclick="alert('遊戲正在接入中，敬請期待！')"<{/if}>>进入游戏</a>
+            </span>
+		</li>
+		<{/if}>
+
+	</ul>
+</div>
+
+
+<!--<script>-->
+	<!--$(".casino-nav ul li a").hover(function (){-->
+		<!--$casino = $(this).attr('casino');-->
+		<!--$(this).addClass('casino-hover');-->
+		<!--$(this).parent().siblings().find('a').removeClass('casino-hover');-->
+		<!--$(this).parents('.casino-nav').siblings('.casino-mm').find('.' + $casino + '-mm').show();-->
+		<!--$(this).parents('.casino-nav').siblings('.casino-mm').find('.' + $casino + '-mm').siblings().hide();-->
+		<!--$titImg = $(this).parents('.casino-nav').siblings('#casino-tit-img').attr('class');-->
+		<!--$(this).parents('.casino-nav').siblings('#casino-tit-img').removeClass($titImg);-->
+		<!--$(this).parents('.casino-nav').siblings('#casino-tit-img').addClass($casino + '-tit');-->
+	<!--});-->
+<!--</script>-->

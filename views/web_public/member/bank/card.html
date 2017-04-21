@@ -1,0 +1,330 @@
+<{config_load file="public.conf" section="public"}>
+<link rel="stylesheet" href="/shared/new_member/css/easydialog.css">
+<script src="/shared/new_member/js/easydialog.min.js"></script>
+<script>
+	//確認發送
+	function confirm(){
+		easyDialog.open({
+			container : 'confirm',
+			fixed : false
+		});
+	}
+	function myFunction(){
+		var s_amount = parseFloat($('#s_amount1').val());
+		if(s_amount == '' || s_amount == 0){
+			$.member.alertpop('prompt',"請填寫您要支付的金額，而且不能為0!");
+			$('#s_amount1').focus();
+			return false;
+		}
+		var minamount = parseFloat(<{$payset.ol_catm_min}>);
+			var maxamount = parseFloat(<{$payset.ol_catm_max}>);
+				if(s_amount > maxamount || s_amount < minamount)
+				{
+					$.member.alertpop('prompt',"您的存款金額限定是：[" + <{$payset.ol_catm_min}> + "~" + <{$payset.ol_catm_max}> + " ]之間\r\n請重新輸入存款金額.");
+					$("#s_amount1").focus();
+				}
+				$('#s_amount').val(s_amount);
+		$('#amount').val(s_amount);
+		$('#edu').html(s_amount);
+}
+</script>
+<style>
+	.hah{
+		width:80px;height:22px;text-align:center;
+	}
+</style>
+<div class="Hyzx-gsrk">
+	<div class="Hyzx-wy">
+		<p class="p-tit"><{$deposit['title']}></p>
+		<div class="wy-left">
+			<{$deposit['content']}>
+		</div>
+
+		<div class="clearfix"></div>
+	</div>
+
+	<div class="Hyzx-yhxz">
+		<p><label>會員賬號:</label><span><{$userinfo['username']}></span></p>
+		<p><label><i class="sp-red">*</i>充值金額:</label><input type="text" placeholder="充值金額" name="s_amount1" id="s_amount1" onkeyup="clearNoNum(this);" onblur="myFunction();"><span>請輸入充值金額</span></p>
+		<p><label><i class="sp-red">*</i>卡面額：</label>
+			<input type="text" placeholder="卡面額" name="pa7_cardAmt1" id="pa7_cardAmt1" onkeyup="clearNoNum(this);">
+			<span>請輸入卡面額</span>
+		</p>
+		<p><label><i class="sp-red">*</i>卡序列號:</label>
+			<input name="pa8_cardNo1" id="pa8_cardNo1" type="text" size="25">
+			<span>請輸入卡序列號</span>
+		</p>
+		<p><label><i class="sp-red">*</i>卡密碼：</label>
+			<input name="pa9_cardPwd1" id="pa9_cardPwd1" type="text" size="25">&nbsp;
+			<span>請輸入卡密碼</span>
+		</p>
+
+		<div class="yhxz-div" id="bank_list">
+			<div class="tit-name">
+				<span><i class="sp-red">*</i>支付通道:</span>
+			</div>
+			<div class="yn-img Hyzx-btn-show">
+
+
+				<div class="Hyzx-radio">
+					<input  type="radio" name="pd_FrpId" value="JUNNET" >
+					<div class="hah" >
+						<span title="駿網壹卡通" class="" style="">駿網壹卡通</span>
+					</div>
+				</div>
+				<div class="Hyzx-radio">
+					<input  type="radio" name="pd_FrpId" value="SNDACARD" >
+					<div class="hah">
+						<span title="盛大卡" class="">盛大卡</span>
+					</div>
+				</div>
+				<div class="Hyzx-radio">
+					<input  type="radio" name="pd_FrpId" value="SZX" >
+					<div class="hah">
+						<span title="神州行" class="">神州行</span>
+					</div>
+				</div>
+				<div class="Hyzx-radio">
+					<input  type="radio" name="pd_FrpId" value="ZHENGTU" >
+					<div class="hah">
+						<span title="征途卡" class="">征途卡</span>
+					</div>
+				</div>
+				<div class="Hyzx-radio">
+					<input  type="radio" name="pd_FrpId" value="QQCARD" >
+					<div class="hah">
+						<span title="Q幣卡" class="">Q幣卡</span>
+					</div>
+				</div>
+				<div class="Hyzx-radio">
+					<input  type="radio" name="pd_FrpId" value="SZX" >
+					<div class="hah">
+						<span title="神州行" class="">神州行</span>
+					</div>
+				</div>
+				<div class="Hyzx-radio">
+					<input  type="radio" name="pd_FrpId" value="UNICOM" >
+					<div class="hah">
+						<span title="聯通卡" class="">聯通卡</span>
+					</div>
+				</div>
+				<div class="Hyzx-radio">
+					<input  type="radio" name="pd_FrpId" value="JIUYOU" >
+					<div class="hah">
+						<span title="久遊卡" class="">久遊卡</span>
+					</div>
+				</div>
+				<div class="Hyzx-radio">
+					<input  type="radio" name="pd_FrpId" value="YPCARD" >
+					<div class="hah">
+						<span title="神州行" class="">易寶e卡通</span>
+					</div>
+				</div>
+				<div class="Hyzx-radio">
+					<input  type="radio" name="pd_FrpId" value="NETEASE" >
+					<div class="hah">
+						<span title="網易卡" class="">網易卡</span>
+					</div>
+				</div>
+				<div class="Hyzx-radio">
+					<input  type="radio" name="pd_FrpId" value="WANMEI" >
+					<div class="hah">
+						<span title="完美卡" class="">完美卡</span>
+					</div>
+				</div>
+				<div class="Hyzx-radio">
+					<input  type="radio" name="pd_FrpId" value="SOHU" >
+					<div class="hah">
+						<span title="搜狐卡" class="">搜狐卡</span>
+					</div>
+				</div>
+				<div class="Hyzx-radio">
+					<input  type="radio" name="pd_FrpId" value="TELECOM" >
+					<div class="hah">
+						<span title="電信卡" class="">電信卡</span>
+					</div>
+				</div>
+
+				<div class="Hyzx-radio">
+					<input  type="radio" name="pd_FrpId" value="ZONGYOU" >
+					<div class="hah">
+						<span title="縱遊壹卡通" class="">縱遊壹卡通</span>
+					</div>
+				</div>
+				<div class="Hyzx-radio">
+					<input  type="radio" name="pd_FrpId" value="TIANXIA" >
+					<div class="hah">
+						<span title="天下壹卡通" class="">天下壹卡通</span>
+					</div>
+				</div>
+				<div class="Hyzx-radio">
+					<input  type="radio" name="pd_FrpId" value="TIANHONG">
+					<div class="hah">
+						<span title="天宏壹卡通" class="">天宏壹卡通</span>
+					</div>
+				</div>
+				<div class="Hyzx-radio">
+					<input  type="radio" name="pd_FrpId" value="32" >
+					<div class="hah">
+						<span title="32壹卡通" class="">32壹卡通</span>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="clearfix"></div>
+		</div>
+
+		<div class="Hyzx-zf-btn">
+			<button type="button" class="btn-sub" onclick="if (check_money()) confirm();">確定</button>
+			<button type="reset" class="btn-sub">重置</button>
+			<p>備註：</p>
+			<p>1.標記有<span class="sp-red">*</span>者為必填項目。</p>
+			<p>2.單筆最低存款金額 <{$payset.ol_catm_min}>元以上</p>
+			<p>3.單筆最高存款金額 <{$payset.ol_catm_max}> 元以下</p>
+		</div>
+	</div>
+</div>
+
+
+<div id="confirm" style="display:none;background-color:#F0F9FB;" class="con_menu" >
+	<form action="<{$site_url}>/index.php<{$url}>" method="post" name="confirm1"  id="confirm1" target="_blank">
+		<table class="Hyzx-table" style="width:600px;margin:0;text-align: left;">
+			<tbody><tr class="de_title" style="background:#F0F9FB;">
+				<th colspan="3" height="27" class="table_bg" align="left">
+					<span id="de_title" style="color: #fff;font-weight: bold;">您的資料如下：</span>
+				</th>
+			</tr>
+
+			<tr class="m_title" style="background: #fff;">
+				<td width=100 align=right class="m_bc_ed" ><span id="ypwd">商家訂單號：</span></td>
+				<td class=hong width=150 align=left><{$order_num}></td>
+				<td id="oldpass_txt" class=hong align=left>&nbsp;</td>
+			</tr>
+			<tr class="m_title">
+				<td align=right class="m_bc_ed" id="xpwd">會員帳號:</td>
+				<td class=hong width=150 align=left><{$userinfo['username']}></td>
+				<td id="oldpass_txt" class=hong align=left>&nbsp;</td>
+			</tr>
+			<tr class="m_title">
+				<td align=right class="m_bc_ed">額度：</td>
+				<td class=hong width=150 align=left id="edu"><{$s_amount}></td>
+				<td id="oldpass_txt" class=hong align=left>&nbsp;</td>
+			</tr>
+			<input type="hidden" name="act" value="card">
+			<input type="hidden" name="pay_flag" value="0">
+			<input type="hidden" name="username" value="<{$userinfo['username']}>">
+			<input type="hidden" name="p2_Order" id="p2_Order"  value="<{$order_num}>">
+			<input type="hidden" name="p3_Amt" id="p3_Amt" >
+			<input type="hidden" name="p4_FrpId" id="p4_FrpId" >
+			<input type="hidden" name="pa7_cardAmt" id="pa7_cardAmt" >
+			<input type="hidden" name="pa8_cardNo"  id="pa8_cardNo">
+			<input type="hidden" name="pa9_cardPwd" id="pa9_cardPwd">
+
+			<tr>
+				<td colspan="3" align="center">
+					<p><input type="button" value="確定送出" class="Hyzx-btn active" style="border: none;float: left;margin-left: 220px;margin-right: 10px;" onclick="doSubmit();">
+						<input type="reset" value="關閉" onclick="easyDialog.close();" class="Hyzx-btn active" style="border: none;float: left;"></p>
+				</td>
+			</tr>
+			</tbody></table>
+	</form>
+</div>
+
+<script>
+	function doSubmit(){
+		var url = "<{$site_url}>/index.php/member/income/Index/card";
+		$('#confirm1').submit();
+		$('#confirm').remove();
+		$('#overlay').remove();
+		setTimeout(function(){
+			$.member.changeNav('Bank','bank_online_card_index',3);
+		},0)
+	}
+</script>
+
+<script type="text/javascript">
+	function check_money(){
+		/*if(<{$site_id == 't'}>){
+		 $.member.alertpop('prompt',"演示站禁止出入款!");
+		 return false;
+		 }*/
+		var amount = $('#s_amount1').val();
+		var p3_Amt = amount;
+		var p4_FrpId = $('#bank_list input[type=radio]:checked').val();
+		var pa7_cardAmt = $("#pa7_cardAmt1").val();
+		var pa8_cardNo = $("#pa8_cardNo1").val();
+		var pa9_cardPwd = $("#pa9_cardPwd1").val();
+
+		if(amount == '' || amount == 0){
+			$.member.alertpop('prompt',"請填寫您要支付的金額，而且不能為0!");
+			$('#s_amount1').focus();
+			return false;
+		}
+		if(!p4_FrpId){
+			alert('請選擇支付通道!');
+			return false;
+		}
+		if(pa7_cardAmt == ''){
+			alert('請填寫您要支付的卡面額!');
+			$('#pa7_cardAmt1').focus();
+			return false;
+		}
+		if(pa8_cardNo == ''){
+			alert('請填寫您要充值的卡序列號!');
+			$('#pa8_cardNo1').focus();
+			return false;
+		}
+		if(pa9_cardPwd == ''){
+			alert('請填寫您要充值的卡密碼!');
+			$('#pa9_cardPwd1').focus();
+			return false;
+		}
+		if (amount<<{$payset.ol_catm_min}>) {
+			alert('單筆最低存款金額 <{$payset.ol_catm_min}> 元以上。');
+			$('#s_amount1').focus();
+			return false;
+		} else if (amount><{$payset.ol_catm_max}>) {
+			alert('單筆最高存款金額 <{$payset.ol_catm_max}> 元以下。');
+			$('#s_amount1').focus();
+			return false;
+		}
+
+		$("#edu").val(p3_Amt);
+		$("#p3_Amt").val(p3_Amt);
+		$("#p4_FrpId").val(p4_FrpId);
+		$("#pa7_cardAmt").val(pa7_cardAmt);
+		$("#pa8_cardNo").val(pa8_cardNo);
+		$("#pa9_cardPwd").val(pa9_cardPwd);
+
+		return true;
+	}
+
+
+
+	//數字驗證 過濾非法字符
+	function clearNoNum(obj){
+		//先把非數字的都替換掉，除了數字和.
+		obj.value = obj.value.replace(/[^\d.]/g,"");
+		//必須保證第壹個為數字而不是.
+		obj.value = obj.value.replace(/^\./g,"");
+		//保證只有出現壹個.而沒有多個.
+		obj.value = obj.value.replace(/\.{2,}/g,".");
+		//保證.只出現壹次，而不能出現兩次以上
+		obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+		if(obj.value != ''){
+			var re=/^\d+\.{0,1}\d{0,2}$/;
+			if(!re.test(obj.value))
+			{
+				obj.value = obj.value.substring(0,obj.value.length-1);
+				return false;
+			}
+		}
+	}
+	$('.Hyzx-radio').on('click',function(){
+		$(this).addClass('checked');
+		$(this).siblings().removeClass('checked');
+		$(this).find('input').prop("checked" , "true");
+		$(this).siblings().find('input').removeAttr("checked" , "true");
+	});
+</script>

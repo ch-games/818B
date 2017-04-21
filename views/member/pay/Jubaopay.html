@@ -1,0 +1,18 @@
+<html><head>
+    <title>跳轉......</title>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <form action="<{$data['req_url']}>" method="post" id="form1">
+      <input type="hidden" id="payMethod" name="payMethod" value="<{$data['payMethod']}>" size="50">
+	  <input type="hidden" id="message" name="message" value="<{$data['message']}>" size="50">
+	  <input type="hidden" id="signature" name="signature" value="<{$data['signature']}>" size="50">
+      <input type="hidden" name="form_url" value="<{$data['form_url']}>">
+	  <input type="hidden" name="act" value="jubao">
+    </form>
+    <script language="javascript">
+       setTimeout(function(){
+          document.getElementById("form1").submit();
+      },2000)
+    </script>
+</body></html>
